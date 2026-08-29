@@ -186,6 +186,14 @@ def main():
     if not DIST.exists() or not list(DIST.glob("*.ini")):
         fail("dist/", "no generated files found", "run: python3 src/build.py")
 
+    # A repeated section name makes llama.cpp refuse to start with
+    # "model 'x' appears multiple times", so catch it before a release does.
+    for path in sorted(DIST.glob("*.ini")):
+        names = [s for _, s, k, _ in parse_ini(path) if k is None and s != "*"]
+        for dupe in sorted({n for n in names if names.count(n) > 1}):
+            fail(f"{path.relative_to(ROOT)}", f"section '{dupe}' appears more than once",
+                 "two setups produced the same name; fix ctx_slug() in src/build.py")
+
     if failures:
         print(f"FAILED - {len(failures)} problem(s)\n")
         for f in failures:

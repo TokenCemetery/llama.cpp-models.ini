@@ -21,6 +21,8 @@ Follow these. They are not style preferences. Breaking them breaks the config.
 3. Model IDs are lowercase. Example: `qwen3.8-27b`, not `Qwen3.8-27B`.
 4. A config file's name must match its section name.
    File `configs/unsloth/qwen3.8-27b.ini` must contain `[qwen3.8-27b]`.
+   Sections in `dist/` get a `-<quant>-<context>-<kv>` suffix added by `src/build.py`.
+   Do not write that suffix in `configs/`.
 5. Never put a file path in a config. No `model = /path/...` line. Paths come from `--models-dir`.
    There is also no way to set a base folder inside the file. Config files have no variables.
    `{my-path}` is not replaced with anything. It stays as the literal text `{my-path}`.
@@ -65,7 +67,7 @@ It saves after every measurement, so you can stop it and run it again to carry o
 Test that a config file works:
 
 ```sh
-llama-server --models-dir /path/to/models --models-preset dist/vram-16gb-balanced.ini --no-models-autoload
+llama-server --models-dir /path/to/models --models-preset dist/vram-16gb.ini --no-models-autoload
 ```
 
 - Exit code 0 and the server starts = the file is good.
@@ -97,7 +99,7 @@ configs/vram-estimates.json      src/measure.py writes this
 src/build.py                     you run this
         |
         v
-dist/vram-<NN>gb-<profile>.ini   do not edit these
+dist/vram-<NN>gb.ini             do not edit these
 MODELS.md                        do not edit this either, but do commit it
 ```
 
@@ -116,14 +118,29 @@ For each budget, `src/build.py` keeps `size - 1 GiB` and picks the best
 `f16` KV is lossless. `q8_0` is near-lossless and roughly halves the cache. `q4_0` halves it
 again but costs real quality, which is why only the `context` profile uses it.
 
-The three agree when a model already reaches its maximum context. They differ otherwise.
-qwen3.8-27b at 24 GB is the clearest case:
+All three profiles go in the same tier file. Each becomes its own section, named:
 
-| Profile | Pick |
-| --- | --- |
-| `quality` | `UD-Q6_K` at 32K, `f16` KV |
-| `balanced` | `UD-Q5_K_XL` at 64K, `q8_0` KV |
-| `context` | `UD-Q4_K_XL` at 256K, `q4_0` KV |
+```
+<model>-<quant>-<context>-<kv cache type>
+```
+
+A section only ever applies to the `--models-dir` subdirectory with exactly that name, so
+putting the choice in the name is what lets one file offer several setups per model. It also
+means the user's folder name decides which setup they get.
+
+Profiles that picked the same triple collapse into one section. That always happens once a
+model already reaches its maximum context, so files are much smaller than 3x the model count.
+qwen3.8-27b at 24 GB is the case where all three differ:
+
+| Profile | Pick | Section name |
+| --- | --- | --- |
+| `quality` | `UD-Q6_K` at 32K, `f16` KV | `qwen3.8-27b-ud-q6_k-32k-f16` |
+| `balanced` | `UD-Q5_K_XL` at 64K, `q8_0` KV | `qwen3.8-27b-ud-q5_k_xl-64k-q8_0` |
+| `context` | `UD-Q4_K_XL` at 256K, `q4_0` KV | `qwen3.8-27b-ud-q4_k_xl-256k-q4_0` |
+
+Two setups must never produce the same name — llama.cpp refuses to start with
+`model 'x' appears multiple times`. `build.py` fails the build if it happens, and
+`validate.py` checks `dist/` for it as well.
 
 ### How the numbers work
 
@@ -151,15 +168,15 @@ You start the server with `--models-dir /path/to/models`.
 llama.cpp reads the folder names inside that path. Each folder name becomes a model name.
 A section in your config file applies to a model when the section name and the folder name are **exactly the same**.
 
-Correct layout:
+Correct layout. The folder names are section names from a `dist/` file:
 
 ```
 /path/to/models/
-├── gemma-4-e4b-it/
+├── gemma-4-e4b-it-q6_k-128k-f16/
 │   ├── gemma-4-E4B-it-Q6_K.gguf
 │   ├── mmproj-F16.gguf
 │   └── mtp-gemma-4-E4B-it.gguf
-└── qwen3.8-27b/
+└── qwen3.8-27b-ud-q3_k_xl-32k-q8_0/
     └── Qwen3.8-27B-UD-Q3_K_XL.gguf
 ```
 
@@ -183,7 +200,7 @@ Each of these fails silently or confusingly. They were all tested on a real serv
 llama.cpp deletes them before starting a model. Tested: set `api-key = secret` in `[*]`, and the server still printed `no API key is set` and answered requests with no key. Pass them on the command line instead:
 
 ```sh
-llama-server --models-preset dist/vram-16gb-balanced.ini --host 127.0.0.1 --port 8080 --api-key secret
+llama-server --models-preset dist/vram-16gb.ini --host 127.0.0.1 --port 8080 --api-key secret
 ```
 
 **A `;` or `#` inside a value deletes the rest of the line.**
