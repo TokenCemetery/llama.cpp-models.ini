@@ -33,6 +33,8 @@ Follow these. They are not style preferences. Breaking them breaks the config.
 10. Do not add a `[*]` section to files in `configs/`. `src/build.py` writes `[*]` itself.
 11. Do not repeat a value in a model section if `[*]` already sets it.
 12. Never commit `dist/`. It is generated and git ignores it. Only commit `configs/` and `src/`.
+    `MODELS.md` is the one exception: it is generated but committed, so it can be read on
+    GitHub. Always commit it together with your change. CI fails if it is out of date.
 13. Write commit messages as Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `ci:`.
     Release notes are built from them by git-cliff. A commit in any other format is left out
     of the notes.
@@ -75,7 +77,9 @@ This test takes about 6 seconds. You do not need any models on disk to run it.
 
 1. Create `configs/<provider>/<model-id>.ini`.
 2. Write the section as `[<model-id>]`. Use the same name as the file.
-3. Add a `; repo: unsloth/<Repo>-GGUF` comment. `src/measure.py` needs it to find the files.
+3. Add these comments. `src/measure.py` and `MODELS.md` need them:
+   `; repo: unsloth/<Repo>-GGUF`, `; params: 27B` (or `30B-A3B` for MoE), and
+   `; tags: vision, reasoning` (leave out if it is a plain text model).
 4. Add sampling settings. Copy them from the model author's docs. Add a comment saying where they came from.
 5. Run `python3 src/measure.py --missing`.
 6. Run `python3 src/build.py`.
@@ -94,6 +98,7 @@ src/build.py                     you run this
         |
         v
 dist/vram-<NN>gb-<profile>.ini   do not edit these
+MODELS.md                        do not edit this either, but do commit it
 ```
 
 Three things compete for the same VRAM: weight quant, context length, and KV cache precision.

@@ -29,6 +29,15 @@ jobs:
       - name: Validate configs
         run: python3 src/validate.py
 
+      # MODELS.md is generated but committed, so it can be browsed on GitHub.
+      - name: Check MODELS.md is up to date
+        run: |
+          if ! git diff --quiet -- MODELS.md; then
+            echo "::error::MODELS.md is stale. Run 'python3 src/build.py' and commit the result."
+            git --no-pager diff -- MODELS.md
+            exit 1
+          fi
+
       # dist/ is generated, not committed. Upload it so reviewers can see what a
       # change to configs/ actually produces.
       - name: Upload generated presets

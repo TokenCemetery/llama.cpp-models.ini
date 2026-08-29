@@ -82,6 +82,19 @@ Two cases need care. **Unified-memory devices** — Apple Silicon, Steam Deck, o
 share that budget with the operating system, so treat the tier as optimistic. **MoE models**
 offloaded with `--n-cpu-moe` depend on system RAM as much as VRAM.
 
+### Looking for a specific model?
+
+[MODELS.md](MODELS.md) lists all 71 with parameter counts and capabilities. A few to orient you:
+
+| Model | Params | Good at | Smallest card |
+| --- | --- | --- | --- |
+| `qwen3-4b` | 4B | reasoning | 4 GB |
+| `gemma-3-4b-it` | 4B | vision | 8 GB |
+| `qwen3-coder-30b-a3b-instruct` | 30B-A3B | moe, coding | 16 GB |
+| `gpt-oss-20b` | 20B | moe, reasoning | 16 GB |
+| `qwen3.8-27b` | 27B | vision, reasoning | 16 GB |
+| `qwq-32b` | 32B | reasoning | 24 GB |
+
 ## Setting up your models folder
 
 `--models-dir` points at one folder. Each model gets its own subfolder directly inside it:

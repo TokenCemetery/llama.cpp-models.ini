@@ -92,15 +92,19 @@ reasoning-format = auto
 
 
 def load_model_configs():
-    """[(provider, model_id, body_lines, doc_lines, ctx_cap)] sorted by path."""
+    """One dict per config, sorted by path."""
     out = []
     for path in sorted(CONFIGS.rglob("*.ini")):
         text = path.read_text()
         m = re.search(r"^\[([^\]]+)\]", text, re.M)
         if not m:
             sys.exit(f"{path}: no [section] found")
-        model_id = m.group(1).strip()
-        doc = [l for l in text[: m.start()].splitlines() if l.strip().startswith(";")]
+        head = text[: m.start()]
+        doc = [l for l in head.splitlines() if l.strip().startswith(";")]
+
+        def field(name):
+            hit = re.search(rf"^;\s*{name}:\s*(.+)$", head, re.M)
+            return hit.group(1).strip() if hit else ""
 
         cap, body = None, []
         for line in text[m.start():].rstrip().splitlines():
@@ -109,7 +113,18 @@ def load_model_configs():
                 cap = int(line.split("=", 1)[1].strip())   # a cap, never exceeded
                 continue
             body.append(line)
-        out.append((path.parent.name, model_id, body, doc, cap))
+
+        title = doc[0].lstrip("; ").strip() if doc else m.group(1)
+        out.append({
+            "provider": path.parent.name,
+            "id": m.group(1).strip(),
+            "title": title,
+            "params": field("params"),
+            "tags": [t.strip() for t in field("tags").split(",") if t.strip()],
+            "doc": doc,
+            "body": body,
+            "cap": cap,
+        })
     return out
 
 
@@ -167,17 +182,17 @@ def pick(data, budget, profile, cap):
 
 
 def plan(est, models):
-    """{(tier, profile): [(provider, model_id, kv, quant, ctx, gib, body, doc)]}"""
+    """{(tier, profile): [ {**config, kv, quant, ctx, gib} ]}"""
     out = {}
     for tier in TIERS:
         budget = tier - HEADROOM_GIB
         for profile in PROFILES:
             chosen = []
-            for provider, model_id, body, doc, cap in models:
-                got = pick(est["models"][model_id], budget, profile, cap)
+            for cfg in models:
+                got = pick(est["models"][cfg["id"]], budget, profile, cfg["cap"])
                 if got:
                     kv, quant, ctx, gib = got
-                    chosen.append((provider, model_id, kv, quant, ctx, gib, body, doc))
+                    chosen.append({**cfg, "kv": kv, "quant": quant, "ctx": ctx, "gib": gib})
             if chosen:
                 out[(tier, profile)] = chosen
     return out
@@ -187,22 +202,23 @@ def write_dist(built):
     DIST.mkdir(exist_ok=True)
     written = []
     for (tier, profile), chosen in built.items():
-        w = max(len(m) for _, m, _, _, _, _, _, _ in chosen)
+        w = max(len(c["id"]) for c in chosen)
         table = "".join(
-            f";   {m:<{w}}  {q:<12}  {c:>7} ctx  KV {k:<5}  {g:5.1f} GiB\n"
-            for _, m, k, q, c, g, _, _ in chosen
+            f";   {c['id']:<{w}}  {c['quant']:<12}  {c['ctx']:>7} ctx  "
+            f"KV {c['kv']:<5}  {c['gib']:5.1f} GiB\n" for c in chosen
         )
         parts = [HEADER.format(tier=tier, profile=profile, blurb=PROFILES[profile]["blurb"],
                                headroom=HEADROOM_GIB, table=table)]
-        for _, model_id, kv, quant, ctx, gib, body, doc in chosen:
+        for c in chosen:
             parts.append("")
-            parts.extend(doc)
-            parts.append(f"; this profile: {quant}, {ctx} context, {kv} KV cache (~{gib:.1f} GiB)")
-            parts.append(body[0])            # the [section] line
-            parts.append(f"ctx-size = {ctx}")
-            parts.append(f"cache-type-k = {kv}")
-            parts.append(f"cache-type-v = {kv}")
-            parts.extend(body[1:])
+            parts.extend(c["doc"])
+            parts.append(f"; this profile: {c['quant']}, {c['ctx']} context, "
+                         f"{c['kv']} KV cache (~{c['gib']:.1f} GiB)")
+            parts.append(c["body"][0])       # the [section] line
+            parts.append(f"ctx-size = {c['ctx']}")
+            parts.append(f"cache-type-k = {c['kv']}")
+            parts.append(f"cache-type-v = {c['kv']}")
+            parts.extend(c["body"][1:])
         path = DIST / f"vram-{tier:02d}gb-{profile}.ini"
         path.write_text("\n".join(parts) + "\n")
         written.append((path, len(chosen)))
@@ -252,8 +268,9 @@ def render_notes(built, est):
             "| Model | Quant | Context | KV cache | Est. VRAM |",
             "| --- | --- | --- | --- | --- |",
         ]
-        for _, model_id, kv, quant, ctx, gib, _, _ in chosen:
-            lines.append(f"| `{model_id}` | `{quant}` | {ctx:,} | `{kv}` | {gib:.1f} GiB |")
+        for c in chosen:
+            lines.append(f"| `{c['id']}` | `{c['quant']}` | {c['ctx']:,} | "
+                         f"`{c['kv']}` | {c['gib']:.1f} GiB |")
         lines += ["", "</details>", ""]
 
     lines += [
@@ -262,6 +279,68 @@ def render_notes(built, est):
         f"Each profile reserves {HEADROOM_GIB:.0f} GiB for the OS/display.",
     ]
     return "\n".join(lines)
+
+
+def fmt_ctx(n):
+    return f"{n // 1024}K" if n >= 1024 and n % 1024 == 0 else f"{n:,}"
+
+
+def render_models_md(built, models):
+    """Browsable catalogue: what exists, and what each card gets."""
+    where = {}   # model_id -> {tier: {profile: pick}}
+    for (tier, profile), chosen in built.items():
+        for c in chosen:
+            where.setdefault(c["id"], {}).setdefault(tier, {})[profile] = c
+
+    lines = [
+        "# Model catalogue",
+        "",
+        "GENERATED by `src/build.py` - do not edit.",
+        "",
+        f"{len(models)} models. Use this to find a model, check it fits your card, and see",
+        "which quantisation and context you get. See the [README](README.md) to get started.",
+        "",
+        "## All models",
+        "",
+        "`Smallest card` is the least VRAM that runs the model at all. `Best context` is the",
+        "most context any profile reaches on a 32 GB card.",
+        "",
+        "| Model | Params | Good at | Smallest card | Best context |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for cfg in sorted(models, key=lambda c: c["id"]):
+        tiers = where.get(cfg["id"], {})
+        if not tiers:
+            continue
+        smallest = f"{min(tiers)} GB"
+        best = max(p["ctx"] for p in tiers[max(tiers)].values())
+        tags = ", ".join(cfg["tags"]) or "text"
+        lines.append(f"| [`{cfg['id']}`](#{cfg['id'].replace('.', '')}) | {cfg['params']} "
+                     f"| {tags} | {smallest} | {fmt_ctx(best)} |")
+
+    lines += ["", "## What each card gets", ""]
+    for cfg in sorted(models, key=lambda c: c["id"]):
+        tiers = where.get(cfg["id"], {})
+        if not tiers:
+            continue
+
+        lines += [
+            f"### {cfg['id']}",
+            "",
+            cfg["title"],
+            "",
+            "| Card | Profile | Quant | Context | KV cache | VRAM |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+        for tier in sorted(tiers):
+            for profile in PROFILES:
+                p = tiers[tier].get(profile)
+                if not p:
+                    continue
+                lines.append(f"| {tier} GB | `{profile}` | `{p['quant']}` | "
+                             f"{fmt_ctx(p['ctx'])} | `{p['kv']}` | {p['gib']:.1f} GiB |")
+        lines.append("")
+    return "\n".join(lines) + "\n"
 
 
 def main():
@@ -275,10 +354,10 @@ def main():
 
     needed = {kv for spec in PROFILES.values() for kv in spec["kv"]}
     incomplete = []
-    for _, model_id, _, _, _ in models:
-        data = est["models"].get(model_id, {})
+    for cfg in models:
+        data = est["models"].get(cfg["id"], {})
         if not data.get("quants") or not needed <= set(data.get("ref_curves", {})):
-            incomplete.append(model_id)
+            incomplete.append(cfg["id"])
     if incomplete:
         sys.exit("missing measurements for: " + ", ".join(incomplete)
                  + "\nrun: python3 src/measure.py --missing")
@@ -291,6 +370,11 @@ def main():
 
     for path, n in write_dist(built):
         print(f"wrote {path.relative_to(ROOT)}  ({n} models)")
+
+    # Committed, unlike dist/, so it can be browsed on GitHub. CI checks it is fresh.
+    catalogue = ROOT / "MODELS.md"
+    catalogue.write_text(render_models_md(built, models))
+    print(f"wrote {catalogue.relative_to(ROOT)}  ({len(models)} models)")
 
 
 if __name__ == "__main__":

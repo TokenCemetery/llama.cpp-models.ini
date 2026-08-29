@@ -121,7 +121,13 @@ def main():
         seen_ids[model_id] = rel
         if model_id not in estimates:
             fail(f"{rel}", f"no VRAM data for '{model_id}' in configs/vram-estimates.json",
-                 "measure it with gguf-parser and add it; see AGENTS.md")
+                 f"run: python3 src/measure.py --missing")
+
+        head = path.read_text().split(f"[{model_id}]")[0]
+        for field, example in (("repo", "unsloth/Qwen3-8B-GGUF"), ("params", "8B")):
+            if not re.search(rf"^;\s*{field}:\s*\S", head, re.M):
+                fail(f"{rel}", f"no '; {field}:' comment",
+                     f"add a line like '; {field}: {example}'; MODELS.md is built from it")
 
         for n, _, key, value in parse_ini(path):
             if key is None:
