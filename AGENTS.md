@@ -30,6 +30,8 @@ Follow these. They are not style preferences. Breaking them breaks the config.
 9. Never put `;` or `#` inside a value. It silently deletes the rest of the line.
 10. Do not add a `[*]` section to files in `configs/`. `src/build.py` writes `[*]` itself.
 11. Do not repeat a value in a model section if `[*]` already sets it.
+12. Always commit the files in `dist/` together with your change to `configs/`.
+    GitHub Actions fails if `dist/` does not match `configs/`.
 
 ## Commands
 
@@ -205,6 +207,10 @@ problem, and the fix. Fix the problems and run it again. Do not stop while it st
 
 If you have no network access, use `python3 src/validate.py --skip-keys`. That skips only the
 check for unknown llama.cpp keys.
+
+GitHub Actions runs these same two commands on every pull request. It also fails if you changed
+`configs/` without committing the rebuilt `dist/`. A push to `main` that changes `configs/` or
+`src/` publishes a new release containing `dist/*.ini`.
 
 ## Version note
 

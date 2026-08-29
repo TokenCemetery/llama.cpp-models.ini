@@ -11,14 +11,27 @@ highest-quality quant that still fits. Raw numbers are in `configs/vram-estimate
 
 ## Usage
 
+Download the profile for your GPU from the
+[latest release](https://github.com/olegshulyakov/llama.cpp-models.ini/releases/latest).
+Releases are rebuilt automatically whenever the catalog changes, so this is always current:
+
+```sh
+curl -LO https://github.com/olegshulyakov/llama.cpp-models.ini/releases/latest/download/vram-16gb.ini
+```
+
+Then run:
+
 ```sh
 llama-server \
   --models-dir /home/user/models \
-  --models-preset dist/vram-16gb.ini \
+  --models-preset vram-16gb.ini \
   --host 127.0.0.1 --port 8080
 ```
 
 `--models-dir` is the single root where all models live on disk.
+
+Each release also ships `SHA256SUMS`. The same files are committed under `dist/` if you
+prefer to clone.
 
 ## Profiles
 
