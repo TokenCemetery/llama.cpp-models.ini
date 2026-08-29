@@ -28,15 +28,15 @@ jobs:
         with:
           fetch-depth: 0 # need tags to pick the next version
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-go@v5
         with:
-          python-version: "3.12"
+          go-version-file: src/go.mod
 
       - name: Build dist/
-        run: python3 src/build.py
+        run: make build
 
       - name: Validate configs
-        run: python3 src/validate.py
+        run: make validate
 
       - name: Pick a version tag
         id: tag
@@ -73,7 +73,7 @@ jobs:
       - name: Write release notes
         run: |
           {
-            python3 src/build.py --notes
+            make notes
             echo
             echo "---"
             echo

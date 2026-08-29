@@ -38,20 +38,21 @@ commit_preprocessors = [
 ]
 protect_breaking_commits = false
 # Groups are ordered by the HTML comment prefix, which is stripped on render.
-# This repo ships configuration, not application code: there is no test suite
-# and nothing to profile, so there are no test/perf groups. Anything unexpected
-# still lands in "Other" rather than being dropped silently.
+# This repo ships configuration plus the Go tool that generates it. There is
+# nothing to profile, so there is no perf group. Anything unexpected still lands
+# in "Other" rather than being dropped silently.
 commit_parsers = [
     { message = "^feat", group = "<!-- 0 -->🚀 Models & features" },
     { message = "^fix", group = "<!-- 1 -->🛠 Fixes" },
     { message = "^docs", group = "<!-- 2 -->📚 Documentation" },
     { message = "^refactor", group = "<!-- 3 -->🚜 Refactor" },
-    { message = "^ci|^build", group = "<!-- 4 -->🏗️ Build & CI" },
-    { message = "^revert", group = "<!-- 5 -->◀️ Revert" },
+    { message = "^test", group = "<!-- 4 -->🧪 Tests" },
+    { message = "^ci|^build", group = "<!-- 5 -->🏗️ Build & CI" },
+    { message = "^revert", group = "<!-- 6 -->◀️ Revert" },
     # Housekeeping that does not affect the published presets.
     { message = "^chore", skip = true },
     { message = "^style", skip = true },
-    { message = ".*", group = "<!-- 6 -->💼 Other" },
+    { message = ".*", group = "<!-- 7 -->💼 Other" },
 ]
 filter_commits = false
 link_parsers = []

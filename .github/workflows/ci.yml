@@ -16,24 +16,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-go@v5
         with:
-          python-version: "3.12"
+          go-version-file: src/go.mod
+
+      # Config in src/.golangci.yml. Not part of `make check`, so that adding
+      # a model needs nothing installed beyond Go.
+      - name: Lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.13
+          working-directory: src
+
+      # Covers the output-stability invariants: the estimates file must
+      # round-trip byte-identically, or every measurement run rewrites it.
+      - name: Test
+        run: make test
 
       - name: Build dist/
-        run: python3 src/build.py
+        run: make build
 
       # Checks every rule in AGENTS.md, including that each key is one llama.cpp
       # actually accepts. An unknown key makes llama-server exit 1 at startup, so
       # this catches the same failure without needing the binary.
       - name: Validate configs
-        run: python3 src/validate.py
+        run: make validate
 
       # MODELS.md is generated but committed, so it can be browsed on GitHub.
       - name: Check MODELS.md is up to date
         run: |
           if ! git diff --quiet -- MODELS.md; then
-            echo "::error::MODELS.md is stale. Run 'python3 src/build.py' and commit the result."
+            echo "::error::MODELS.md is stale. Run 'make build' and commit the result."
             git --no-pager diff -- MODELS.md
             exit 1
           fi
