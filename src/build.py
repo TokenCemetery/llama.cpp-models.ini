@@ -11,8 +11,13 @@ Sources:
 
 Output:
   dist/vram-<NN>gb.ini
+
+Usage:
+    python3 src/build.py            # write dist/
+    python3 src/build.py --notes    # print release notes to stdout, write nothing
 """
 
+import argparse
 import json
 import pathlib
 import re
@@ -72,7 +77,7 @@ def load_model_configs():
 
 
 def pick_quant(estimates, budget_gib):
-    """Best-quality quant that still fits, or None."""
+    """Best-quality quant that still fits, or (None, None)."""
     fits = {q: v for q, v in estimates.items() if v <= budget_gib}
     if not fits:
         return None, None
@@ -80,7 +85,97 @@ def pick_quant(estimates, budget_gib):
     return best, fits[best]
 
 
+def select(est, models):
+    """Return {tier: [(provider, model_id, quant, vram, body, doc), ...]}."""
+    plan = {}
+    for tier in TIERS:
+        budget = tier - HEADROOM_GIB
+        chosen = []
+        for provider, model_id, body, doc in models:
+            quant, vram = pick_quant(est["models"][model_id], budget)
+            if quant:
+                chosen.append((provider, model_id, quant, vram, body, doc))
+        if chosen:
+            plan[tier] = chosen
+    return plan
+
+
+def write_dist(plan, ctx):
+    DIST.mkdir(exist_ok=True)
+    written = []
+    for tier, chosen in plan.items():
+        width = max(len(m) for _, m, _, _, _, _ in chosen)
+        table = "".join(
+            f";   {m:<{width}}  {q:<12}  {v:5.1f} GiB   ({p})\n"
+            for p, m, q, v, _, _ in chosen
+        )
+        parts = [HEADER.format(tier=tier, ctx=ctx, headroom=HEADROOM_GIB, table=table)]
+        for provider, model_id, quant, vram, body, doc in chosen:
+            parts.append("")
+            parts.extend(doc)
+            parts.append(f"; quant for this tier: {quant}  (~{vram:.1f} GiB)")
+            parts.extend(body)
+        path = DIST / f"vram-{tier:02d}gb.ini"
+        path.write_text("\n".join(parts) + "\n")
+        written.append((path, len(chosen)))
+    return written
+
+
+def render_notes(plan, est):
+    """Markdown release notes describing what each tier file contains."""
+    meta = est["_meta"]
+    ctx = meta["params"]["ctx_size"]
+    lines = [
+        "Ready-to-use llama.cpp router presets, one file per VRAM budget.",
+        "",
+        "Download the file matching your GPU, then start the server:",
+        "",
+        "```sh",
+        "llama-server --models-dir /path/to/models \\",
+        "             --models-preset vram-16gb.ini \\",
+        "             --host 127.0.0.1 --port 8080",
+        "```",
+        "",
+        "Model folder names must match the section names in the file. "
+        "See the README for the required layout.",
+        "",
+        "## Contents",
+        "",
+        "| Profile | Models |",
+        "| --- | --- |",
+    ]
+    for tier, chosen in plan.items():
+        lines.append(f"| `vram-{tier:02d}gb.ini` | {len(chosen)} |")
+
+    lines += ["", "## Recommended quant per profile", ""]
+    for tier, chosen in plan.items():
+        lines += [
+            f"<details><summary><code>vram-{tier:02d}gb.ini</code> "
+            f"&mdash; {len(chosen)} models</summary>",
+            "",
+            "| Model | Quant | Est. VRAM |",
+            "| --- | --- | --- |",
+        ]
+        for _, model_id, quant, vram, _, _ in chosen:
+            lines.append(f"| `{model_id}` | `{quant}` | {vram:.1f} GiB |")
+        lines += ["", "</details>", ""]
+
+    lines += [
+        "---",
+        "",
+        f"VRAM estimated with {meta['tool']} at ctx-size {ctx}, flash-attention on, "
+        f"q8_0 K/V cache, full GPU offload. Each profile reserves "
+        f"{HEADROOM_GIB:.0f} GiB for the OS/display.",
+    ]
+    return "\n".join(lines)
+
+
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--notes", action="store_true",
+                    help="print release notes to stdout instead of writing dist/")
+    args = ap.parse_args()
+
     est = json.loads((CONFIGS / "vram-estimates.json").read_text())
     ctx = est["_meta"]["params"]["ctx_size"]
     models = load_model_configs()
@@ -89,38 +184,13 @@ def main():
     if missing:
         sys.exit("no VRAM estimates for: " + ", ".join(missing))
 
-    DIST.mkdir(exist_ok=True)
-    summary = []
+    plan = select(est, models)
 
-    for tier in TIERS:
-        budget = tier - HEADROOM_GIB
-        chosen = []
-        for provider, model_id, body, doc in models:
-            quant, vram = pick_quant(est["models"][model_id], budget)
-            if quant:
-                chosen.append((provider, model_id, quant, vram, body, doc))
+    if args.notes:
+        print(render_notes(plan, est))
+        return
 
-        if not chosen:
-            continue
-
-        width = max(len(m) for _, m, _, _, _, _ in chosen)
-        table = "".join(
-            f";   {m:<{width}}  {q:<12}  {v:5.1f} GiB   ({p})\n"
-            for p, m, q, v, _, _ in chosen
-        )
-
-        parts = [HEADER.format(tier=tier, ctx=ctx, headroom=HEADROOM_GIB, table=table)]
-        for provider, model_id, quant, vram, body, doc in chosen:
-            parts.append("")
-            parts.extend(doc)
-            parts.append(f"; quant for this tier: {quant}  (~{vram:.1f} GiB)")
-            parts.extend(body)
-
-        path = DIST / f"vram-{tier:02d}gb.ini"
-        path.write_text("\n".join(parts) + "\n")
-        summary.append((path, len(chosen)))
-
-    for path, n in summary:
+    for path, n in write_dist(plan, ctx):
         print(f"wrote {path.relative_to(ROOT)}  ({n} models)")
 
 
