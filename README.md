@@ -1,4 +1,4 @@
-# llama.cpp-models.ini
+# llama.cpp models.ini
 
 Ready-to-use [llama.cpp](https://github.com/ggml-org/llama.cpp) router presets, so you can run
 71 models from one server without hand-tuning a config.
