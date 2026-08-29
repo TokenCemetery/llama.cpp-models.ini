@@ -25,7 +25,7 @@ ESTIMATES = CONFIGS / "vram-estimates.json"
 ARG_CPP_URL = "https://raw.githubusercontent.com/ggml-org/llama.cpp/master/common/arg.cpp"
 CACHE = pathlib.Path("/tmp/llama-cpp-arg.cpp")
 
-REQUIRED_CTX = "32768"
+MIN_CTX = 4096
 FORBIDDEN_KEYS = {"host", "port", "api-key"}
 ALLOWED_QUANTS = {
     "UD-Q3_K_XL", "Q4_K_M", "UD-Q4_K_M", "UD-Q4_K_XL",
@@ -121,7 +121,6 @@ def main():
             fail(f"{rel}", f"no VRAM data for '{model_id}' in configs/vram-estimates.json",
                  "measure it with gguf-parser and add it; see AGENTS.md")
 
-        has_ctx = False
         for n, _, key, value in parse_ini(path):
             if key is None:
                 continue
@@ -141,22 +140,33 @@ def main():
                 fail(f"{rel}:{n}", f"'{key}' hardcodes a model location",
                      "remove it; llama.cpp finds the files via --models-dir")
             if key == "ctx-size":
-                has_ctx = True
-                if value != REQUIRED_CTX:
-                    fail(f"{rel}:{n}", f"ctx-size is {value}, expected {REQUIRED_CTX}",
-                         "VRAM numbers were measured at 32768; changing it invalidates them")
-        if not has_ctx:
-            fail(f"{rel}", "no ctx-size set",
-                 f"add 'ctx-size = {REQUIRED_CTX}'")
+                # Optional. Present means "never give this model more than N",
+                # which build.py respects; absent means "as much as fits".
+                if not value.isdigit() or int(value) < MIN_CTX:
+                    fail(f"{rel}:{n}", f"ctx-size cap '{value}' is not a number >= {MIN_CTX}",
+                         "remove it to let build.py choose, or set a sensible cap")
 
-    for model_id, quants in estimates.items():
+    where = "configs/vram-estimates.json"
+    for model_id, data in estimates.items():
         if model_id not in seen_ids:
-            fail("configs/vram-estimates.json",f"'{model_id}' has VRAM data but no config file",
+            fail(where, f"'{model_id}' has VRAM data but no config file",
                  f"add configs/<provider>/{model_id}.ini or remove the entry")
-        for quant in quants:
+        for quant in data.get("quants", {}):
             if quant not in ALLOWED_QUANTS:
-                fail("configs/vram-estimates.json",f"'{model_id}' uses quant '{quant}'",
+                fail(where, f"'{model_id}' uses quant '{quant}'",
                      f"allowed quants: {', '.join(sorted(ALLOWED_QUANTS))}")
+        if not data.get("quants"):
+            fail(where, f"'{model_id}' has no quant measurements",
+                 f"run: python3 src/measure.py --quants {model_id}")
+        if not data.get("ref_curve") or not data.get("max_ctx"):
+            fail(where, f"'{model_id}' has no context curve",
+                 f"run: python3 src/measure.py --context {model_id}")
+        elif data.get("ref_quant") not in data.get("quants", {}):
+            fail(where, f"'{model_id}' ref_quant '{data.get('ref_quant')}' is missing from quants",
+                 "the context curve cannot be offset without it; re-measure the model")
+        elif str(data["max_ctx"]) not in data["ref_curve"]:
+            fail(where, f"'{model_id}' context curve has no point at max_ctx {data['max_ctx']}",
+                 f"run: python3 src/measure.py --context {model_id}")
 
     if not DIST.exists() or not list(DIST.glob("*.ini")):
         fail("dist/", "no generated files found", "run: python3 src/build.py")

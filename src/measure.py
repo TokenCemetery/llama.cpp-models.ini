@@ -2,15 +2,25 @@
 """Measure model VRAM with gguf-parser and record it in configs/vram-estimates.json.
 
 Each config declares the HuggingFace repo it came from in a "; repo:" comment,
-so this reads that and measures every quant in the allowed band.
+so this reads that and measures against the matching GGUF files.
+
+Two things are recorded per model:
+
+  quants     VRAM of every in-band quant at the reference context (32768).
+  ref_curve  VRAM of one reference quant across a ladder of context sizes.
+
+KV cache cost per token depends on the architecture and cache type, not on the
+weight quantisation - measured slopes for UD-Q3_K_XL and Q6_K agree to four
+significant figures. So a quant's whole curve is the reference curve plus a
+constant, and build.py derives any (quant, context) pair from these two fields.
 
 Results are written after each measurement, so an interrupted run loses nothing
-and re-running picks up where it stopped.
+and re-running resumes where it stopped.
 
 Usage:
-    python3 src/measure.py --missing            # every model with no data yet
-    python3 src/measure.py qwen3-8b gemma-3-4b-it
-    python3 src/measure.py --missing --jobs 8
+    python3 src/measure.py --missing              # fill in whatever is absent
+    python3 src/measure.py --quants qwen3-8b      # quant VRAM at 32768
+    python3 src/measure.py --context qwen3-8b     # max_ctx + context ladder
 """
 
 import argparse
@@ -32,6 +42,11 @@ ALLOWED = ["UD-Q3_K_XL", "Q4_K_M", "UD-Q4_K_M", "UD-Q4_K_XL",
 QUANT_RE = re.compile(r"(" + "|".join(ALLOWED) + r")\.gguf$", re.I)
 SIDECAR = ("mtp-", "dspark-", "dflash-")
 
+REF_CTX = 32768
+LADDER = [4096, 8192, 16384, 32768, 65536, 131072, 262144]
+# Preference order when choosing the quant whose context curve we measure.
+REF_PREFERENCE = ["UD-Q4_K_XL", "UD-Q4_K_M", "Q4_K_M", "UD-Q3_K_XL"]
+
 
 def model_repos():
     """{model_id: hf_repo} taken from each config's '; repo:' comment."""
@@ -49,8 +64,8 @@ def model_repos():
 
 
 def in_band_files(repo):
-    url = f"https://huggingface.co/api/models/{repo}"
-    data = json.load(urllib.request.urlopen(url, timeout=60))
+    data = json.load(urllib.request.urlopen(
+        f"https://huggingface.co/api/models/{repo}", timeout=60))
     files = []
     for sib in data.get("siblings", []):
         name = sib["rfilename"]
@@ -66,80 +81,145 @@ def quant_of(filename):
     return QUANT_RE.search(filename).group(1)
 
 
-def measure(repo, filename, ctx):
+def _run(repo, filename, ctx):
+    """Return (max_ctx, vram_gib) or (None, None). ctx=0 means the model's max."""
     cmd = ["gguf-parser", "--hf-repo", repo, "--hf-file", filename,
            "--ctx-size", str(ctx), "--flash-attention",
            "--cache-type-k", "q8_0", "--cache-type-v", "q8_0",
            "--gpu-layers", "-1", "--estimate", "--json"]
-    last = "unknown"
     for _ in range(3):  # range requests to HF are occasionally flaky
         try:
             proc = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
-            item = json.loads(proc.stdout)["estimate"]["items"][0]
-            return round(item["vrams"][0]["nonuma"] / 2 ** 30, 2), None
-        except Exception as exc:
-            last = type(exc).__name__
-    return None, last
+            est = json.loads(proc.stdout)["estimate"]
+            return est["contextSize"], round(est["items"][0]["vrams"][0]["nonuma"] / 2 ** 30, 2)
+        except Exception:
+            pass
+    return None, None
+
+
+def measure(repo, filename, ctx):
+    """Back-compat helper: VRAM at an explicit context."""
+    _, gib = _run(repo, filename, ctx)
+    return gib, None if gib is not None else "failed"
+
+
+def load():
+    return json.loads(ESTIMATES.read_text())
+
+
+def save(est):
+    ESTIMATES.write_text(json.dumps(est, indent=2) + "\n")
+
+
+def entry(est, model_id):
+    return est["models"].setdefault(
+        model_id, {"max_ctx": None, "ref_quant": None, "ref_curve": {}, "quants": {}})
+
+
+def ladder_for(max_ctx):
+    steps = [c for c in LADDER if c < max_ctx]
+    return steps + [max_ctx]
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("models", nargs="*", help="model ids to measure")
-    ap.add_argument("--missing", action="store_true",
-                    help="measure every quant not yet recorded, for every model")
-    ap.add_argument("--jobs", type=int, default=6, help="parallel measurements")
+    ap.add_argument("models", nargs="*", help="model ids (default: all)")
+    ap.add_argument("--missing", action="store_true", help="fill in whatever is absent")
+    ap.add_argument("--quants", action="store_true", help="measure quant VRAM at 32768")
+    ap.add_argument("--context", action="store_true", help="measure max_ctx and the ladder")
+    ap.add_argument("--jobs", type=int, default=8, help="parallel measurements")
     args = ap.parse_args()
 
-    est = json.loads(ESTIMATES.read_text())
-    ctx = est["_meta"]["params"]["ctx_size"]
-    repos = model_repos()
-
     if args.missing:
-        # Every model: the per-quant filter below decides what actually runs, so
-        # a run interrupted halfway through a model resumes correctly.
-        targets = list(repos)
-    elif args.models:
-        targets = args.models
-        unknown = [m for m in targets if m not in repos]
-        if unknown:
-            sys.exit("no config for: " + ", ".join(unknown))
-    else:
-        ap.error("give model ids or --missing")
+        args.quants = args.context = True
+    if not (args.quants or args.context):
+        ap.error("give --quants, --context or --missing")
 
-    if not targets:
-        print("nothing to measure; every model already has data")
-        return 0
+    repos = model_repos()
+    targets = args.models or list(repos)
+    unknown = [m for m in targets if m not in repos]
+    if unknown:
+        sys.exit("no config for: " + ", ".join(unknown))
 
-    print(f"measuring {len(targets)} model(s) at ctx-size {ctx}", flush=True)
+    est = load()
+    files_cache = {}
 
+    def files_for(model_id):
+        if model_id not in files_cache:
+            files_cache[model_id] = in_band_files(repos[model_id])
+        return files_cache[model_id]
+
+    # ---- pass 1: model max context, and the reference quant ---------------
+    need_max = [m for m in targets if not entry(est, m)["max_ctx"]] if args.context else []
+    if need_max:
+        print(f"resolving max context for {len(need_max)} model(s)", flush=True)
+
+        def get_max(model_id):
+            files = files_for(model_id)
+            ref = next((f for q in REF_PREFERENCE for f in files if quant_of(f) == q), files[0])
+            max_ctx, gib = _run(repos[model_id], ref, 0)
+            return model_id, quant_of(ref), max_ctx, gib
+
+        with ThreadPoolExecutor(max_workers=args.jobs) as pool:
+            for model_id, quant, max_ctx, gib in pool.map(get_max, need_max):
+                if not max_ctx:
+                    print(f"  FAILED max_ctx {model_id}", flush=True); continue
+                est = load()
+                e = entry(est, model_id)
+                e["max_ctx"] = max_ctx
+                e["ref_quant"] = quant
+                e["ref_curve"][str(max_ctx)] = gib
+                save(est)
+                print(f"  {model_id}: max_ctx={max_ctx} ({quant} = {gib} GiB)", flush=True)
+
+    # ---- pass 2: build the job list ---------------------------------------
     jobs = []
+    est = load()
     for model_id in targets:
-        for filename in in_band_files(repos[model_id]):
-            if quant_of(filename) not in est["models"].get(model_id, {}):
-                jobs.append((model_id, repos[model_id], filename))
-    print(f"{len(jobs)} quant(s) to measure", flush=True)
+        e = entry(est, model_id)
+        files = None
+        if args.quants:
+            files = files_for(model_id)
+            for f in files:
+                if quant_of(f) not in e["quants"]:
+                    jobs.append(("quant", model_id, f, REF_CTX))
+        if args.context and e["max_ctx"] and e["ref_quant"]:
+            files = files or files_for(model_id)
+            ref = next(f for f in files if quant_of(f) == e["ref_quant"])
+            for c in ladder_for(e["max_ctx"]):
+                if str(c) not in e["ref_curve"]:
+                    jobs.append(("curve", model_id, ref, c))
 
-    done = failed = 0
+    if not jobs:
+        print("nothing to measure; everything is already recorded")
+        return 0
+    print(f"{len(jobs)} measurement(s) to run", flush=True)
 
     def run(job):
-        model_id, repo, filename = job
-        gib, err = measure(repo, filename, ctx)
-        return model_id, quant_of(filename), gib, err
+        kind, model_id, filename, ctx = job
+        _, gib = _run(repos[model_id], filename, ctx)
+        return kind, model_id, filename, ctx, gib
 
+    done = failed = 0
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        for model_id, quant, gib, err in pool.map(run, jobs):
+        for kind, model_id, filename, ctx, gib in pool.map(run, jobs):
             if gib is None:
                 failed += 1
-                print(f"  FAILED {model_id} {quant}: {err}", flush=True)
+                print(f"  FAILED {model_id} {filename} ctx={ctx}", flush=True)
                 continue
-            # Re-read so a concurrent edit is not clobbered, then write through.
-            est = json.loads(ESTIMATES.read_text())
-            est["models"].setdefault(model_id, {})[quant] = gib
-            est["models"][model_id] = dict(sorted(
-                est["models"][model_id].items(), key=lambda kv: kv[1]))
-            ESTIMATES.write_text(json.dumps(est, indent=2) + "\n")
+            est = load()
+            e = entry(est, model_id)
+            if kind == "quant":
+                e["quants"][quant_of(filename)] = gib
+                e["quants"] = dict(sorted(e["quants"].items(), key=lambda kv: kv[1]))
+            else:
+                e["ref_curve"][str(ctx)] = gib
+                e["ref_curve"] = dict(sorted(e["ref_curve"].items(), key=lambda kv: int(kv[0])))
+            save(est)
             done += 1
-            print(f"  [{done + failed}/{len(jobs)}] {model_id} {quant} = {gib} GiB", flush=True)
+            print(f"  [{done + failed}/{len(jobs)}] {model_id} "
+                  f"{'quant ' + quant_of(filename) if kind == 'quant' else 'ctx ' + str(ctx)}"
+                  f" = {gib} GiB", flush=True)
 
     print(f"\nmeasured {done}, failed {failed}")
     return 1 if failed else 0
