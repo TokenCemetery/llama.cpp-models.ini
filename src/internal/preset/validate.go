@@ -130,7 +130,7 @@ func (c *checker) checkConfigs(configs []*ModelConfig, est *Estimates, validKeys
 		seen[id] = cfg.Path
 		if _, ok := est.Data[id]; !ok {
 			c.fail(cfg.Path, fmt.Sprintf("no VRAM data for '%s' in configs/vram-estimates.json", id),
-				"run: go -C src run ./cmd/llamapreset measure --missing")
+				"run: make measure")
 		}
 
 		head := text
@@ -208,7 +208,7 @@ func (c *checker) checkEstimates(configs []*ModelConfig, est *Estimates) {
 		}
 		if len(d.QuantKeys) == 0 {
 			c.fail(where, fmt.Sprintf("'%s' has no quant measurements", id),
-				fmt.Sprintf("run: go -C src run ./cmd/llamapreset measure --quants %s", id))
+				fmt.Sprintf("run: make measure MODEL=%s", id))
 		}
 
 		var missingKV []string
@@ -222,10 +222,10 @@ func (c *checker) checkEstimates(configs []*ModelConfig, est *Estimates) {
 		switch {
 		case len(d.Curves) == 0 || d.MaxCtx == 0:
 			c.fail(where, fmt.Sprintf("'%s' has no context curves", id),
-				fmt.Sprintf("run: go -C src run ./cmd/llamapreset measure --context %s", id))
+				fmt.Sprintf("run: make measure MODEL=%s", id))
 		case len(missingKV) > 0:
 			c.fail(where, fmt.Sprintf("'%s' has no curve for KV type(s): %s", id, strings.Join(missingKV, ", ")),
-				fmt.Sprintf("run: go -C src run ./cmd/llamapreset measure --context %s", id))
+				fmt.Sprintf("run: make measure MODEL=%s", id))
 		case !contains(d.QuantKeys, d.RefQuant):
 			c.fail(where, fmt.Sprintf("'%s' ref_quant '%s' is missing from quants", id, d.RefQuant),
 				"the context curves cannot be offset without it; re-measure the model")
@@ -233,7 +233,7 @@ func (c *checker) checkEstimates(configs []*ModelConfig, est *Estimates) {
 			for _, kv := range d.KVKeys {
 				if _, ok := d.Curves[kv].Vals[strconv.Itoa(d.MaxCtx)]; !ok {
 					c.fail(where, fmt.Sprintf("'%s' %s curve has no point at max_ctx %d", id, kv, d.MaxCtx),
-						fmt.Sprintf("run: go -C src run ./cmd/llamapreset measure --context %s", id))
+						fmt.Sprintf("run: make measure MODEL=%s", id))
 				}
 			}
 		}
@@ -243,7 +243,7 @@ func (c *checker) checkEstimates(configs []*ModelConfig, est *Estimates) {
 func (c *checker) checkDist() {
 	files := distFiles(c.root)
 	if len(files) == 0 {
-		c.fail("dist/", "no generated files found", "run: go -C src run ./cmd/llamapreset build")
+		c.fail("dist/", "no generated files found", "run: make build")
 		return
 	}
 	// A repeated section name makes llama.cpp refuse to start with

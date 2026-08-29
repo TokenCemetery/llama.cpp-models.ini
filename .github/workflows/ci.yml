@@ -23,22 +23,22 @@ jobs:
       # Covers the output-stability invariants: the estimates file must
       # round-trip byte-identically, or every measurement run rewrites it.
       - name: Test
-        run: go -C src test ./...
+        run: make test
 
       - name: Build dist/
-        run: go -C src run ./cmd/llamapreset build
+        run: make build
 
       # Checks every rule in AGENTS.md, including that each key is one llama.cpp
       # actually accepts. An unknown key makes llama-server exit 1 at startup, so
       # this catches the same failure without needing the binary.
       - name: Validate configs
-        run: go -C src run ./cmd/llamapreset validate
+        run: make validate
 
       # MODELS.md is generated but committed, so it can be browsed on GitHub.
       - name: Check MODELS.md is up to date
         run: |
           if ! git diff --quiet -- MODELS.md; then
-            echo "::error::MODELS.md is stale. Run 'go -C src run ./cmd/llamapreset build' and commit the result."
+            echo "::error::MODELS.md is stale. Run 'make build' and commit the result."
             git --no-pager diff -- MODELS.md
             exit 1
           fi

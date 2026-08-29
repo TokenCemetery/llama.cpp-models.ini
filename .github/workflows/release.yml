@@ -33,10 +33,10 @@ jobs:
           go-version-file: src/go.mod
 
       - name: Build dist/
-        run: go -C src run ./cmd/llamapreset build
+        run: make build
 
       - name: Validate configs
-        run: go -C src run ./cmd/llamapreset validate
+        run: make validate
 
       - name: Pick a version tag
         id: tag
@@ -73,7 +73,7 @@ jobs:
       - name: Write release notes
         run: |
           {
-            go -C src run ./cmd/llamapreset build --notes
+            make notes
             echo
             echo "---"
             echo

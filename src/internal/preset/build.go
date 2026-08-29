@@ -58,7 +58,7 @@ func Load(root string) (*Estimates, []*ModelConfig, []*Tier, error) {
 		}
 	}
 	if len(incomplete) > 0 {
-		return nil, nil, nil, fmt.Errorf("missing measurements for: %s\nrun: go -C src run ./cmd/llamapreset measure --missing",
+		return nil, nil, nil, fmt.Errorf("missing measurements for: %s\nrun: make measure",
 			strings.Join(incomplete, ", "))
 	}
 

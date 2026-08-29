@@ -7,14 +7,24 @@ need this file at all — see [AGENTS.md](../AGENTS.md).
 
 ## Commands
 
-The module lives in `src/`, so run everything with `go -C src` from the repository root:
+Use the [Makefile](../Makefile) in the repository root. Run `make` for the list:
 
 ```sh
-go -C src test ./...                              # must pass before you commit
-go -C src run ./cmd/llamapreset build             # writes dist/ and MODELS.md
-go -C src run ./cmd/llamapreset build --notes     # release body, to stdout
-go -C src run ./cmd/llamapreset validate          # checks every rule in AGENTS.md
-go -C src run ./cmd/llamapreset measure --missing # fills in absent VRAM numbers
+make check      # test + build + validate. Run this before committing
+make build      # writes dist/ and MODELS.md
+make validate   # checks every rule in AGENTS.md
+make measure    # fills in absent VRAM numbers. MODEL=<id> for one model
+make notes      # release body, to stdout
+make fmt vet    # format, then report suspicious constructs
+```
+
+The module lives in `src/`, so every target is a `go -C src` command underneath. Call the tool
+directly when you need a flag the Makefile does not expose:
+
+```sh
+go -C src run ./cmd/llamapreset validate --skip-keys   # offline
+go -C src run ./cmd/llamapreset measure --jobs 4       # gentler on HuggingFace
+go -C src test ./... -run RoundTrip -v
 ```
 
 `cd src` and dropping the `-C src` works too. The tool finds the repository root by walking up
@@ -73,7 +83,7 @@ The output is the contract. Before and after any change to `plan.go` or `render.
 ```sh
 mkdir -p /tmp/before && cp dist/*.ini MODELS.md /tmp/before/
 # ... make your change ...
-go -C src run ./cmd/llamapreset build
+make build
 for f in dist/*.ini; do diff /tmp/before/$(basename $f) $f; done
 diff /tmp/before/MODELS.md MODELS.md
 ```

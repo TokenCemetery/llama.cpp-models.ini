@@ -7,8 +7,10 @@ This file tells coding agents how to work in this repository. Read it before cha
 This repo stores llama.cpp router presets, grouped by VRAM size.
 
 - You edit files in `configs/`.
-- You run `go -C src run ./cmd/llamapreset build`.
+- You run `make build`.
 - It writes files to `dist/`.
+
+Run `make` on its own to list every command.
 
 The Go program in `src/` is a build tool, not a library. If you are changing the tool rather
 than adding a model, read [src/README.md](src/README.md) first.
@@ -17,8 +19,8 @@ than adding a model, read [src/README.md](src/README.md) first.
 
 Follow these. They are not style preferences. Breaking them breaks the config.
 
-1. Never edit files in `dist/`. They are generated. Edit `configs/` and run `go -C src run ./cmd/llamapreset build`.
-2. Always run `go -C src run ./cmd/llamapreset build` after changing `configs/` or `configs/vram-estimates.json`.
+1. Never edit files in `dist/`. They are generated. Edit `configs/` and run `make build`.
+2. Always run `make build` after changing `configs/` or `configs/vram-estimates.json`.
 3. Model IDs are lowercase. Example: `qwen3.8-27b`, not `Qwen3.8-27B`.
 4. A config file's name must match its section name.
    File `configs/unsloth/qwen3.8-27b.ini` must contain `[qwen3.8-27b]`.
@@ -48,19 +50,19 @@ Follow these. They are not style preferences. Breaking them breaks the config.
 Rebuild `dist/`:
 
 ```sh
-go -C src run ./cmd/llamapreset build
+make build
 ```
 
 Check every config against the rules in this file:
 
 ```sh
-go -C src run ./cmd/llamapreset validate
+make validate
 ```
 
 Measure a model's VRAM. This reads GGUF headers over the network. It does not download models:
 
 ```sh
-go -C src run ./cmd/llamapreset measure --missing
+make measure
 ```
 
 It writes the results into `configs/vram-estimates.json`. It saves after every measurement,
@@ -85,8 +87,8 @@ This test takes about 6 seconds. You do not need any models on disk to run it.
    `; repo: unsloth/<Repo>-GGUF`, `; params: 27B` (or `30B-A3B` for MoE), and
    `; tags: vision, reasoning` (leave out if it is a plain text model).
 4. Add sampling settings. Copy them from the model author's docs. Add a comment saying where they came from.
-5. Run `go -C src run ./cmd/llamapreset measure --missing`.
-6. Run `go -C src run ./cmd/llamapreset build`.
+5. Run `make measure`.
+6. Run `make build`.
 7. Test with `llama-server`.
 
 If you skip step 5, the build stops with an error and tells you what to run.
@@ -95,10 +97,10 @@ If you skip step 5, the build stops with an error and tells you what to run.
 
 ```
 configs/<provider>/<model>.ini   you edit these
-configs/vram-estimates.json      llamapreset measure writes this
+configs/vram-estimates.json      `make measure` writes this
         |
         v
-src/cmd/llamapreset              you run this
+make build                       you run this
         |
         v
 dist/vram-<NN>gb.ini             do not edit these
@@ -266,21 +268,20 @@ Some keys only exist in config files, not on the command line. They are listed i
 
 ## Before you finish
 
-Run these three commands. All must succeed:
+Run this. It must succeed:
 
 ```sh
-go -C src test ./...
-go -C src run ./cmd/llamapreset build
-go -C src run ./cmd/llamapreset validate
+make check
 ```
 
-`validate` checks every rule in this file. If it fails, it prints the file, the line, the
-problem, and the fix. Fix the problems and run it again. Do not stop while it still fails.
+`make check` runs the tests, rebuilds `dist/`, then checks every rule in this file. When a
+check fails it prints the file, the line, the problem, and the fix. Fix the problems and run
+it again. Do not stop while it still fails.
 
-If you have no network access, use `go -C src run ./cmd/llamapreset validate --skip-keys`. That skips only the
-check for unknown llama.cpp keys.
+If you have no network access, run `go -C src run ./cmd/llamapreset validate --skip-keys`.
+That skips only the check for unknown llama.cpp keys.
 
-GitHub Actions runs these same three commands on every pull request. A push to `main` that changes
+GitHub Actions runs `make check` on every pull request. A push to `main` that changes
 `configs/` or `src/` builds `dist/` and publishes it as a new release.
 
 ## Version note
