@@ -69,6 +69,7 @@ jobs:
           OUTPUT: changelog.md
 
       # Catalog first (most visitors came to download a file), changelog second.
+      # cliff.toml emits only the grouped commit list, so it drops in as-is.
       - name: Write release notes
         run: |
           {
@@ -77,8 +78,7 @@ jobs:
             echo "---"
             echo
             echo "## What's changed"
-            echo
-            tail -n +2 changelog.md
+            cat changelog.md
           } > release-notes.md
           cat release-notes.md
 
