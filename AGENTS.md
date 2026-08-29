@@ -31,6 +31,9 @@ Follow these. They are not style preferences. Breaking them breaks the config.
 10. Do not add a `[*]` section to files in `configs/`. `src/build.py` writes `[*]` itself.
 11. Do not repeat a value in a model section if `[*]` already sets it.
 12. Never commit `dist/`. It is generated and git ignores it. Only commit `configs/` and `src/`.
+13. Write commit messages as Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `ci:`.
+    Release notes are built from them by git-cliff. A commit in any other format is left out
+    of the notes.
 
 ## Commands
 

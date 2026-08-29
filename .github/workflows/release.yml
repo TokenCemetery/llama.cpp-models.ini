@@ -58,8 +58,29 @@ jobs:
           cd release && sha256sum *.ini > SHA256SUMS
           cat SHA256SUMS
 
+      # Changelog from Conventional Commits. The tag does not exist yet, so
+      # --unreleased --tag renders the pending commits under the new version.
+      - name: Generate changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --unreleased --tag ${{ steps.tag.outputs.tag }}
+        env:
+          OUTPUT: changelog.md
+
+      # Catalog first (most visitors came to download a file), changelog second.
       - name: Write release notes
-        run: python3 src/build.py --notes > release-notes.md
+        run: |
+          {
+            python3 src/build.py --notes
+            echo
+            echo "---"
+            echo
+            echo "## What's changed"
+            echo
+            tail -n +2 changelog.md
+          } > release-notes.md
+          cat release-notes.md
 
       - name: Create release
         env:
