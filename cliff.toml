@@ -21,7 +21,7 @@ trim = true
 # Render even when there is nothing to report, so the release step never fails.
 render_always = true
 postprocessors = [
-    { pattern = '<REPO>', replace = "https://github.com/olegshulyakov/llama.cpp-models.ini" },
+    { pattern = '<REPO>', replace = "https://github.com/TokenCemetery/llama.cpp-models.ini" },
 ]
 
 [git]
