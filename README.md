@@ -12,11 +12,11 @@ highest-quality quant that still fits. Raw numbers are in `configs/vram-estimate
 ## Usage
 
 Download the profile for your GPU from the
-[latest release](https://github.com/olegshulyakov/llama.cpp-models.ini/releases/latest).
+[latest release](https://github.com/TokenCemetery/llama.cpp-models.ini/releases/latest).
 Releases are rebuilt automatically whenever the catalog changes, so this is always current:
 
 ```sh
-curl -LO https://github.com/olegshulyakov/llama.cpp-models.ini/releases/latest/download/vram-16gb.ini
+curl -LO https://github.com/TokenCemetery/llama.cpp-models.ini/releases/latest/download/vram-16gb.ini
 ```
 
 Then run:
