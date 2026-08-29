@@ -1,0 +1,62 @@
+# git-cliff ~ configuration for llama.cpp-models.ini
+# https://git-cliff.org/docs/configuration
+#
+# Used by .github/workflows/release.yml to build the "What's changed" section of
+# each GitHub release. The release title is already the version tag, so this
+# template emits only the grouped commit list - no version heading.
+
+[changelog]
+body = """
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | striptags | trim | upper_first }}
+{% for commit in commits %}
+- {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
+{% if commit.breaking %}[**breaking**] {% endif %}\
+{{ commit.message | upper_first }}\
+{% endfor %}
+{% endfor %}
+"""
+# Remove leading and trailing whitespace from the changelog body.
+trim = true
+# Render even when there is nothing to report, so the release step never fails.
+render_always = true
+postprocessors = [
+    { pattern = '<REPO>', replace = "https://github.com/olegshulyakov/llama.cpp-models.ini" },
+]
+
+[git]
+# Parse commits according to the Conventional Commits specification.
+conventional_commits = true
+# Drop commits that are not conventional. This repo's "Initial commit" is the
+# only one, and it carries no useful information for a release.
+filter_unconventional = true
+require_conventional = false
+split_commits = false
+commit_preprocessors = [
+    # Turn "(#12)" into a link to the issue or pull request.
+    { pattern = '\((\w+\s)?#([0-9]+)\)', replace = "([#${2}](<REPO>/issues/${2}))" },
+]
+protect_breaking_commits = false
+# Groups are ordered by the HTML comment prefix, which is stripped on render.
+# This repo ships configuration, not application code: there is no test suite
+# and nothing to profile, so there are no test/perf groups. Anything unexpected
+# still lands in "Other" rather than being dropped silently.
+commit_parsers = [
+    { message = "^feat", group = "<!-- 0 -->🚀 Models & features" },
+    { message = "^fix", group = "<!-- 1 -->🛠 Fixes" },
+    { message = "^docs", group = "<!-- 2 -->📚 Documentation" },
+    { message = "^refactor", group = "<!-- 3 -->🚜 Refactor" },
+    { message = "^ci|^build", group = "<!-- 4 -->🏗️ Build & CI" },
+    { message = "^revert", group = "<!-- 5 -->◀️ Revert" },
+    # Housekeeping that does not affect the published presets.
+    { message = "^chore", skip = true },
+    { message = "^style", skip = true },
+    { message = ".*", group = "<!-- 6 -->💼 Other" },
+]
+filter_commits = false
+link_parsers = []
+use_branch_tags = false
+topo_order = false
+topo_order_commits = true
+sort_commits = "oldest"
+recurse_submodules = false

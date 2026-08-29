@@ -1,0 +1,39 @@
+name: CI
+
+# Runs on branches and pull requests. Pushes to main are covered by release.yml,
+# which runs the same checks before publishing.
+on:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Build and validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build dist/
+        run: python3 src/build.py
+
+      # Checks every rule in AGENTS.md, including that each key is one llama.cpp
+      # actually accepts. An unknown key makes llama-server exit 1 at startup, so
+      # this catches the same failure without needing the binary.
+      - name: Validate configs
+        run: python3 src/validate.py
+
+      # dist/ is generated, not committed. Upload it so reviewers can see what a
+      # change to configs/ actually produces.
+      - name: Upload generated presets
+        uses: actions/upload-artifact@v4
+        with:
+          name: presets
+          path: dist/*.ini
+          if-no-files-found: error

@@ -1,0 +1,145 @@
+{
+  "_meta": {
+    "tool": "gguf-parser v0.26.0",
+    "generated": "2026-08-29",
+    "units": "GiB",
+    "field": "estimate.items[0].vrams[0].nonuma",
+    "note": "Discrete-GPU VRAM. Unified-memory devices (Apple Silicon, iGPU) use the smaller 'uma' figure and share the budget with the OS.",
+    "params": {
+      "ctx_size": 32768,
+      "flash_attention": true,
+      "cache_type_k": "q8_0",
+      "cache_type_v": "q8_0",
+      "gpu_layers": -1
+    },
+    "quant_band": "UD-Q3_K_XL .. Q6_K",
+    "known_gaps": "gemma-4-e2b-it Q4_K_M failed to parse on the collection run and is omitted.",
+    "naming": "Model ids are the HuggingFace repo name minus the -GGUF suffix, lowercased."
+  },
+  "models": {
+    "gemma-4-e2b-it": {
+      "UD-Q3_K_XL": 2.61,
+      "UD-Q4_K_XL": 2.85,
+      "Q5_K_M": 3.01,
+      "UD-Q5_K_XL": 3.07,
+      "Q6_K": 3.26
+    },
+    "gemma-4-e4b-it": {
+      "UD-Q3_K_XL": 4.04,
+      "Q4_K_M": 4.4,
+      "UD-Q4_K_XL": 4.54,
+      "Q5_K_M": 4.87,
+      "UD-Q5_K_XL": 4.98,
+      "Q6_K": 5.37
+    },
+    "gemma-4-12b-it": {
+      "UD-Q3_K_XL": 7.69,
+      "Q4_K_M": 8.71,
+      "UD-Q4_K_XL": 8.94,
+      "Q5_K_M": 9.91,
+      "UD-Q5_K_XL": 10.09,
+      "Q6_K": 11.19
+    },
+    "gemma-4-26b-a4b-it": {
+      "UD-Q3_K_XL": 13.97,
+      "UD-Q4_K_M": 17.73,
+      "UD-Q4_K_XL": 17.79,
+      "UD-Q5_K_M": 21.65,
+      "UD-Q5_K_XL": 21.71,
+      "UD-Q6_K": 23.53
+    },
+    "gemma-4-31b-it": {
+      "UD-Q3_K_XL": 18.33,
+      "Q4_K_M": 21.07,
+      "UD-Q4_K_XL": 21.55,
+      "Q5_K_M": 24.19,
+      "UD-Q5_K_XL": 24.41,
+      "Q6_K": 27.5
+    },
+    "gpt-oss-20b": {
+      "Q4_K_M": 11.96,
+      "UD-Q4_K_XL": 11.99,
+      "Q5_K_M": 12.01,
+      "Q6_K": 12.15
+    },
+    "qwen3.5-0.8b": {
+      "UD-Q3_K_XL": 1.93,
+      "Q4_K_M": 1.96,
+      "UD-Q4_K_XL": 1.99,
+      "Q5_K_M": 2.02,
+      "UD-Q5_K_XL": 2.03,
+      "Q6_K": 2.06
+    },
+    "qwen3.5-2b": {
+      "UD-Q3_K_XL": 2.55,
+      "Q4_K_M": 2.67,
+      "UD-Q4_K_XL": 2.72,
+      "Q5_K_M": 2.81,
+      "UD-Q5_K_XL": 2.84,
+      "Q6_K": 2.94
+    },
+    "qwen3.5-4b": {
+      "UD-Q3_K_XL": 4.11,
+      "Q4_K_M": 4.39,
+      "UD-Q4_K_XL": 4.55,
+      "Q5_K_M": 4.77,
+      "UD-Q5_K_XL": 4.87,
+      "Q6_K": 5.12
+    },
+    "qwen3.5-9b": {
+      "UD-Q3_K_XL": 6.02,
+      "Q4_K_M": 6.61,
+      "UD-Q4_K_XL": 6.87,
+      "Q5_K_M": 7.32,
+      "UD-Q5_K_XL": 7.48,
+      "Q6_K": 8.02
+    },
+    "qwen3.5-27b": {
+      "UD-Q3_K_XL": 15.26,
+      "Q4_K_M": 17.41,
+      "UD-Q4_K_XL": 18.23,
+      "Q5_K_M": 19.93,
+      "UD-Q5_K_XL": 20.45,
+      "Q6_K": 22.42
+    },
+    "qwen3.5-35b-a3b": {
+      "UD-Q3_K_XL": 16.61,
+      "Q4_K_M": 21.65,
+      "UD-Q4_K_XL": 21.86,
+      "Q5_K_M": 25.59,
+      "UD-Q5_K_XL": 25.72,
+      "Q6_K": 28.02
+    },
+    "qwen3.6-27b": {
+      "UD-Q3_K_XL": 15.29,
+      "Q4_K_M": 17.48,
+      "UD-Q4_K_XL": 18.22,
+      "Q5_K_M": 19.84,
+      "UD-Q5_K_XL": 20.33,
+      "Q6_K": 22.49
+    },
+    "qwen3.6-35b-a3b": {
+      "UD-Q3_K_XL": 16.83,
+      "UD-Q4_K_M": 21.76,
+      "UD-Q4_K_XL": 21.97,
+      "UD-Q5_K_M": 25.78,
+      "UD-Q5_K_XL": 25.91,
+      "UD-Q6_K": 28.44
+    },
+    "qwen3.8-27b": {
+      "UD-Q3_K_XL": 14.22,
+      "UD-Q4_K_M": 17.15,
+      "UD-Q4_K_XL": 18.17,
+      "UD-Q5_K_M": 20.23,
+      "UD-Q5_K_XL": 20.95,
+      "UD-Q6_K": 21.98
+    },
+    "nvidia-nemotron-3.5-lightning-30b-a3b": {
+      "UD-Q3_K_XL": 20.44,
+      "UD-Q4_K_M": 24.19,
+      "UD-Q4_K_XL": 24.41,
+      "UD-Q5_K_M": 28.8,
+      "UD-Q5_K_XL": 28.98
+    }
+  }
+}

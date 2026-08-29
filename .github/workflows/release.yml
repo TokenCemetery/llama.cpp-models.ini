@@ -1,0 +1,93 @@
+name: Release
+
+# Publishes dist/*.ini as a GitHub Release so users can always grab the latest
+# presets without cloning. dist/ is generated here, never committed.
+# Documentation-only commits do not cut a release.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "configs/**"
+      - "src/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need tags to pick the next version
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build dist/
+        run: python3 src/build.py
+
+      - name: Validate configs
+        run: python3 src/validate.py
+
+      - name: Pick a version tag
+        id: tag
+        run: |
+          base="v$(date -u +%Y.%m.%d)"
+          tag="$base"
+          n=2
+          while git rev-parse -q --verify "refs/tags/$tag" >/dev/null; do
+            tag="$base.$n"
+            n=$((n + 1))
+          done
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "Releasing as $tag"
+
+      - name: Assemble assets
+        run: |
+          mkdir -p release
+          cp dist/*.ini release/
+          cd release && sha256sum *.ini > SHA256SUMS
+          cat SHA256SUMS
+
+      # Changelog from Conventional Commits. The tag does not exist yet, so
+      # --unreleased --tag renders the pending commits under the new version.
+      - name: Generate changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --unreleased --tag ${{ steps.tag.outputs.tag }}
+        env:
+          OUTPUT: changelog.md
+
+      # Catalog first (most visitors came to download a file), changelog second.
+      # cliff.toml emits only the grouped commit list, so it drops in as-is.
+      - name: Write release notes
+        run: |
+          {
+            python3 src/build.py --notes
+            echo
+            echo "---"
+            echo
+            echo "## What's changed"
+            cat changelog.md
+          } > release-notes.md
+          cat release-notes.md
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.tag.outputs.tag }}" \
+            release/*.ini release/SHA256SUMS \
+            --title "${{ steps.tag.outputs.tag }}" \
+            --notes-file release-notes.md \
+            --latest
