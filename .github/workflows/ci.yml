@@ -20,19 +20,20 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Regenerate dist/
+      - name: Build dist/
         run: python3 src/build.py
-
-      - name: Check dist/ is up to date
-        run: |
-          if ! git diff --quiet -- dist/; then
-            echo "::error::dist/ does not match configs/. Run 'python3 src/build.py' and commit the result."
-            git --no-pager diff -- dist/
-            exit 1
-          fi
 
       # Checks every rule in AGENTS.md, including that each key is one llama.cpp
       # actually accepts. An unknown key makes llama-server exit 1 at startup, so
       # this catches the same failure without needing the binary.
       - name: Validate configs
         run: python3 src/validate.py
+
+      # dist/ is generated, not committed. Upload it so reviewers can see what a
+      # change to configs/ actually produces.
+      - name: Upload generated presets
+        uses: actions/upload-artifact@v4
+        with:
+          name: presets
+          path: dist/*.ini
+          if-no-files-found: error

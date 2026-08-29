@@ -1,7 +1,7 @@
 name: Release
 
 # Publishes dist/*.ini as a GitHub Release so users can always grab the latest
-# presets without cloning. Fires when the catalog or the generator changes.
+# presets without cloning. dist/ is generated here, never committed.
 # Documentation-only commits do not cut a release.
 on:
   push:
@@ -10,7 +10,6 @@ on:
     paths:
       - "configs/**"
       - "src/**"
-      - "dist/**"
   workflow_dispatch:
 
 permissions:
@@ -33,16 +32,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Regenerate dist/
+      - name: Build dist/
         run: python3 src/build.py
-
-      - name: Check dist/ is up to date
-        run: |
-          if ! git diff --quiet -- dist/; then
-            echo "::error::dist/ does not match configs/. Run 'python3 src/build.py' and commit the result."
-            git --no-pager diff -- dist/
-            exit 1
-          fi
 
       - name: Validate configs
         run: python3 src/validate.py
