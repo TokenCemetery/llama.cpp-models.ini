@@ -1,25 +1,35 @@
 # llama.cpp-models.ini
 
-Ready-to-use [llama.cpp](https://github.com/ggml-org/llama.cpp) router presets, organised by VRAM budget.
+Ready-to-use [llama.cpp](https://github.com/ggml-org/llama.cpp) router presets, so you can run
+71 models from one server without hand-tuning a config.
 
-The configs contain **no filesystem paths**. Models are located by `--models-dir`, so the same
-file works unmodified on any machine — you only name your model folders to match.
+Pick the file that matches your GPU, put your models in one folder, and start the server. There
+are no filesystem paths inside the presets, so the same file works on any machine.
 
-Quantisation and context are not guesses: every model was measured with
-[gguf-parser](https://github.com/gpustack/gguf-parser-go), and each file gets the largest
-context and best quant that fit its budget. Raw numbers are in `configs/vram-estimates.json`.
+## Quick start
 
-## Usage
-
-Download the profile for your GPU from the
-[latest release](https://github.com/TokenCemetery/llama.cpp-models.ini/releases/latest).
-Releases are rebuilt automatically whenever the catalog changes, so this is always current:
+**1. Download the preset for your GPU.**
 
 ```sh
 curl -LO https://github.com/TokenCemetery/llama.cpp-models.ini/releases/latest/download/vram-16gb-balanced.ini
 ```
 
-Then run:
+Replace `16gb` with your VRAM and see [which file to pick](#which-file-to-pick) for the profiles.
+Releases are rebuilt whenever the catalogue changes, so `latest` is always current. Each release
+also ships `SHA256SUMS`.
+
+**2. Put your models in one folder, one subfolder per model.**
+
+The subfolder name must match the model name in the preset — that is how llama.cpp finds it.
+The names are the HuggingFace repo name minus `-GGUF`, lowercased:
+
+```sh
+hf download unsloth/Qwen3.8-27B-GGUF \
+    --include "*UD-Q3_K_XL*" \
+    --local-dir /home/user/models/qwen3.8-27b
+```
+
+**3. Start the server.**
 
 ```sh
 llama-server \
@@ -28,61 +38,53 @@ llama-server \
   --host 127.0.0.1 --port 8080
 ```
 
-`--models-dir` is the single root where all models live on disk.
+Models load on demand when you request them. The preset lists every model that fits your card,
+so **delete the sections for models you don't intend to download** — see
+[Troubleshooting](#troubleshooting).
 
-Each release also ships `SHA256SUMS`. If you prefer to clone, run `python3 src/build.py`
-to generate the same files into `dist/`.
+## Which file to pick
 
-## Profiles
-
-| Budget | Models |
-| --- | --- |
-| 4 GB | 17-22 |
-| 8 GB | 36 |
-| 16 GB | 62 |
-| 24 GB | 71 |
-| 32 GB | 71 |
-
-Weight quantisation, context length and KV cache precision all compete for the same VRAM, so
-each budget ships three profiles:
-
-| Profile | KV cache | Strategy |
+| Your GPU | File | Models |
 | --- | --- | --- |
-| `vram-NNgb-quality.ini` | `f16` | lossless KV, best quant, then as much context as fits |
-| `vram-NNgb-balanced.ini` | `q8_0` | at least 64K context, then the best quant |
-| `vram-NNgb-context.ini` | down to `q4_0` | most context first, trading KV precision to get it |
+| 4 GB | `vram-04gb-*.ini` | 17-22 |
+| 8 GB | `vram-08gb-*.ini` | 36 |
+| 16 GB | `vram-16gb-*.ini` | 62 |
+| 24 GB | `vram-24gb-*.ini` | 71 |
+| 32 GB | `vram-32gb-*.ini` | 71 |
 
-`f16` KV is lossless, `q8_0` near-lossless at half the size, `q4_0` half again with a real
-quality cost. They agree when a model already reaches its maximum context, and diverge sharply
-otherwise. qwen3.8-27b at 24 GB spans an 8x context range:
+Each budget comes in three profiles. Quantisation, context length and KV cache precision all
+compete for the same VRAM, and these spend it differently:
 
-| Profile | Pick |
+| Profile | Best for |
 | --- | --- |
-| `quality` | `UD-Q6_K` at 32K, `f16` KV |
-| `balanced` | `UD-Q5_K_XL` at 64K, `q8_0` KV |
-| `context` | `UD-Q4_K_XL` at 256K, `q4_0` KV |
+| `quality` | Short chats where answer quality matters most. Lossless `f16` KV cache. |
+| `balanced` | **Start here.** At least 64K context with near-lossless `q8_0` KV cache. |
+| `context` | Long documents and agent loops. Trades KV precision down to `q4_0` for context. |
 
-Start with `balanced` unless you know which side you want.
+The profiles are identical for models that already reach their maximum context on your card,
+and diverge sharply otherwise. Qwen3.8-27B on a 24 GB card spans an 8x range:
 
+| Profile | Quant | Context | KV cache |
+| --- | --- | --- | --- |
+| `quality` | `UD-Q6_K` | 32K | `f16` |
+| `balanced` | `UD-Q5_K_XL` | 64K | `q8_0` |
+| `context` | `UD-Q4_K_XL` | 256K | `q4_0` |
 
-Each file lists its models with the chosen quant, context, KV cache type and estimated VRAM in
-a header comment. Estimates assume flash-attention on and full GPU offload, and reserve 1 GiB
-for the OS/display.
+Every file lists its models with the exact quant, context and KV type to use, in a comment at
+the top. Download the quant it names.
 
-VRAM alone doesn't determine a working config. Unified-memory devices (Apple Silicon, Steam
-Deck, other iGPUs) share that budget with the OS and should use the smaller `uma` figure;
-MoE models offloaded with `--n-cpu-moe` depend on system RAM as much as on VRAM.
+### A note on VRAM figures
 
-## Required folder layout
+The numbers assume a discrete GPU with flash-attention on and the whole model on the GPU, and
+they leave 1 GiB free for your desktop.
 
-llama.cpp derives a model's name from the **directory name**, and each `[section]` must match
-one exactly. The rule used here:
+Two cases need care. **Unified-memory devices** — Apple Silicon, Steam Deck, other iGPUs —
+share that budget with the operating system, so treat the tier as optimistic. **MoE models**
+offloaded with `--n-cpu-moe` depend on system RAM as much as VRAM.
 
-> **directory name = HuggingFace repo name, minus the `-GGUF` suffix, lowercased**
+## Setting up your models folder
 
-Upstream casing is inconsistent (`Qwen3.5-27B-GGUF` but `gemma-4-31B-it-GGUF` and
-`gpt-oss-20b-GGUF`), so everything is normalised to lowercase. Only the *directory* name is
-normalised — the `.gguf` files inside keep whatever name they were downloaded with.
+`--models-dir` points at one folder. Each model gets its own subfolder directly inside it:
 
 ```
 /home/user/models/
@@ -96,101 +98,95 @@ normalised — the `.gguf` files inside keep whatever name they were downloaded 
     └── Qwen3.8-27B-UD-Q3_K_XL.gguf
 ```
 
-```sh
-hf download unsloth/Qwen3.8-27B-GGUF \
-    --include "*UD-Q3_K_XL*" \
-    --local-dir /home/user/models/qwen3.8-27b
-```
+Only the **folder** name has to match the preset. The `.gguf` files inside keep whatever name
+they were downloaded with.
 
-**Matching is case-sensitive** — llama.cpp compares the section name against the directory name
-byte-for-byte. This bites on macOS and Windows: the filesystem is case-insensitive, so creating
-`Qwen3.8-27B/` "works", but the directory is reported under that exact name and will not match
-the `[qwen3.8-27b]` section. Create the directories in lowercase.
+llama.cpp picks up extra files in the folder automatically:
 
-Use one subdirectory per model — even for single-file models — so the model id never leaks the
-quantisation. The *same* section then works across tiers with a different GGUF inside.
-
-**`--models-dir` does not recurse.** A nested `<provider>/<model>/` tree does not work: the
-provider directory is either registered as a model under the wrong name, or skipped silently.
-Keep model directories exactly one level below the root.
-
-Rules llama.cpp applies inside a model directory:
-
-| File | Treated as |
+| File | What it does |
 | --- | --- |
-| filename contains `mmproj` | vision projector, wired to `--mmproj` automatically |
-| filename starts with `mtp-`, `dspark-`, `dflash-` | speculative-decoding draft model |
-| filename contains `-00001-of-` | first shard of a multi-part GGUF |
+| name contains `mmproj` | vision support, loaded automatically |
+| name starts with `mtp-`, `dspark-`, `dflash-` | speculative decoding, for faster output |
+| name contains `-00001-of-` | first part of a split model |
 | any other `.gguf` | the model itself |
 
-**Put exactly one model `.gguf` per directory.** If a directory holds two, llama.cpp silently
-keeps whichever comes last in directory order.
+Two rules that will bite you if you break them:
 
-### Models you haven't downloaded
+- **One model `.gguf` per folder.** With two, llama.cpp silently picks whichever comes last.
+- **Folders go one level deep.** `models/unsloth/qwen3.8-27b/` does not work — llama.cpp does
+  not look inside subfolders, so the model simply won't appear.
 
-A preset may list models you don't have; the server still starts and lists them. But requesting
-one spawns a child process that fails, and the request hangs until your client gives up
-(cleanup then takes `stop-timeout` seconds). Delete the sections you don't intend to use.
+## Editing the preset
 
-## Repo layout
+The file is plain INI. Keys are llama.cpp command-line flags without the leading dashes, so
+`--temp 0.6` becomes `temp = 0.6`. The `[*]` section holds defaults for every model.
 
-```
-configs/<provider>/<model>.ini   one section per model, tuning only, no paths
-configs/vram-estimates.json      gguf-parser measurements: quants and context curves
-src/measure.py                   runs gguf-parser, writes vram-estimates.json
-src/build.py                     generates dist/ from the two above
-src/validate.py                  checks every config against the repo rules
-dist/                            generated presets (git-ignored, published as releases)
-```
+Delete any `[section]` for a model you don't have.
 
-llama.cpp's preset format has no `include` directive, so tier files are generated by
-concatenation rather than composed at runtime.
-
-To add a model: drop a file in `configs/<provider>/` including a `; repo:` comment, then run:
+Three settings **do not work** inside the file, because the router overrides them before
+starting each model. Pass them to `llama-server` instead:
 
 ```sh
-python3 src/measure.py --missing   # runs gguf-parser, records the numbers
-python3 src/build.py               # regenerates dist/
+llama-server --models-preset vram-16gb-balanced.ini \
+             --host 0.0.0.0 --port 8080 --api-key your-secret
 ```
 
-Sampling defaults come from the model authors via the
-[Unsloth model guides](https://unsloth.ai/docs/models/tutorials); each config cites its source.
-Quants are restricted to the `UD-Q3_K_XL` .. `Q6_K` band.
+- `host` and `port` are replaced with the model process's own address
+- `api-key` is removed entirely
 
-## Writing presets
-
-Keys are llama.cpp command-line arguments without the leading dashes; short forms (`c`, `ngl`)
-and env-var names (`LLAMA_ARG_N_GPU_LAYERS`) also work. `[*]` holds shared defaults that any
-model section can override.
-
-Settings are applied in this order, each overriding the previous:
-
-1. models discovered in the HF cache
-2. models discovered under `--models-dir`
-3. the preset file
-4. **arguments passed to `llama-server` on the command line**
-
-Step 4 catches people out: a flag on the router command line overrides the preset for *every*
-model, so don't pass tuning flags there unless you mean it globally.
-
-Three keys do **not** work inside a preset — the router strips or overwrites them before
-launching each model process. Pass them to `llama-server` instead:
-
-- `host` and `port` — overwritten with the child process's own address
-- `api-key` — stripped entirely
-
-This is verified behaviour, not a guess: with `api-key` set in `[*]`, the server logs
-`no API key is set` and serves requests unauthenticated. If you bind to `0.0.0.0`, set
+This matters for security: putting `api-key` in the file looks like it works, but the server
+starts with **no authentication** and logs `no API key is set`. If you bind to `0.0.0.0`, pass
 `--api-key` on the command line.
+
+Also note that any flag you type on the `llama-server` command line **overrides the preset for
+every model**. `llama-server --temp 0` sets temperature 0 everywhere, ignoring the file.
+
+## Troubleshooting
+
+**The server starts but my model isn't listed.**
+The folder name doesn't match the section name. Matching is exact and case-sensitive — a folder
+called `Qwen3.8-27B` will not match `[qwen3.8-27b]`. macOS and Windows let you create it anyway,
+because their filesystems ignore case, but llama.cpp still won't match it. Rename it to
+lowercase. Also check the folder is directly under `--models-dir`, not nested.
+
+**A request hangs for a long time, then fails.**
+You asked for a model listed in the preset that isn't on disk. The server starts a process for
+it, that process fails, and your client waits until it gives up. Delete the sections you aren't
+using.
+
+**The server exits immediately with an error naming a key.**
+Your llama.cpp is older than the preset. Update it, or remove that line.
+
+**Everything runs but uses the wrong settings.**
+Check for flags on your `llama-server` command line — they beat the file.
+
+## How these files are made
+
+Quantisation and context are not guesses. Every model is measured with
+[gguf-parser](https://github.com/gpustack/gguf-parser-go) across context sizes and KV cache
+types, and each preset gets the best combination that fits its budget.
+
+Sampling settings come from each model author's published guidance, via the
+[Unsloth model guides](https://unsloth.ai/docs/models/tutorials). Every model file cites its
+source.
+
+Quantisations are limited to the `UD-Q3_K_XL` to `Q6_K` range — below that quality drops off
+sharply, above it the size rarely justifies the gain.
+
+Want to add a model or change a setting? See [AGENTS.md](AGENTS.md) for how the repo is built.
 
 ## Compatibility
 
-Router mode and the preset format are recent additions and still changing. Verified against
-llama.cpp `0.3.0` (build 10621, `c1d0e7a00`). Check your build:
+Router mode and the preset format are recent additions to llama.cpp and still changing. These
+files are verified against llama.cpp `0.3.0` (build 10621, `c1d0e7a00`).
+
+Check your build supports it:
 
 ```sh
 llama-server --help | grep models-preset
 ```
 
-Note that build warns the default port will change to `:9931` in a future release — pass
-`--port` explicitly rather than relying on the default.
+If that prints nothing, update llama.cpp.
+
+One upstream warning worth heeding: the default port is changing to `:9931` in a future
+release, so pass `--port` explicitly rather than relying on the default.
