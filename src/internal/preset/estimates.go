@@ -1,6 +1,7 @@
 package preset
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -59,11 +60,11 @@ func LoadEstimates(root string) (*Estimates, error) {
 	}
 	obj, ok := v.(*jsonObject)
 	if !ok {
-		return nil, fmt.Errorf("configs/vram-estimates.json: top level is not an object")
+		return nil, errors.New("configs/vram-estimates.json: top level is not an object")
 	}
 	models, ok := obj.object("models")
 	if !ok {
-		return nil, fmt.Errorf("configs/vram-estimates.json: no \"models\" object")
+		return nil, errors.New(`configs/vram-estimates.json: no "models" object`)
 	}
 
 	est := &Estimates{root: obj, models: models, Data: map[string]*ModelData{}}

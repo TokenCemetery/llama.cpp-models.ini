@@ -20,6 +20,14 @@ jobs:
         with:
           go-version-file: src/go.mod
 
+      # Config in src/.golangci.yml. Not part of `make check`, so that adding
+      # a model needs nothing installed beyond Go.
+      - name: Lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.13
+          working-directory: src
+
       # Covers the output-stability invariants: the estimates file must
       # round-trip byte-identically, or every measurement run rewrites it.
       - name: Test

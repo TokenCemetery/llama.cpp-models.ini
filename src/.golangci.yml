@@ -1,0 +1,26 @@
+# Linter set for the build tool. Run `make lint` from the repository root.
+#
+# `default: standard` is errcheck, govet, ineffassign, staticcheck and unused.
+# The additions below are the ones that have actually caught something here:
+# gocritic found an os.Exit that skipped its deferred signal cleanup, and
+# errcheck found two unchecked Body.Close calls.
+#
+# revive is deliberately not enabled. Its main contribution on this codebase is
+# "exported X should have a comment" for every symbol in internal/preset, which
+# cannot be imported from outside this module, so the rule is noise here.
+
+version: "2"
+
+linters:
+  default: standard
+  enable:
+    - bodyclose # HTTP response bodies must be closed
+    - copyloopvar
+    - errorlint # %v on an error where %w is meant
+    - gocritic
+    - misspell
+    - nilerr # returning nil after checking err != nil
+    - perfsprint # fmt.Sprintf where a cheaper call does
+    - prealloc
+    - unconvert
+    - usestdlibvars

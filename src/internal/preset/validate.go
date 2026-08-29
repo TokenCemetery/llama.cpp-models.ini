@@ -208,7 +208,7 @@ func (c *checker) checkEstimates(configs []*ModelConfig, est *Estimates) {
 		}
 		if len(d.QuantKeys) == 0 {
 			c.fail(where, fmt.Sprintf("'%s' has no quant measurements", id),
-				fmt.Sprintf("run: make measure MODEL=%s", id))
+				"run: make measure MODEL="+id)
 		}
 
 		var missingKV []string
@@ -222,10 +222,10 @@ func (c *checker) checkEstimates(configs []*ModelConfig, est *Estimates) {
 		switch {
 		case len(d.Curves) == 0 || d.MaxCtx == 0:
 			c.fail(where, fmt.Sprintf("'%s' has no context curves", id),
-				fmt.Sprintf("run: make measure MODEL=%s", id))
+				"run: make measure MODEL="+id)
 		case len(missingKV) > 0:
 			c.fail(where, fmt.Sprintf("'%s' has no curve for KV type(s): %s", id, strings.Join(missingKV, ", ")),
-				fmt.Sprintf("run: make measure MODEL=%s", id))
+				"run: make measure MODEL="+id)
 		case !contains(d.QuantKeys, d.RefQuant):
 			c.fail(where, fmt.Sprintf("'%s' ref_quant '%s' is missing from quants", id, d.RefQuant),
 				"the context curves cannot be offset without it; re-measure the model")
@@ -233,7 +233,7 @@ func (c *checker) checkEstimates(configs []*ModelConfig, est *Estimates) {
 			for _, kv := range d.KVKeys {
 				if _, ok := d.Curves[kv].Vals[strconv.Itoa(d.MaxCtx)]; !ok {
 					c.fail(where, fmt.Sprintf("'%s' %s curve has no point at max_ctx %d", id, kv, d.MaxCtx),
-						fmt.Sprintf("run: make measure MODEL=%s", id))
+						"run: make measure MODEL="+id)
 				}
 			}
 		}
@@ -309,7 +309,7 @@ func loadValidKeys(opts ValidateOptions) (map[string]bool, error) {
 		if err != nil {
 			return nil, fmt.Errorf("could not download arg.cpp (%w)", err)
 		}
-		defer resp.Body.Close()
+		defer func() { _ = resp.Body.Close() }() // nothing useful to do with a close error
 		if resp.StatusCode != http.StatusOK {
 			return nil, fmt.Errorf("could not download arg.cpp (status %s)", resp.Status)
 		}

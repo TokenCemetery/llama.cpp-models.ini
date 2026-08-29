@@ -3,11 +3,13 @@ package preset
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"os"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -126,7 +128,7 @@ func estimate(ctx context.Context, repo, file string, ctxSize int, kv string) (i
 		e := gf.EstimateLLaMACppRun(opts...)
 		s := e.Summarize(true, nonUMARAMFootprint, nonUMAVRAMFootprint)
 		if len(s.Items) == 0 || len(s.Items[0].VRAMs) == 0 {
-			lastErr = fmt.Errorf("estimate returned no VRAM figures")
+			lastErr = errors.New("estimate returned no VRAM figures")
 			continue
 		}
 		gib := float64(s.Items[0].VRAMs[0].NonUMA) / (1 << 30)
@@ -153,7 +155,7 @@ func inBandFiles(ctx context.Context, repo string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }() // nothing useful to do with a close error
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("%s: %s", repo, resp.Status)
 	}
@@ -365,7 +367,7 @@ func Measure(ctx context.Context, root string, opts MeasureOptions) int {
 				for _, c := range ladderFor(d.MaxCtx) {
 					have := false
 					if curve, ok := d.Curves[kv.name]; ok {
-						_, have = curve.Vals[fmt.Sprint(c)]
+						_, have = curve.Vals[strconv.Itoa(c)]
 					}
 					if !have {
 						jobs = append(jobs, job{"curve", id, repos[id], ref, c, kv.name})

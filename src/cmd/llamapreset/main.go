@@ -9,6 +9,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -52,13 +53,16 @@ func main() {
 			*quants, *curves = true, true
 		}
 		if !*quants && !*curves {
-			fail(fmt.Errorf("give --quants, --context or --missing"))
+			fail(errors.New("give --quants, --context or --missing"))
 		}
 		ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
-		defer stop()
-		os.Exit(preset.Measure(ctx, root, preset.MeasureOptions{
+		// Not deferred: os.Exit below would skip it, leaving the signal
+		// handler registered for the life of the process.
+		code := preset.Measure(ctx, root, preset.MeasureOptions{
 			Models: fs.Args(), Quants: *quants, Curves: *curves, Jobs: *jobs,
-		}))
+		})
+		stop()
+		os.Exit(code)
 
 	case "validate":
 		fs := flag.NewFlagSet("validate", flag.ExitOnError)

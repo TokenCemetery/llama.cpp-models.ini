@@ -11,7 +11,7 @@ SRC := src
 MODEL ?=
 
 .DEFAULT_GOAL := help
-.PHONY: help build validate test check measure notes fmt vet clean
+.PHONY: help build validate test check measure notes fmt vet lint clean
 
 help: ## Show this help
 	@echo "usage: make <target>"
@@ -30,7 +30,7 @@ validate: ## Check every config against the rules in AGENTS.md
 test: ## Run the Go tests
 	$(GO) -C $(SRC) test ./...
 
-check: test build validate ## Run everything CI runs. Do this before committing
+check: test build validate ## Test, rebuild, validate. Do this before committing
 
 measure: ## Measure missing VRAM numbers (network, no downloads). MODEL=<id> for one
 	$(GO) -C $(SRC) run ./cmd/llamapreset measure --missing $(MODEL)
@@ -43,6 +43,9 @@ fmt: ## Format the Go code
 
 vet: ## Report suspicious Go constructs
 	$(GO) -C $(SRC) vet ./...
+
+lint: ## Run golangci-lint (install: brew install golangci-lint)
+	cd $(SRC) && golangci-lint run ./...
 
 clean: ## Delete generated presets (MODELS.md is committed, so it stays)
 	rm -f dist/*.ini

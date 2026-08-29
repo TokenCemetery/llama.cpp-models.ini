@@ -16,6 +16,7 @@ make validate   # checks every rule in AGENTS.md
 make measure    # fills in absent VRAM numbers. MODEL=<id> for one model
 make notes      # release body, to stdout
 make fmt vet    # format, then report suspicious constructs
+make lint       # golangci-lint, config in .golangci.yml. CI runs this too
 ```
 
 The module lives in `src/`, so every target is a `go -C src` command underneath. Call the tool
@@ -87,6 +88,10 @@ make build
 for f in dist/*.ini; do diff /tmp/before/$(basename $f) $f; done
 diff /tmp/before/MODELS.md MODELS.md
 ```
+
+Run `make lint` as well. It is not part of `make check`, so that adding a model needs
+nothing installed beyond Go, but CI runs it and it has caught real bugs here — an `os.Exit`
+that skipped its deferred signal cleanup, and two unchecked `Body.Close` calls.
 
 An intentional change shows only the lines you meant to change. Anything else — a reordered
 section, a shifted VRAM figure — means an ordering assumption broke. The usual cause is

@@ -3,6 +3,7 @@ package preset
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"strconv"
@@ -104,7 +105,7 @@ func parseJSON(data []byte) (jsonValue, error) {
 		return nil, err
 	}
 	if _, err := dec.Token(); err != io.EOF {
-		return nil, fmt.Errorf("trailing data after top-level JSON value")
+		return nil, errors.New("trailing data after top-level JSON value")
 	}
 	return v, nil
 }
