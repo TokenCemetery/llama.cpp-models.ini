@@ -6,13 +6,16 @@ so this reads that and measures against the matching GGUF files.
 
 Two things are recorded per model:
 
-  quants     VRAM of every in-band quant at the reference context (32768).
-  ref_curve  VRAM of one reference quant across a ladder of context sizes.
+  quants      VRAM of every in-band quant at the reference context and KV type.
+  ref_curves  VRAM of one reference quant across a ladder of context sizes,
+              measured once per KV cache type.
 
 KV cache cost per token depends on the architecture and cache type, not on the
 weight quantisation - measured slopes for UD-Q3_K_XL and Q6_K agree to four
-significant figures. So a quant's whole curve is the reference curve plus a
-constant, and build.py derives any (quant, context) pair from these two fields.
+significant figures. So a quant's whole curve is the matching reference curve
+plus a constant, and build.py derives any (quant, context, KV type) triple as:
+
+    VRAM = ref_curves[kv][ctx] + quants[quant] - quants[ref_quant]
 
 Results are written after each measurement, so an interrupted run loses nothing
 and re-running resumes where it stopped.
@@ -43,6 +46,8 @@ QUANT_RE = re.compile(r"(" + "|".join(ALLOWED) + r")\.gguf$", re.I)
 SIDECAR = ("mtp-", "dspark-", "dflash-")
 
 REF_CTX = 32768
+REF_KV = "q8_0"                                  # KV type used for the quants table
+KV_TYPES = ["f16", "q8_0", "q5_1", "q4_0"]       # curves are measured for each
 LADDER = [4096, 8192, 16384, 32768, 65536, 131072, 262144]
 # Preference order when choosing the quant whose context curve we measure.
 REF_PREFERENCE = ["UD-Q4_K_XL", "UD-Q4_K_M", "Q4_K_M", "UD-Q3_K_XL"]
@@ -81,11 +86,11 @@ def quant_of(filename):
     return QUANT_RE.search(filename).group(1)
 
 
-def _run(repo, filename, ctx):
+def _run(repo, filename, ctx, kv=REF_KV):
     """Return (max_ctx, vram_gib) or (None, None). ctx=0 means the model's max."""
     cmd = ["gguf-parser", "--hf-repo", repo, "--hf-file", filename,
            "--ctx-size", str(ctx), "--flash-attention",
-           "--cache-type-k", "q8_0", "--cache-type-v", "q8_0",
+           "--cache-type-k", kv, "--cache-type-v", kv,
            "--gpu-layers", "-1", "--estimate", "--json"]
     for _ in range(3):  # range requests to HF are occasionally flaky
         try:
@@ -113,7 +118,7 @@ def save(est):
 
 def entry(est, model_id):
     return est["models"].setdefault(
-        model_id, {"max_ctx": None, "ref_quant": None, "ref_curve": {}, "quants": {}})
+        model_id, {"max_ctx": None, "ref_quant": None, "ref_curves": {}, "quants": {}})
 
 
 def ladder_for(max_ctx):
@@ -168,7 +173,7 @@ def main():
                 e = entry(est, model_id)
                 e["max_ctx"] = max_ctx
                 e["ref_quant"] = quant
-                e["ref_curve"][str(max_ctx)] = gib
+                e["ref_curves"].setdefault(REF_KV, {})[str(max_ctx)] = gib
                 save(est)
                 print(f"  {model_id}: max_ctx={max_ctx} ({quant} = {gib} GiB)", flush=True)
 
@@ -182,13 +187,14 @@ def main():
             files = files_for(model_id)
             for f in files:
                 if quant_of(f) not in e["quants"]:
-                    jobs.append(("quant", model_id, f, REF_CTX))
+                    jobs.append(("quant", model_id, f, REF_CTX, REF_KV))
         if args.context and e["max_ctx"] and e["ref_quant"]:
             files = files or files_for(model_id)
             ref = next(f for f in files if quant_of(f) == e["ref_quant"])
-            for c in ladder_for(e["max_ctx"]):
-                if str(c) not in e["ref_curve"]:
-                    jobs.append(("curve", model_id, ref, c))
+            for kv in KV_TYPES:
+                for c in ladder_for(e["max_ctx"]):
+                    if str(c) not in e["ref_curves"].get(kv, {}):
+                        jobs.append(("curve", model_id, ref, c, kv))
 
     if not jobs:
         print("nothing to measure; everything is already recorded")
@@ -196,30 +202,31 @@ def main():
     print(f"{len(jobs)} measurement(s) to run", flush=True)
 
     def run(job):
-        kind, model_id, filename, ctx = job
-        _, gib = _run(repos[model_id], filename, ctx)
-        return kind, model_id, filename, ctx, gib
+        kind, model_id, filename, ctx, kv = job
+        _, gib = _run(repos[model_id], filename, ctx, kv)
+        return kind, model_id, filename, ctx, kv, gib
 
     done = failed = 0
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        for kind, model_id, filename, ctx, gib in pool.map(run, jobs):
+        for kind, model_id, filename, ctx, kv, gib in pool.map(run, jobs):
             if gib is None:
                 failed += 1
-                print(f"  FAILED {model_id} {filename} ctx={ctx}", flush=True)
+                print(f"  FAILED {model_id} {filename} ctx={ctx} kv={kv}", flush=True)
                 continue
             est = load()
             e = entry(est, model_id)
             if kind == "quant":
                 e["quants"][quant_of(filename)] = gib
-                e["quants"] = dict(sorted(e["quants"].items(), key=lambda kv: kv[1]))
+                e["quants"] = dict(sorted(e["quants"].items(), key=lambda i: i[1]))
+                label = f"quant {quant_of(filename)}"
             else:
-                e["ref_curve"][str(ctx)] = gib
-                e["ref_curve"] = dict(sorted(e["ref_curve"].items(), key=lambda kv: int(kv[0])))
+                curve = e["ref_curves"].setdefault(kv, {})
+                curve[str(ctx)] = gib
+                e["ref_curves"][kv] = dict(sorted(curve.items(), key=lambda i: int(i[0])))
+                label = f"kv {kv} ctx {ctx}"
             save(est)
             done += 1
-            print(f"  [{done + failed}/{len(jobs)}] {model_id} "
-                  f"{'quant ' + quant_of(filename) if kind == 'quant' else 'ctx ' + str(ctx)}"
-                  f" = {gib} GiB", flush=True)
+            print(f"  [{done + failed}/{len(jobs)}] {model_id} {label} = {gib} GiB", flush=True)
 
     print(f"\nmeasured {done}, failed {failed}")
     return 1 if failed else 0

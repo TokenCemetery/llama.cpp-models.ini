@@ -24,8 +24,8 @@ Follow these. They are not style preferences. Breaking them breaks the config.
 5. Never put a file path in a config. No `model = /path/...` line. Paths come from `--models-dir`.
    There is also no way to set a base folder inside the file. Config files have no variables.
    `{my-path}` is not replaced with anything. It stays as the literal text `{my-path}`.
-6. Do not set `ctx-size` in a config. `src/build.py` works out the largest context that fits
-   each VRAM budget and writes it into `dist/`.
+6. Do not set `ctx-size`, `cache-type-k` or `cache-type-v` in a config. `src/build.py` works
+   out the best context and KV cache type for each VRAM budget and writes them into `dist/`.
    Set `ctx-size` only as an upper limit, when a model should never go above some value.
 7. Only use these quants: `UD-Q3_K_XL`, `Q4_K_M`, `UD-Q4_K_M`, `UD-Q4_K_XL`, `Q5_K_M`, `UD-Q5_K_M`, `UD-Q5_K_XL`, `Q6_K`.
 8. Never put `host`, `port`, or `api-key` in a config. They do not work. See "Traps".
@@ -96,36 +96,46 @@ src/build.py                     you run this
 dist/vram-<NN>gb-<profile>.ini   do not edit these
 ```
 
-Quantisation and context compete for the same VRAM, so each budget is built three ways:
+Three things compete for the same VRAM: weight quant, context length, and KV cache precision.
+Each budget is built three ways:
 
-| Profile | Strategy |
+| Profile | KV cache | Strategy |
+| --- | --- | --- |
+| `quality` | `f16`, else `q8_0` | lossless KV, best quant, then as much context as fits |
+| `balanced` | `q8_0` | at least 64K context, then the best quant |
+| `context` | `q8_0` down to `q4_0` | most context first, trading KV precision to get it |
+
+For each budget, `src/build.py` keeps `size - 1 GiB` and picks the best
+(quant, context, KV type) triple for that profile. A model is included if any triple fits.
+
+`f16` KV is lossless. `q8_0` is near-lossless and roughly halves the cache. `q4_0` halves it
+again but costs real quality, which is why only the `context` profile uses it.
+
+The three agree when a model already reaches its maximum context. They differ otherwise.
+qwen3.8-27b at 24 GB is the clearest case:
+
+| Profile | Pick |
 | --- | --- |
-| `quality` | best quant first, then as much context as fits |
-| `balanced` | at least 64K context, then the best quant, then more context |
-| `context` | most context first, then the best quant that still fits |
-
-For each budget, `src/build.py` keeps `size - 1 GiB` and picks the best quant and context pair
-for that profile. A model is included if any pair fits.
-
-The three often agree. They differ when a model can hold more context than its best quant allows.
-For example gemma-3-27b-it at 24 GB: `quality` gives `Q6_K` at 8K context, `balanced` gives
-`UD-Q5_K_XL` at 64K, and `context` gives `UD-Q3_K_XL` at 128K.
+| `quality` | `UD-Q6_K` at 32K, `f16` KV |
+| `balanced` | `UD-Q5_K_XL` at 64K, `q8_0` KV |
+| `context` | `UD-Q4_K_XL` at 256K, `q4_0` KV |
 
 ### How the numbers work
 
 `configs/vram-estimates.json` stores two things per model:
 
-- `quants` - VRAM of every quant at 32768 context
-- `ref_curve` - VRAM of one reference quant at several context sizes
+- `quants` - VRAM of every quant at 32768 context with `q8_0` KV
+- `ref_curves` - VRAM of one reference quant at several context sizes, one curve per KV type
 
-KV cache cost per token depends on the model architecture, not on the weight quant. Measured
-slopes for `UD-Q3_K_XL` and `Q6_K` agree to four significant figures. So any pair is:
+KV cache cost per token depends on the model architecture and the KV type, not on the weight
+quant. Measured slopes for `UD-Q3_K_XL` and `Q6_K` agree to four significant figures. So any
+combination is:
 
 ```
-VRAM(quant, ctx) = ref_curve[ctx] + quants[quant] - quants[ref_quant]
+VRAM(quant, ctx, kv) = ref_curves[kv][ctx] + quants[quant] - quants[ref_quant]
 ```
 
-This is why one context curve per model is enough.
+This is why one curve per KV type per model is enough, instead of measuring every combination.
 
 The build step exists because llama.cpp config files cannot include other files. There is no `include` keyword. So the files must be joined together before llama.cpp sees them.
 

@@ -27,6 +27,8 @@ CACHE = pathlib.Path("/tmp/llama-cpp-arg.cpp")
 
 MIN_CTX = 4096
 FORBIDDEN_KEYS = {"host", "port", "api-key"}
+# KV cache types the profiles in build.py need a measured curve for.
+NEEDED_KV = {"f16", "q8_0", "q5_1", "q4_0"}
 ALLOWED_QUANTS = {
     "UD-Q3_K_XL", "Q4_K_M", "UD-Q4_K_M", "UD-Q4_K_XL",
     "Q5_K_M", "UD-Q5_K_M", "UD-Q5_K_XL", "Q6_K", "UD-Q6_K",
@@ -158,15 +160,22 @@ def main():
         if not data.get("quants"):
             fail(where, f"'{model_id}' has no quant measurements",
                  f"run: python3 src/measure.py --quants {model_id}")
-        if not data.get("ref_curve") or not data.get("max_ctx"):
-            fail(where, f"'{model_id}' has no context curve",
+        curves = data.get("ref_curves", {})
+        missing_kv = sorted(NEEDED_KV - set(curves))
+        if not curves or not data.get("max_ctx"):
+            fail(where, f"'{model_id}' has no context curves",
+                 f"run: python3 src/measure.py --context {model_id}")
+        elif missing_kv:
+            fail(where, f"'{model_id}' has no curve for KV type(s): {', '.join(missing_kv)}",
                  f"run: python3 src/measure.py --context {model_id}")
         elif data.get("ref_quant") not in data.get("quants", {}):
             fail(where, f"'{model_id}' ref_quant '{data.get('ref_quant')}' is missing from quants",
-                 "the context curve cannot be offset without it; re-measure the model")
-        elif str(data["max_ctx"]) not in data["ref_curve"]:
-            fail(where, f"'{model_id}' context curve has no point at max_ctx {data['max_ctx']}",
-                 f"run: python3 src/measure.py --context {model_id}")
+                 "the context curves cannot be offset without it; re-measure the model")
+        else:
+            for kv, curve in curves.items():
+                if str(data["max_ctx"]) not in curve:
+                    fail(where, f"'{model_id}' {kv} curve has no point at max_ctx {data['max_ctx']}",
+                         f"run: python3 src/measure.py --context {model_id}")
 
     if not DIST.exists() or not list(DIST.glob("*.ini")):
         fail("dist/", "no generated files found", "run: python3 src/build.py")

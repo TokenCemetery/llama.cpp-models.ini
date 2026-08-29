@@ -37,30 +37,37 @@ to generate the same files into `dist/`.
 
 | Budget | Models |
 | --- | --- |
-| 4 GB | 17 |
+| 4 GB | 17-22 |
 | 8 GB | 36 |
 | 16 GB | 62 |
 | 24 GB | 71 |
 | 32 GB | 71 |
 
-Each budget ships three profiles, because quantisation and context compete for the same VRAM:
+Weight quantisation, context length and KV cache precision all compete for the same VRAM, so
+each budget ships three profiles:
 
-| Profile | Strategy |
+| Profile | KV cache | Strategy |
+| --- | --- | --- |
+| `vram-NNgb-quality.ini` | `f16` | lossless KV, best quant, then as much context as fits |
+| `vram-NNgb-balanced.ini` | `q8_0` | at least 64K context, then the best quant |
+| `vram-NNgb-context.ini` | down to `q4_0` | most context first, trading KV precision to get it |
+
+`f16` KV is lossless, `q8_0` near-lossless at half the size, `q4_0` half again with a real
+quality cost. They agree when a model already reaches its maximum context, and diverge sharply
+otherwise. qwen3.8-27b at 24 GB spans an 8x context range:
+
+| Profile | Pick |
 | --- | --- |
-| `vram-NNgb-quality.ini` | best quant first, then as much context as fits |
-| `vram-NNgb-balanced.ini` | at least 64K context, then the best quant, then more context |
-| `vram-NNgb-context.ini` | most context first, then the best quant that still fits |
-
-They agree for about 72% of entries and differ where a model can hold more context than its
-best quant allows. gemma-3-27b-it at 24 GB is the clearest case: `quality` picks `Q6_K` at 8K
-context, `balanced` picks `UD-Q5_K_XL` at 64K, `context` picks `UD-Q3_K_XL` at 128K.
+| `quality` | `UD-Q6_K` at 32K, `f16` KV |
+| `balanced` | `UD-Q5_K_XL` at 64K, `q8_0` KV |
+| `context` | `UD-Q4_K_XL` at 256K, `q4_0` KV |
 
 Start with `balanced` unless you know which side you want.
 
 
-Each file lists its models with the chosen quant, context and estimated VRAM in a header
-comment. Estimates assume flash-attention on, `q8_0` K/V cache and full GPU offload, and
-reserve 1 GiB for the OS/display.
+Each file lists its models with the chosen quant, context, KV cache type and estimated VRAM in
+a header comment. Estimates assume flash-attention on and full GPU offload, and reserve 1 GiB
+for the OS/display.
 
 VRAM alone doesn't determine a working config. Unified-memory devices (Apple Silicon, Steam
 Deck, other iGPUs) share that budget with the OS and should use the smaller `uma` figure;
