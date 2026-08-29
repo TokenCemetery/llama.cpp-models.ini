@@ -1,3 +1,5 @@
 .DS_Store
-__pycache__/
 dist/
+
+# compiled build tool, when built rather than `go run`
+/src/llamapreset

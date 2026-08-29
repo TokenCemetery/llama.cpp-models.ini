@@ -7,32 +7,34 @@ This file tells coding agents how to work in this repository. Read it before cha
 This repo stores llama.cpp router presets, grouped by VRAM size.
 
 - You edit files in `configs/`.
-- You run `python3 src/build.py`.
+- You run `go -C src run ./cmd/llamapreset build`.
 - It writes files to `dist/`.
 
-There is no application code. There are no unit tests.
+The Go program in `src/` is a build tool, not a library. If you are changing the tool rather
+than adding a model, read [src/README.md](src/README.md) first.
 
 ## Rules
 
 Follow these. They are not style preferences. Breaking them breaks the config.
 
-1. Never edit files in `dist/`. They are generated. Edit `configs/` and run `python3 src/build.py`.
-2. Always run `python3 src/build.py` after changing `configs/` or `configs/vram-estimates.json`.
+1. Never edit files in `dist/`. They are generated. Edit `configs/` and run `go -C src run ./cmd/llamapreset build`.
+2. Always run `go -C src run ./cmd/llamapreset build` after changing `configs/` or `configs/vram-estimates.json`.
 3. Model IDs are lowercase. Example: `qwen3.8-27b`, not `Qwen3.8-27B`.
 4. A config file's name must match its section name.
    File `configs/unsloth/qwen3.8-27b.ini` must contain `[qwen3.8-27b]`.
-   Sections in `dist/` get a `-<quant>-<context>-<kv>` suffix added by `src/build.py`.
+   Sections in `dist/` get a `-<quant>-<context>-<kv>` suffix added by the build.
    Do not write that suffix in `configs/`.
 5. Never put a file path in a config. No `model = /path/...` line. Paths come from `--models-dir`.
    There is also no way to set a base folder inside the file. Config files have no variables.
    `{my-path}` is not replaced with anything. It stays as the literal text `{my-path}`.
-6. Do not set `ctx-size`, `cache-type-k` or `cache-type-v` in a config. `src/build.py` works
+6. Do not set `ctx-size`, `cache-type-k` or `cache-type-v` in a config. The build works
    out the best context and KV cache type for each VRAM budget and writes them into `dist/`.
    Set `ctx-size` only as an upper limit, when a model should never go above some value.
-7. Only use these quants: `UD-Q3_K_XL`, `Q4_K_M`, `UD-Q4_K_M`, `UD-Q4_K_XL`, `Q5_K_M`, `UD-Q5_K_M`, `UD-Q5_K_XL`, `Q6_K`.
+7. Only use these quants: `UD-Q3_K_XL`, `Q4_K_M`, `UD-Q4_K_M`, `UD-Q4_K_XL`, `Q5_K_M`,
+   `UD-Q5_K_M`, `UD-Q5_K_XL`, `Q6_K`, `UD-Q6_K`.
 8. Never put `host`, `port`, or `api-key` in a config. They do not work. See "Traps".
 9. Never put `;` or `#` inside a value. It silently deletes the rest of the line.
-10. Do not add a `[*]` section to files in `configs/`. `src/build.py` writes `[*]` itself.
+10. Do not add a `[*]` section to files in `configs/`. The build writes `[*]` itself.
 11. Do not repeat a value in a model section if `[*]` already sets it.
 12. Never commit `dist/`. It is generated and git ignores it. Only commit `configs/` and `src/`.
     `MODELS.md` is the one exception: it is generated but committed, so it can be read on
@@ -46,23 +48,23 @@ Follow these. They are not style preferences. Breaking them breaks the config.
 Rebuild `dist/`:
 
 ```sh
-python3 src/build.py
+go -C src run ./cmd/llamapreset build
 ```
 
 Check every config against the rules in this file:
 
 ```sh
-python3 src/validate.py
+go -C src run ./cmd/llamapreset validate
 ```
 
 Measure a model's VRAM. This reads GGUF headers over the network. It does not download models:
 
 ```sh
-python3 src/measure.py --missing
+go -C src run ./cmd/llamapreset measure --missing
 ```
 
-It runs `gguf-parser` for you and writes the results into `configs/vram-estimates.json`.
-It saves after every measurement, so you can stop it and run it again to carry on.
+It writes the results into `configs/vram-estimates.json`. It saves after every measurement,
+so you can stop it and run it again to carry on.
 
 Test that a config file works:
 
@@ -79,24 +81,24 @@ This test takes about 6 seconds. You do not need any models on disk to run it.
 
 1. Create `configs/<provider>/<model-id>.ini`.
 2. Write the section as `[<model-id>]`. Use the same name as the file.
-3. Add these comments. `src/measure.py` and `MODELS.md` need them:
+3. Add these comments. `measure` and `MODELS.md` need them:
    `; repo: unsloth/<Repo>-GGUF`, `; params: 27B` (or `30B-A3B` for MoE), and
    `; tags: vision, reasoning` (leave out if it is a plain text model).
 4. Add sampling settings. Copy them from the model author's docs. Add a comment saying where they came from.
-5. Run `python3 src/measure.py --missing`.
-6. Run `python3 src/build.py`.
+5. Run `go -C src run ./cmd/llamapreset measure --missing`.
+6. Run `go -C src run ./cmd/llamapreset build`.
 7. Test with `llama-server`.
 
-If you skip step 5, `src/build.py` stops with an error and tells you what to run.
+If you skip step 5, the build stops with an error and tells you what to run.
 
 ## How the build works
 
 ```
 configs/<provider>/<model>.ini   you edit these
-configs/vram-estimates.json      src/measure.py writes this
+configs/vram-estimates.json      llamapreset measure writes this
         |
         v
-src/build.py                     you run this
+src/cmd/llamapreset              you run this
         |
         v
 dist/vram-<NN>gb.ini             do not edit these
@@ -112,7 +114,7 @@ Each budget is built three ways:
 | `balanced` | `q8_0` | at least 64K context, then the best quant |
 | `context` | `q8_0` down to `q4_0` | most context first, trading KV precision to get it |
 
-For each budget, `src/build.py` keeps `size - 1 GiB` and picks the best
+For each budget, the build keeps `size - 1 GiB` and picks the best
 (quant, context, KV type) triple for that profile. A model is included if any triple fits.
 
 `f16` KV is lossless. `q8_0` is near-lossless and roughly halves the cache. `q4_0` halves it
@@ -138,9 +140,9 @@ qwen3.8-27b at 24 GB is the case where all three differ:
 | `balanced` | `UD-Q5_K_XL` at 64K, `q8_0` KV | `qwen3.8-27b-ud-q5_k_xl-64k-q8_0` |
 | `context` | `UD-Q4_K_XL` at 256K, `q4_0` KV | `qwen3.8-27b-ud-q4_k_xl-256k-q4_0` |
 
-Two setups must never produce the same name — llama.cpp refuses to start with
-`model 'x' appears multiple times`. `build.py` fails the build if it happens, and
-`validate.py` checks `dist/` for it as well.
+Two setups must never produce the same name - llama.cpp refuses to start with
+`model 'x' appears multiple times`. `build` fails if it happens, and `validate` checks
+`dist/` for it as well.
 
 ### How the numbers work
 
@@ -158,6 +160,12 @@ VRAM(quant, ctx, kv) = ref_curves[kv][ctx] + quants[quant] - quants[ref_quant]
 ```
 
 This is why one curve per KV type per model is enough, instead of measuring every combination.
+
+Measurement reads GGUF headers over the network. Nothing is downloaded.
+
+Every number is reproducible. Delete one, run `measure` again, and the same number comes back.
+If a re-measured number comes back **different**, stop. Do not commit it. Read
+[src/README.md](src/README.md) first.
 
 The build step exists because llama.cpp config files cannot include other files. There is no `include` keyword. So the files must be joined together before llama.cpp sees them.
 
@@ -258,20 +266,21 @@ Some keys only exist in config files, not on the command line. They are listed i
 
 ## Before you finish
 
-Run these two commands. Both must succeed:
+Run these three commands. All must succeed:
 
 ```sh
-python3 src/build.py
-python3 src/validate.py
+go -C src test ./...
+go -C src run ./cmd/llamapreset build
+go -C src run ./cmd/llamapreset validate
 ```
 
-`validate.py` checks every rule in this file. If it fails, it prints the file, the line, the
+`validate` checks every rule in this file. If it fails, it prints the file, the line, the
 problem, and the fix. Fix the problems and run it again. Do not stop while it still fails.
 
-If you have no network access, use `python3 src/validate.py --skip-keys`. That skips only the
+If you have no network access, use `go -C src run ./cmd/llamapreset validate --skip-keys`. That skips only the
 check for unknown llama.cpp keys.
 
-GitHub Actions runs these same two commands on every pull request. A push to `main` that changes
+GitHub Actions runs these same three commands on every pull request. A push to `main` that changes
 `configs/` or `src/` builds `dist/` and publishes it as a new release.
 
 ## Version note
