@@ -19,6 +19,40 @@ const (
 // we will ship.
 var KVFidelity = []string{"f16", "q8_0", "q5_1", "q4_0"}
 
+// QuantLadder is every quant we ship, best quality first. It is the one place
+// the band and its order are defined: measure only looks for these, validate
+// only accepts these, and pick ranks by position here.
+//
+// The order is spelled out rather than derived from measured size, because size
+// is not a reliable proxy. Qwen3-30B-A3B ships UD-Q4_K_XL at 16.48 GiB and
+// Q4_K_M at 17.28 GiB; gemma-3-27b-it ships the same pair at 15.67 and 15.41.
+// A size-derived rank therefore flips the two families between models, and on
+// half of them ranks a plain quant above the dynamic quant of the same bit
+// level. Bit level decides first, and within a level Unsloth's dynamic quant
+// beats the plain one.
+//
+// The plain quants are not redundant: unsloth/gpt-oss-20b-GGUF publishes only
+// UD-Q4_K_XL and UD-Q6_K_XL, so Q5_K_M is what covers its Q5 rung.
+var QuantLadder = []string{
+	"UD-Q6_K_XL",
+	"Q6_K",
+	"UD-Q5_K_XL",
+	"Q5_K_M",
+	"UD-Q4_K_XL",
+	"Q4_K_M",
+	"UD-Q3_K_XL",
+}
+
+// quantRank is the quality rank of a quant, higher is better. A quant off the
+// ladder ranks below all of them, so a stale measurement can never win a pick.
+var quantRank = func() map[string]int {
+	out := make(map[string]int, len(QuantLadder))
+	for i, q := range QuantLadder {
+		out[q] = len(QuantLadder) - i
+	}
+	return out
+}()
+
 type Profile struct {
 	Name  string
 	KV    []string
@@ -97,7 +131,6 @@ func candidates(d *ModelData, budget float64, ctxCap int, kvAllowed []string) []
 			continue
 		}
 		top := ladder[len(ladder)-1]
-		// QuantKeys is the file's order, and it decides ties further down.
 		for _, quant := range d.QuantKeys {
 			for _, ctx := range ladder {
 				if ctx < MinCtx && ctx != top {
@@ -124,13 +157,6 @@ func pick(d *ModelData, budget float64, profile Profile, ctxCap int) (candidate,
 		return candidate{}, false
 	}
 
-	// Quant rank: cheapest first, ties keeping file order.
-	ranked := append([]string(nil), d.QuantKeys...)
-	sort.SliceStable(ranked, func(i, j int) bool { return d.Quants[ranked[i]] < d.Quants[ranked[j]] })
-	qrank := make(map[string]int, len(ranked))
-	for i, q := range ranked {
-		qrank[q] = i
-	}
 	krank := make(map[string]int, len(KVFidelity))
 	for i, kv := range KVFidelity {
 		krank[kv] = len(KVFidelity) - i // higher is better fidelity
@@ -150,11 +176,11 @@ func pick(d *ModelData, budget float64, profile Profile, ctxCap int) (candidate,
 	switch profile.Name {
 	case "quality":
 		return best(opts, func(c candidate) [3]int {
-			return [3]int{krank[c.kv], qrank[c.quant], c.ctx}
+			return [3]int{krank[c.kv], quantRank[c.quant], c.ctx}
 		}), true
 	case "context":
 		return best(opts, func(c candidate) [3]int {
-			return [3]int{c.ctx, qrank[c.quant], krank[c.kv]}
+			return [3]int{c.ctx, quantRank[c.quant], krank[c.kv]}
 		}), true
 	}
 
@@ -178,15 +204,15 @@ func pick(d *ModelData, budget float64, profile Profile, ctxCap int) (candidate,
 	if len(good) == 0 {
 		good = opts
 	}
-	bestQ := qrank[good[0].quant]
+	bestQ := quantRank[good[0].quant]
 	for _, c := range good {
-		if qrank[c.quant] > bestQ {
-			bestQ = qrank[c.quant]
+		if quantRank[c.quant] > bestQ {
+			bestQ = quantRank[c.quant]
 		}
 	}
 	pool := make([]candidate, 0, len(good))
 	for _, c := range good {
-		if qrank[c.quant] == bestQ {
+		if quantRank[c.quant] == bestQ {
 			pool = append(pool, c)
 		}
 	}

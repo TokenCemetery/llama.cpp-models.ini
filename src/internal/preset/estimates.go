@@ -23,9 +23,9 @@ type Estimates struct {
 // ModelData is one model's measurements.
 //
 // QuantKeys is the file's own order (measure writes it sorted by VRAM
-// ascending) and the candidate loop walks it in that order. Since a pick
-// resolves ties by taking the first maximal option, that order is load-bearing:
-// re-sorting it would silently change which quant some models get.
+// ascending) and the candidate loop walks it in that order. It only decides
+// which measurements exist, not which one wins: quality order comes from
+// QuantLadder in plan.go.
 type ModelData struct {
 	obj *jsonObject
 

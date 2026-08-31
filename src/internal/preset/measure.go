@@ -42,6 +42,11 @@ const (
 	refKV  = "q8_0" // KV type the quants table is measured with
 	hfAPI  = "https://huggingface.co/api/models/"
 
+	// parseTimeout bounds one attempt at reading a GGUF header. Reading a
+	// header is a couple of range requests, so a healthy one finishes in
+	// seconds; this only has to be generous enough not to fire on a slow link.
+	parseTimeout = 90 * time.Second
+
 	// The gguf-parser CLI adds a fixed footprint on top of the model's own
 	// usage, and the recorded numbers include it. Passing zero here instead
 	// silently lowers every figure by 0.24 GiB, which changes which models fit
@@ -66,18 +71,17 @@ var ladder = []int{4096, 8192, 16384, 32768, 65536, 131072, 262144}
 
 // refPreference is the order in which the quant whose context curve gets
 // measured is chosen.
-var refPreference = []string{"UD-Q4_K_XL", "UD-Q4_K_M", "Q4_K_M", "UD-Q3_K_XL"}
+var refPreference = []string{"UD-Q4_K_XL", "Q4_K_M", "UD-Q3_K_XL"}
 
-// Kept in step with the "Only use these quants" rule in AGENTS.md.
-var measurableQuants = []string{
-	"UD-Q3_K_XL", "Q4_K_M", "UD-Q4_K_M", "UD-Q4_K_XL",
-	"Q5_K_M", "UD-Q5_K_M", "UD-Q5_K_XL", "Q6_K", "UD-Q6_K",
-}
-
-// quantRe matches the quant tag at the end of a GGUF filename. Alternation
-// order follows measurableQuants, and Go's regexp is leftmost-first like
-// Python's, so "UD-Q4_K_M" wins over the "Q4_K_M" inside it.
-var quantRe = regexp.MustCompile(`(?i)(` + strings.Join(measurableQuants, "|") + `)\.gguf$`)
+// quantTagRe captures whatever quant tag a GGUF filename ends with, in band or
+// not. quantOf then compares it against QuantLadder.
+//
+// Matching generically and comparing afterwards is what keeps an out-of-band
+// name from being read as an in-band one. An alternation of just the band would
+// match the "Q6_K" inside "UD-Q6_K.gguf" - the trailing ".gguf" anchor does not
+// help, because that tag really does end the name - so every old-style
+// "UD-Q<n>_K_M" file would be recorded as the plain quant it contains.
+var quantTagRe = regexp.MustCompile(`(?i)-((?:UD-)?[A-Z]*Q[0-9][A-Za-z0-9_]*)\.gguf$`)
 
 var sidecarPrefixes = []string{"mtp-", "dspark-", "dflash-"}
 
@@ -110,7 +114,11 @@ func estimate(ctx context.Context, repo, file string, ctxSize int, kv string) (i
 		if err := ctx.Err(); err != nil {
 			return 0, 0, err
 		}
-		gf, err := gguf.ParseGGUFFileFromHuggingFace(ctx, repo, file)
+		// Each attempt gets its own deadline. Without one, a connection to the
+		// HF CDN that stops responding mid-handshake never returns an error, so
+		// the retry below never fires and the whole run stalls at 0% CPU with
+		// its workers parked forever.
+		gf, err := parseWithTimeout(ctx, repo, file)
 		if err != nil {
 			lastErr = err
 			continue
@@ -135,6 +143,14 @@ func estimate(ctx context.Context, repo, file string, ctxSize int, kv string) (i
 		return int(e.ContextSize), gib, nil
 	}
 	return 0, 0, lastErr
+}
+
+// parseWithTimeout reads one GGUF header, giving up after parseTimeout so a
+// stalled connection becomes a retryable error instead of a parked worker.
+func parseWithTimeout(ctx context.Context, repo, file string) (*gguf.GGUFFile, error) {
+	ctx, cancel := context.WithTimeout(ctx, parseTimeout)
+	defer cancel()
+	return gguf.ParseGGUFFileFromHuggingFace(ctx, repo, file)
 }
 
 type hfModel struct {
@@ -172,7 +188,7 @@ func inBandFiles(ctx context.Context, repo string) ([]string, error) {
 			base = name[i+1:]
 		}
 		lower := strings.ToLower(base)
-		if !strings.HasSuffix(name, ".gguf") || !quantRe.MatchString(name) {
+		if !strings.HasSuffix(name, ".gguf") || quantOf(name) == "" {
 			continue
 		}
 		if strings.Contains(lower, "mmproj") {
@@ -192,12 +208,19 @@ func inBandFiles(ctx context.Context, repo string) ([]string, error) {
 	return files, nil
 }
 
+// quantOf is the QuantLadder entry a GGUF filename holds, or "" when the file
+// is out of band. The returned name is the ladder's spelling, not the file's.
 func quantOf(filename string) string {
-	m := quantRe.FindStringSubmatch(filename)
+	m := quantTagRe.FindStringSubmatch(filename)
 	if m == nil {
 		return ""
 	}
-	return m[1]
+	for _, q := range QuantLadder {
+		if strings.EqualFold(q, m[1]) {
+			return q
+		}
+	}
+	return ""
 }
 
 func ladderFor(maxCtx int) []int {

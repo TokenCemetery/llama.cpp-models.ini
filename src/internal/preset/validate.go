@@ -24,12 +24,10 @@ const (
 var (
 	forbiddenKeys = []string{"host", "port", "api-key"}
 	// KV cache types the profiles in plan.go need a measured curve for.
-	neededKV      = []string{"f16", "q8_0", "q5_1", "q4_0"}
-	allowedQuants = []string{
-		"UD-Q3_K_XL", "Q4_K_M", "UD-Q4_K_M", "UD-Q4_K_XL",
-		"Q5_K_M", "UD-Q5_K_M", "UD-Q5_K_XL", "Q6_K", "UD-Q6_K",
-	}
-	pathLikeKeys = []string{"model", "mmproj", "model-draft", "hf-repo"}
+	neededKV = []string{"f16", "q8_0", "q5_1", "q4_0"}
+	// The band is QuantLadder in plan.go.
+	allowedQuants = QuantLadder
+	pathLikeKeys  = []string{"model", "mmproj", "model-draft", "hf-repo"}
 )
 
 type ValidateOptions struct {

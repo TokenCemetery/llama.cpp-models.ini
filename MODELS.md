@@ -99,11 +99,11 @@ Devstral 2 Small 24B (2512) - agentic coding
 | 16 GB | quality | `UD-Q4_K_XL` | `devstral-small-2-24b-instruct-2512-ud-q4_k_xl-4k-f16` | 14.6 GiB |
 | 16 GB | balanced | `UD-Q3_K_XL` | `devstral-small-2-24b-instruct-2512-ud-q3_k_xl-32k-q8_0` | 14.2 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `devstral-small-2-24b-instruct-2512-ud-q3_k_xl-64k-q4_0` | 14.4 GiB |
-| 24 GB | quality | `Q6_K` | `devstral-small-2-24b-instruct-2512-q6_k-16k-f16` | 20.8 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `devstral-small-2-24b-instruct-2512-ud-q6_k_xl-16k-f16` | 22.0 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `devstral-small-2-24b-instruct-2512-ud-q5_k_xl-64k-q8_0` | 21.4 GiB |
 | 24 GB | context | `UD-Q5_K_XL` | `devstral-small-2-24b-instruct-2512-ud-q5_k_xl-128k-q4_0` | 21.9 GiB |
-| 32 GB | quality | `Q6_K` | `devstral-small-2-24b-instruct-2512-q6_k-64k-f16` | 28.5 GiB |
-| 32 GB | balanced | `Q6_K` | `devstral-small-2-24b-instruct-2512-q6_k-128k-q8_0` | 29.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `devstral-small-2-24b-instruct-2512-ud-q6_k_xl-64k-f16` | 29.7 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `devstral-small-2-24b-instruct-2512-ud-q6_k_xl-128k-q8_0` | 30.5 GiB |
 | 32 GB | context | `UD-Q3_K_XL` | `devstral-small-2-24b-instruct-2512-ud-q3_k_xl-384k-q4_0` | 29.6 GiB |
 
 ### devstral-small-2507
@@ -115,11 +115,11 @@ Devstral Small 24B (2507) - agentic coding
 | 16 GB | quality | `UD-Q4_K_XL` | `devstral-small-2507-ud-q4_k_xl-4k-f16` | 14.6 GiB |
 | 16 GB | balanced | `UD-Q3_K_XL` | `devstral-small-2507-ud-q3_k_xl-32k-q8_0` | 14.2 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `devstral-small-2507-ud-q3_k_xl-64k-q4_0` | 14.4 GiB |
-| 24 GB | quality | `Q6_K` | `devstral-small-2507-q6_k-16k-f16` | 20.8 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `devstral-small-2507-ud-q6_k_xl-16k-f16` | 22.0 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `devstral-small-2507-ud-q5_k_xl-64k-q8_0` | 21.4 GiB |
 | 24 GB | context | `UD-Q5_K_XL` | `devstral-small-2507-ud-q5_k_xl-128k-q4_0` | 21.9 GiB |
-| 32 GB | quality | `Q6_K` | `devstral-small-2507-q6_k-64k-f16` | 28.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `devstral-small-2507-q6_k-128k-q8_0` | 29.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `devstral-small-2507-ud-q6_k_xl-64k-f16` | 29.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `devstral-small-2507-ud-q6_k_xl-128k-q8_0` | 30.5 GiB |
 
 ### functiongemma-270m-it
 
@@ -127,16 +127,16 @@ FunctionGemma 270M - function calling, based on Gemma 3 270M
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `functiongemma-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 4 GB | balanced, context | `Q6_K` | `functiongemma-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
-| 8 GB | quality | `Q6_K` | `functiongemma-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 8 GB | balanced, context | `Q6_K` | `functiongemma-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
-| 16 GB | quality | `Q6_K` | `functiongemma-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 16 GB | balanced, context | `Q6_K` | `functiongemma-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
-| 24 GB | quality | `Q6_K` | `functiongemma-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 24 GB | balanced, context | `Q6_K` | `functiongemma-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
-| 32 GB | quality | `Q6_K` | `functiongemma-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 32 GB | balanced, context | `Q6_K` | `functiongemma-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 4 GB | balanced, context | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `functiongemma-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
 
 ### gemma-3-12b-it
 
@@ -144,13 +144,13 @@ Gemma 3 12B - text + vision, 128K context
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 16 GB | quality | `Q6_K` | `gemma-3-12b-it-q6_k-32k-f16` | 13.2 GiB |
-| 16 GB | balanced | `Q6_K` | `gemma-3-12b-it-q6_k-64k-q8_0` | 13.0 GiB |
-| 16 GB | context | `Q6_K` | `gemma-3-12b-it-q6_k-128k-q5_1` | 13.9 GiB |
-| 24 GB | quality | `Q6_K` | `gemma-3-12b-it-q6_k-128k-f16` | 20.1 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gemma-3-12b-it-q6_k-128k-q8_0` | 15.4 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-3-12b-it-q6_k-128k-f16` | 20.1 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-3-12b-it-q6_k-128k-q8_0` | 15.4 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gemma-3-12b-it-ud-q6_k_xl-32k-f16` | 14.1 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `gemma-3-12b-it-ud-q6_k_xl-64k-q8_0` | 13.8 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `gemma-3-12b-it-ud-q6_k_xl-128k-q5_1` | 14.7 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gemma-3-12b-it-ud-q6_k_xl-128k-f16` | 20.9 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-12b-it-ud-q6_k_xl-128k-q8_0` | 16.2 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-3-12b-it-ud-q6_k_xl-128k-f16` | 20.9 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-12b-it-ud-q6_k_xl-128k-q8_0` | 16.2 GiB |
 
 ### gemma-3-1b-it
 
@@ -158,16 +158,16 @@ Gemma 3 1B - text only, 32K context
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `gemma-3-1b-it-q6_k-32k-f16` | 2.4 GiB |
-| 4 GB | balanced, context | `Q6_K` | `gemma-3-1b-it-q6_k-32k-q8_0` | 2.3 GiB |
-| 8 GB | quality | `Q6_K` | `gemma-3-1b-it-q6_k-32k-f16` | 2.4 GiB |
-| 8 GB | balanced, context | `Q6_K` | `gemma-3-1b-it-q6_k-32k-q8_0` | 2.3 GiB |
-| 16 GB | quality | `Q6_K` | `gemma-3-1b-it-q6_k-32k-f16` | 2.4 GiB |
-| 16 GB | balanced, context | `Q6_K` | `gemma-3-1b-it-q6_k-32k-q8_0` | 2.3 GiB |
-| 24 GB | quality | `Q6_K` | `gemma-3-1b-it-q6_k-32k-f16` | 2.4 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gemma-3-1b-it-q6_k-32k-q8_0` | 2.3 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-3-1b-it-q6_k-32k-f16` | 2.4 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-3-1b-it-q6_k-32k-q8_0` | 2.3 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-f16` | 2.5 GiB |
+| 4 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-q8_0` | 2.4 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-f16` | 2.5 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-q8_0` | 2.4 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-f16` | 2.5 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-q8_0` | 2.4 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-f16` | 2.5 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-q8_0` | 2.4 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-f16` | 2.5 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-1b-it-ud-q6_k_xl-32k-q8_0` | 2.4 GiB |
 
 ### gemma-3-270m-it
 
@@ -175,16 +175,16 @@ Gemma 3 270M - text only, 32K context
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `gemma-3-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 4 GB | balanced, context | `Q6_K` | `gemma-3-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
-| 8 GB | quality | `Q6_K` | `gemma-3-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 8 GB | balanced, context | `Q6_K` | `gemma-3-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
-| 16 GB | quality | `Q6_K` | `gemma-3-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 16 GB | balanced, context | `Q6_K` | `gemma-3-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
-| 24 GB | quality | `Q6_K` | `gemma-3-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gemma-3-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-3-270m-it-q6_k-32k-f16` | 1.7 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-3-270m-it-q6_k-32k-q8_0` | 1.6 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 4 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-f16` | 1.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-270m-it-ud-q6_k_xl-32k-q8_0` | 1.6 GiB |
 
 ### gemma-3-27b-it
 
@@ -197,8 +197,8 @@ Gemma 3 27B - text + vision, 128K context
 | 24 GB | quality | `UD-Q5_K_XL` | `gemma-3-27b-it-ud-q5_k_xl-16k-f16` | 21.8 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `gemma-3-27b-it-ud-q5_k_xl-64k-q8_0` | 22.7 GiB |
 | 24 GB | context | `UD-Q5_K_XL` | `gemma-3-27b-it-ud-q5_k_xl-128k-q4_0` | 22.7 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-3-27b-it-q6_k-64k-f16` | 28.3 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-3-27b-it-q6_k-128k-q8_0` | 28.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-3-27b-it-ud-q6_k_xl-64k-f16` | 29.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-27b-it-ud-q6_k_xl-128k-q8_0` | 29.8 GiB |
 
 ### gemma-3-4b-it
 
@@ -206,14 +206,14 @@ Gemma 3 4B - text + vision, 128K context
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 8 GB | quality | `Q6_K` | `gemma-3-4b-it-q6_k-64k-f16` | 5.9 GiB |
-| 8 GB | balanced, context | `Q6_K` | `gemma-3-4b-it-q6_k-128k-q8_0` | 6.0 GiB |
-| 16 GB | quality | `Q6_K` | `gemma-3-4b-it-q6_k-128k-f16` | 7.4 GiB |
-| 16 GB | balanced, context | `Q6_K` | `gemma-3-4b-it-q6_k-128k-q8_0` | 6.0 GiB |
-| 24 GB | quality | `Q6_K` | `gemma-3-4b-it-q6_k-128k-f16` | 7.4 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gemma-3-4b-it-q6_k-128k-q8_0` | 6.0 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-3-4b-it-q6_k-128k-f16` | 7.4 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-3-4b-it-q6_k-128k-q8_0` | 6.0 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `gemma-3-4b-it-ud-q6_k_xl-64k-f16` | 6.3 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-4b-it-ud-q6_k_xl-128k-q8_0` | 6.3 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gemma-3-4b-it-ud-q6_k_xl-128k-f16` | 7.8 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-4b-it-ud-q6_k_xl-128k-q8_0` | 6.3 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gemma-3-4b-it-ud-q6_k_xl-128k-f16` | 7.8 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-4b-it-ud-q6_k_xl-128k-q8_0` | 6.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-3-4b-it-ud-q6_k_xl-128k-f16` | 7.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3-4b-it-ud-q6_k_xl-128k-q8_0` | 6.3 GiB |
 
 ### gemma-3n-e2b-it
 
@@ -224,14 +224,14 @@ Gemma 3n E2B - image, audio, video and text input
 | 4 GB | quality | `Q5_K_M` | `gemma-3n-e2b-it-q5_k_m-8k-f16` | 3.0 GiB |
 | 4 GB | balanced | `UD-Q4_K_XL` | `gemma-3n-e2b-it-ud-q4_k_xl-32k-q8_0` | 2.9 GiB |
 | 4 GB | context | `Q5_K_M` | `gemma-3n-e2b-it-q5_k_m-32k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `gemma-3n-e2b-it-q6_k-32k-f16` | 3.5 GiB |
-| 8 GB | balanced, context | `Q6_K` | `gemma-3n-e2b-it-q6_k-32k-q8_0` | 3.3 GiB |
-| 16 GB | quality | `Q6_K` | `gemma-3n-e2b-it-q6_k-32k-f16` | 3.5 GiB |
-| 16 GB | balanced, context | `Q6_K` | `gemma-3n-e2b-it-q6_k-32k-q8_0` | 3.3 GiB |
-| 24 GB | quality | `Q6_K` | `gemma-3n-e2b-it-q6_k-32k-f16` | 3.5 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gemma-3n-e2b-it-q6_k-32k-q8_0` | 3.3 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-3n-e2b-it-q6_k-32k-f16` | 3.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-3n-e2b-it-q6_k-32k-q8_0` | 3.3 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `gemma-3n-e2b-it-ud-q6_k_xl-32k-f16` | 3.7 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3n-e2b-it-ud-q6_k_xl-32k-q8_0` | 3.6 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gemma-3n-e2b-it-ud-q6_k_xl-32k-f16` | 3.7 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3n-e2b-it-ud-q6_k_xl-32k-q8_0` | 3.6 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gemma-3n-e2b-it-ud-q6_k_xl-32k-f16` | 3.7 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3n-e2b-it-ud-q6_k_xl-32k-q8_0` | 3.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-3n-e2b-it-ud-q6_k_xl-32k-f16` | 3.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3n-e2b-it-ud-q6_k_xl-32k-q8_0` | 3.6 GiB |
 
 ### gemma-3n-e4b-it
 
@@ -239,14 +239,14 @@ Gemma 3n E4B - image, audio, video and text input
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 8 GB | quality | `Q6_K` | `gemma-3n-e4b-it-q6_k-32k-f16` | 5.1 GiB |
-| 8 GB | balanced, context | `Q6_K` | `gemma-3n-e4b-it-q6_k-32k-q8_0` | 4.9 GiB |
-| 16 GB | quality | `Q6_K` | `gemma-3n-e4b-it-q6_k-32k-f16` | 5.1 GiB |
-| 16 GB | balanced, context | `Q6_K` | `gemma-3n-e4b-it-q6_k-32k-q8_0` | 4.9 GiB |
-| 24 GB | quality | `Q6_K` | `gemma-3n-e4b-it-q6_k-32k-f16` | 5.1 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gemma-3n-e4b-it-q6_k-32k-q8_0` | 4.9 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-3n-e4b-it-q6_k-32k-f16` | 5.1 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-3n-e4b-it-q6_k-32k-q8_0` | 4.9 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `gemma-3n-e4b-it-ud-q6_k_xl-32k-f16` | 5.4 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3n-e4b-it-ud-q6_k_xl-32k-q8_0` | 5.2 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gemma-3n-e4b-it-ud-q6_k_xl-32k-f16` | 5.4 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3n-e4b-it-ud-q6_k_xl-32k-q8_0` | 5.2 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gemma-3n-e4b-it-ud-q6_k_xl-32k-f16` | 5.4 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3n-e4b-it-ud-q6_k_xl-32k-q8_0` | 5.2 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-3n-e4b-it-ud-q6_k_xl-32k-f16` | 5.4 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-3n-e4b-it-ud-q6_k_xl-32k-q8_0` | 5.2 GiB |
 
 ### gemma-4-12b-it
 
@@ -254,13 +254,13 @@ Gemma 4 12B-it - unified text/image/audio, hybrid thinking, 256K max context
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 16 GB | quality | `Q6_K` | `gemma-4-12b-it-q6_k-64k-f16` | 13.0 GiB |
-| 16 GB | balanced | `Q6_K` | `gemma-4-12b-it-q6_k-128k-q8_0` | 12.9 GiB |
-| 16 GB | context | `Q6_K` | `gemma-4-12b-it-q6_k-256k-q5_1` | 14.0 GiB |
-| 24 GB | quality | `Q6_K` | `gemma-4-12b-it-q6_k-256k-f16` | 19.6 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gemma-4-12b-it-q6_k-256k-q8_0` | 15.4 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-4-12b-it-q6_k-256k-f16` | 19.6 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-4-12b-it-q6_k-256k-q8_0` | 15.4 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gemma-4-12b-it-ud-q6_k_xl-64k-f16` | 13.8 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `gemma-4-12b-it-ud-q6_k_xl-128k-q8_0` | 13.7 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `gemma-4-12b-it-ud-q6_k_xl-256k-q5_1` | 14.8 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gemma-4-12b-it-ud-q6_k_xl-256k-f16` | 20.4 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-12b-it-ud-q6_k_xl-256k-q8_0` | 16.2 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-4-12b-it-ud-q6_k_xl-256k-f16` | 20.4 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-12b-it-ud-q6_k_xl-256k-q8_0` | 16.2 GiB |
 
 ### gemma-4-26b-a4b-it
 
@@ -274,8 +274,8 @@ Gemma 4 26B-A4B-it - sparse MoE (4B active), multimodal, hybrid thinking
 | 24 GB | quality | `UD-Q5_K_XL` | `gemma-4-26b-a4b-it-ud-q5_k_xl-32k-f16` | 22.3 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `gemma-4-26b-a4b-it-ud-q5_k_xl-64k-q8_0` | 22.2 GiB |
 | 24 GB | context | `UD-Q4_K_XL` | `gemma-4-26b-a4b-it-ud-q4_k_xl-256k-q8_0` | 22.4 GiB |
-| 32 GB | quality | `UD-Q6_K` | `gemma-4-26b-a4b-it-ud-q6_k-128k-f16` | 27.8 GiB |
-| 32 GB | balanced, context | `UD-Q6_K` | `gemma-4-26b-a4b-it-ud-q6_k-256k-q8_0` | 28.2 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-4-26b-a4b-it-ud-q6_k_xl-128k-f16` | 27.9 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-26b-a4b-it-ud-q6_k_xl-256k-q8_0` | 28.3 GiB |
 
 ### gemma-4-31b-it
 
@@ -286,7 +286,7 @@ Gemma 4 31B-it - dense, multimodal, hybrid thinking, 256K max context
 | 24 GB | quality | `UD-Q4_K_XL` | `gemma-4-31b-it-ud-q4_k_xl-16k-f16` | 22.5 GiB |
 | 24 GB | balanced | `UD-Q3_K_XL` | `gemma-4-31b-it-ud-q3_k_xl-64k-q8_0` | 20.3 GiB |
 | 24 GB | context | `Q4_K_M` | `gemma-4-31b-it-q4_k_m-128k-q4_0` | 22.8 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-4-31b-it-q6_k-32k-f16` | 30.2 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-4-31b-it-ud-q6_k_xl-16k-f16` | 30.6 GiB |
 | 32 GB | balanced | `Q6_K` | `gemma-4-31b-it-q6_k-64k-q8_0` | 29.4 GiB |
 | 32 GB | context | `UD-Q5_K_XL` | `gemma-4-31b-it-ud-q5_k_xl-256k-q4_0` | 30.5 GiB |
 
@@ -299,14 +299,14 @@ Gemma 4 E2B-it - multimodal (text/image/audio), hybrid thinking, 256K max contex
 | 4 GB | quality | `UD-Q5_K_XL` | `gemma-4-e2b-it-ud-q5_k_xl-8k-f16` | 3.0 GiB |
 | 4 GB | balanced | `Q4_K_M` | `gemma-4-e2b-it-q4_k_m-64k-q8_0` | 2.9 GiB |
 | 4 GB | context | `UD-Q3_K_XL` | `gemma-4-e2b-it-ud-q3_k_xl-128k-q5_1` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `gemma-4-e2b-it-q6_k-128k-f16` | 4.1 GiB |
-| 8 GB | balanced, context | `Q6_K` | `gemma-4-e2b-it-q6_k-128k-q8_0` | 3.7 GiB |
-| 16 GB | quality | `Q6_K` | `gemma-4-e2b-it-q6_k-128k-f16` | 4.1 GiB |
-| 16 GB | balanced, context | `Q6_K` | `gemma-4-e2b-it-q6_k-128k-q8_0` | 3.7 GiB |
-| 24 GB | quality | `Q6_K` | `gemma-4-e2b-it-q6_k-128k-f16` | 4.1 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gemma-4-e2b-it-q6_k-128k-q8_0` | 3.7 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-4-e2b-it-q6_k-128k-f16` | 4.1 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-4-e2b-it-q6_k-128k-q8_0` | 3.7 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `gemma-4-e2b-it-ud-q6_k_xl-128k-f16` | 4.3 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-e2b-it-ud-q6_k_xl-128k-q8_0` | 3.9 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gemma-4-e2b-it-ud-q6_k_xl-128k-f16` | 4.3 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-e2b-it-ud-q6_k_xl-128k-q8_0` | 3.9 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gemma-4-e2b-it-ud-q6_k_xl-128k-f16` | 4.3 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-e2b-it-ud-q6_k_xl-128k-q8_0` | 3.9 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-4-e2b-it-ud-q6_k_xl-128k-f16` | 4.3 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-e2b-it-ud-q6_k_xl-128k-q8_0` | 3.9 GiB |
 
 ### gemma-4-e4b-it
 
@@ -314,14 +314,14 @@ Gemma 4 E4B-it - multimodal (text/image/audio), hybrid thinking, 256K max contex
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 8 GB | quality | `Q6_K` | `gemma-4-e4b-it-q6_k-64k-f16` | 6.2 GiB |
-| 8 GB | balanced, context | `Q6_K` | `gemma-4-e4b-it-q6_k-128k-q8_0` | 6.4 GiB |
-| 16 GB | quality | `Q6_K` | `gemma-4-e4b-it-q6_k-128k-f16` | 7.5 GiB |
-| 16 GB | balanced, context | `Q6_K` | `gemma-4-e4b-it-q6_k-128k-q8_0` | 6.4 GiB |
-| 24 GB | quality | `Q6_K` | `gemma-4-e4b-it-q6_k-128k-f16` | 7.5 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gemma-4-e4b-it-q6_k-128k-q8_0` | 6.4 GiB |
-| 32 GB | quality | `Q6_K` | `gemma-4-e4b-it-q6_k-128k-f16` | 7.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gemma-4-e4b-it-q6_k-128k-q8_0` | 6.4 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `gemma-4-e4b-it-ud-q6_k_xl-64k-f16` | 6.6 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-e4b-it-ud-q6_k_xl-128k-q8_0` | 6.7 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gemma-4-e4b-it-ud-q6_k_xl-128k-f16` | 7.8 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-e4b-it-ud-q6_k_xl-128k-q8_0` | 6.7 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gemma-4-e4b-it-ud-q6_k_xl-128k-f16` | 7.8 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-e4b-it-ud-q6_k_xl-128k-q8_0` | 6.7 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gemma-4-e4b-it-ud-q6_k_xl-128k-f16` | 7.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gemma-4-e4b-it-ud-q6_k_xl-128k-q8_0` | 6.7 GiB |
 
 ### glm-4.7-flash
 
@@ -334,9 +334,9 @@ GLM-4.7-Flash 30B MoE (~3.6B active) - coding and agentic
 | 16 GB | context | `UD-Q3_K_XL` | `glm-4.7-flash-ud-q3_k_xl-64k-q5_1` | 14.7 GiB |
 | 24 GB | quality | `UD-Q5_K_XL` | `glm-4.7-flash-ud-q5_k_xl-32k-f16` | 22.4 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `glm-4.7-flash-ud-q5_k_xl-64k-q8_0` | 22.5 GiB |
-| 24 GB | context | `Q4_K_M` | `glm-4.7-flash-q4_k_m-198k-q5_1` | 21.6 GiB |
-| 32 GB | quality | `Q6_K` | `glm-4.7-flash-q6_k-128k-f16` | 29.8 GiB |
-| 32 GB | balanced, context | `Q6_K` | `glm-4.7-flash-q6_k-198k-q8_0` | 28.9 GiB |
+| 24 GB | context | `UD-Q4_K_XL` | `glm-4.7-flash-ud-q4_k_xl-198k-q8_0` | 22.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `glm-4.7-flash-ud-q6_k_xl-64k-f16` | 28.0 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `glm-4.7-flash-ud-q6_k_xl-198k-q8_0` | 30.2 GiB |
 
 ### gpt-oss-20b
 
@@ -344,12 +344,12 @@ gpt-oss-20b - OpenAI open-weight reasoning MoE
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 16 GB | quality | `Q6_K` | `gpt-oss-20b-q6_k-128k-f16` | 15.0 GiB |
-| 16 GB | balanced, context | `Q6_K` | `gpt-oss-20b-q6_k-128k-q8_0` | 13.5 GiB |
-| 24 GB | quality | `Q6_K` | `gpt-oss-20b-q6_k-128k-f16` | 15.0 GiB |
-| 24 GB | balanced, context | `Q6_K` | `gpt-oss-20b-q6_k-128k-q8_0` | 13.5 GiB |
-| 32 GB | quality | `Q6_K` | `gpt-oss-20b-q6_k-128k-f16` | 15.0 GiB |
-| 32 GB | balanced, context | `Q6_K` | `gpt-oss-20b-q6_k-128k-q8_0` | 13.5 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `gpt-oss-20b-ud-q6_k_xl-128k-f16` | 15.0 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `gpt-oss-20b-ud-q6_k_xl-128k-q8_0` | 13.5 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `gpt-oss-20b-ud-q6_k_xl-128k-f16` | 15.0 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `gpt-oss-20b-ud-q6_k_xl-128k-q8_0` | 13.5 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `gpt-oss-20b-ud-q6_k_xl-128k-f16` | 15.0 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `gpt-oss-20b-ud-q6_k_xl-128k-q8_0` | 13.5 GiB |
 
 ### granite-4.0-h-micro
 
@@ -360,14 +360,14 @@ IBM Granite 4.0 H Micro 3B - hybrid
 | 4 GB | quality | `UD-Q5_K_XL` | `granite-4.0-h-micro-ud-q5_k_xl-16k-f16` | 3.0 GiB |
 | 4 GB | balanced | `UD-Q4_K_XL` | `granite-4.0-h-micro-ud-q4_k_xl-64k-q8_0` | 2.9 GiB |
 | 4 GB | context | `UD-Q3_K_XL` | `granite-4.0-h-micro-ud-q3_k_xl-128k-q5_1` | 2.8 GiB |
-| 8 GB | quality | `Q6_K` | `granite-4.0-h-micro-q6_k-256k-f16` | 6.2 GiB |
-| 8 GB | balanced, context | `Q6_K` | `granite-4.0-h-micro-q6_k-256k-q8_0` | 5.0 GiB |
-| 16 GB | quality | `Q6_K` | `granite-4.0-h-micro-q6_k-256k-f16` | 6.2 GiB |
-| 16 GB | balanced, context | `Q6_K` | `granite-4.0-h-micro-q6_k-1m-q8_0` | 11.3 GiB |
-| 24 GB | quality | `Q6_K` | `granite-4.0-h-micro-q6_k-1m-f16` | 16.0 GiB |
-| 24 GB | balanced, context | `Q6_K` | `granite-4.0-h-micro-q6_k-1m-q8_0` | 11.3 GiB |
-| 32 GB | quality | `Q6_K` | `granite-4.0-h-micro-q6_k-1m-f16` | 16.0 GiB |
-| 32 GB | balanced, context | `Q6_K` | `granite-4.0-h-micro-q6_k-1m-q8_0` | 11.3 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `granite-4.0-h-micro-ud-q6_k_xl-256k-f16` | 6.3 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.0-h-micro-ud-q6_k_xl-256k-q8_0` | 5.2 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `granite-4.0-h-micro-ud-q6_k_xl-256k-f16` | 6.3 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.0-h-micro-ud-q6_k_xl-1m-q8_0` | 11.4 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `granite-4.0-h-micro-ud-q6_k_xl-1m-f16` | 16.1 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.0-h-micro-ud-q6_k_xl-1m-q8_0` | 11.4 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `granite-4.0-h-micro-ud-q6_k_xl-1m-f16` | 16.1 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.0-h-micro-ud-q6_k_xl-1m-q8_0` | 11.4 GiB |
 
 ### granite-4.0-h-small
 
@@ -381,8 +381,8 @@ IBM Granite 4.0 H Small 32B (9B active) - hybrid MoE
 | 24 GB | quality | `UD-Q5_K_XL` | `granite-4.0-h-small-ud-q5_k_xl-32k-f16` | 22.9 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `granite-4.0-h-small-ud-q5_k_xl-64k-q8_0` | 23.0 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `granite-4.0-h-small-ud-q3_k_xl-1m-q4_0` | 22.9 GiB |
-| 32 GB | quality | `Q6_K` | `granite-4.0-h-small-q6_k-128k-f16` | 28.2 GiB |
-| 32 GB | balanced | `Q6_K` | `granite-4.0-h-small-q6_k-256k-q8_0` | 28.7 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `granite-4.0-h-small-ud-q6_k_xl-128k-f16` | 29.4 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `granite-4.0-h-small-ud-q6_k_xl-256k-q8_0` | 30.0 GiB |
 | 32 GB | context | `UD-Q5_K_XL` | `granite-4.0-h-small-ud-q5_k_xl-1m-q4_0` | 30.8 GiB |
 
 ### granite-4.0-h-tiny
@@ -391,15 +391,15 @@ IBM Granite 4.0 H Tiny 7B (1B active) - hybrid MoE
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 8 GB | quality | `Q6_K` | `granite-4.0-h-tiny-q6_k-64k-f16` | 6.6 GiB |
-| 8 GB | balanced | `Q6_K` | `granite-4.0-h-tiny-q6_k-128k-q8_0` | 6.9 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `granite-4.0-h-tiny-ud-q6_k_xl-64k-f16` | 6.9 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `granite-4.0-h-tiny-ud-q6_k_xl-64k-q8_0` | 6.7 GiB |
 | 8 GB | context | `UD-Q5_K_XL` | `granite-4.0-h-tiny-ud-q5_k_xl-256k-q5_1` | 6.9 GiB |
-| 16 GB | quality | `Q6_K` | `granite-4.0-h-tiny-q6_k-256k-f16` | 9.1 GiB |
-| 16 GB | balanced, context | `Q6_K` | `granite-4.0-h-tiny-q6_k-1m-q8_0` | 14.1 GiB |
-| 24 GB | quality | `Q6_K` | `granite-4.0-h-tiny-q6_k-1m-f16` | 18.8 GiB |
-| 24 GB | balanced, context | `Q6_K` | `granite-4.0-h-tiny-q6_k-1m-q8_0` | 14.1 GiB |
-| 32 GB | quality | `Q6_K` | `granite-4.0-h-tiny-q6_k-1m-f16` | 18.8 GiB |
-| 32 GB | balanced, context | `Q6_K` | `granite-4.0-h-tiny-q6_k-1m-q8_0` | 14.1 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `granite-4.0-h-tiny-ud-q6_k_xl-256k-f16` | 9.4 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.0-h-tiny-ud-q6_k_xl-1m-q8_0` | 14.4 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `granite-4.0-h-tiny-ud-q6_k_xl-1m-f16` | 19.1 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.0-h-tiny-ud-q6_k_xl-1m-q8_0` | 14.4 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `granite-4.0-h-tiny-ud-q6_k_xl-1m-f16` | 19.1 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.0-h-tiny-ud-q6_k_xl-1m-q8_0` | 14.4 GiB |
 
 ### granite-4.1-30b
 
@@ -412,7 +412,7 @@ IBM Granite 4.1 30B - long context, tool calling
 | 24 GB | quality | `UD-Q5_K_XL` | `granite-4.1-30b-ud-q5_k_xl-8k-f16` | 21.8 GiB |
 | 24 GB | balanced | `UD-Q3_K_XL` | `granite-4.1-30b-ud-q3_k_xl-64k-q8_0` | 22.6 GiB |
 | 24 GB | context | `UD-Q4_K_XL` | `granite-4.1-30b-ud-q4_k_xl-64k-q4_0` | 21.8 GiB |
-| 32 GB | quality | `Q6_K` | `granite-4.1-30b-q6_k-32k-f16` | 30.8 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `granite-4.1-30b-ud-q6_k_xl-16k-f16` | 27.8 GiB |
 | 32 GB | balanced | `UD-Q5_K_XL` | `granite-4.1-30b-ud-q5_k_xl-64k-q8_0` | 28.4 GiB |
 | 32 GB | context | `UD-Q5_K_XL` | `granite-4.1-30b-ud-q5_k_xl-128k-q4_0` | 29.1 GiB |
 
@@ -425,15 +425,15 @@ IBM Granite 4.1 3B - long context, tool calling
 | 4 GB | quality | `UD-Q4_K_XL` | `granite-4.1-3b-ud-q4_k_xl-4k-f16` | 3.0 GiB |
 | 4 GB | balanced | `UD-Q4_K_XL` | `granite-4.1-3b-ud-q4_k_xl-8k-q8_0` | 3.0 GiB |
 | 4 GB | context | `Q4_K_M` | `granite-4.1-3b-q4_k_m-16k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `granite-4.1-3b-q6_k-32k-f16` | 5.8 GiB |
-| 8 GB | balanced | `Q6_K` | `granite-4.1-3b-q6_k-64k-q8_0` | 6.0 GiB |
-| 8 GB | context | `Q6_K` | `granite-4.1-3b-q6_k-128k-q4_0` | 6.3 GiB |
-| 16 GB | quality | `Q6_K` | `granite-4.1-3b-q6_k-128k-f16` | 13.7 GiB |
-| 16 GB | balanced, context | `Q6_K` | `granite-4.1-3b-q6_k-128k-q8_0` | 8.9 GiB |
-| 24 GB | quality | `Q6_K` | `granite-4.1-3b-q6_k-128k-f16` | 13.7 GiB |
-| 24 GB | balanced, context | `Q6_K` | `granite-4.1-3b-q6_k-128k-q8_0` | 8.9 GiB |
-| 32 GB | quality | `Q6_K` | `granite-4.1-3b-q6_k-128k-f16` | 13.7 GiB |
-| 32 GB | balanced, context | `Q6_K` | `granite-4.1-3b-q6_k-128k-q8_0` | 8.9 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `granite-4.1-3b-ud-q6_k_xl-32k-f16` | 6.0 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `granite-4.1-3b-ud-q6_k_xl-64k-q8_0` | 6.3 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `granite-4.1-3b-ud-q6_k_xl-128k-q4_0` | 6.5 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `granite-4.1-3b-ud-q6_k_xl-128k-f16` | 13.9 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.1-3b-ud-q6_k_xl-128k-q8_0` | 9.1 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `granite-4.1-3b-ud-q6_k_xl-128k-f16` | 13.9 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.1-3b-ud-q6_k_xl-128k-q8_0` | 9.1 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `granite-4.1-3b-ud-q6_k_xl-128k-f16` | 13.9 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.1-3b-ud-q6_k_xl-128k-q8_0` | 9.1 GiB |
 
 ### granite-4.1-8b
 
@@ -444,13 +444,13 @@ IBM Granite 4.1 8B - long context, tool calling
 | 8 GB | quality | `UD-Q5_K_XL` | `granite-4.1-8b-ud-q5_k_xl-4k-f16` | 6.9 GiB |
 | 8 GB | balanced | `UD-Q4_K_XL` | `granite-4.1-8b-ud-q4_k_xl-16k-q8_0` | 6.9 GiB |
 | 8 GB | context | `Q4_K_M` | `granite-4.1-8b-q4_k_m-32k-q4_0` | 6.9 GiB |
-| 16 GB | quality | `Q6_K` | `granite-4.1-8b-q6_k-32k-f16` | 12.1 GiB |
-| 16 GB | balanced | `Q6_K` | `granite-4.1-8b-q6_k-64k-q8_0` | 12.5 GiB |
-| 16 GB | context | `Q6_K` | `granite-4.1-8b-q6_k-128k-q5_1` | 14.9 GiB |
-| 24 GB | quality | `Q6_K` | `granite-4.1-8b-q6_k-64k-f16` | 17.3 GiB |
-| 24 GB | balanced, context | `Q6_K` | `granite-4.1-8b-q6_k-128k-q8_0` | 18.1 GiB |
-| 32 GB | quality | `Q6_K` | `granite-4.1-8b-q6_k-128k-f16` | 27.7 GiB |
-| 32 GB | balanced, context | `Q6_K` | `granite-4.1-8b-q6_k-128k-q8_0` | 18.1 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `granite-4.1-8b-ud-q6_k_xl-32k-f16` | 12.7 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `granite-4.1-8b-ud-q6_k_xl-64k-q8_0` | 13.1 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `granite-4.1-8b-ud-q6_k_xl-128k-q4_0` | 13.6 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `granite-4.1-8b-ud-q6_k_xl-64k-f16` | 17.9 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.1-8b-ud-q6_k_xl-128k-q8_0` | 18.7 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `granite-4.1-8b-ud-q6_k_xl-128k-f16` | 28.3 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `granite-4.1-8b-ud-q6_k_xl-128k-q8_0` | 18.7 GiB |
 
 ### lfm2.5-1.2b-instruct
 
@@ -458,16 +458,16 @@ Liquid LFM2.5 1.2B Instruct - hybrid reasoning, edge sized
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-64k-f16` | 2.3 GiB |
-| 4 GB | balanced, context | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-128k-q8_0` | 2.5 GiB |
-| 8 GB | quality | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-128k-f16` | 3.3 GiB |
-| 8 GB | balanced, context | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-128k-q8_0` | 2.5 GiB |
-| 16 GB | quality | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-128k-f16` | 3.3 GiB |
-| 16 GB | balanced, context | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-128k-q8_0` | 2.5 GiB |
-| 24 GB | quality | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-128k-f16` | 3.3 GiB |
-| 24 GB | balanced, context | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-128k-q8_0` | 2.5 GiB |
-| 32 GB | quality | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-128k-f16` | 3.3 GiB |
-| 32 GB | balanced, context | `Q6_K` | `lfm2.5-1.2b-instruct-q6_k-128k-q8_0` | 2.5 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-64k-f16` | 2.4 GiB |
+| 4 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-128k-f16` | 3.4 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-128k-f16` | 3.4 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-128k-f16` | 3.4 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-128k-f16` | 3.4 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-1.2b-instruct-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
 
 ### lfm2.5-vl-1.6b
 
@@ -475,16 +475,16 @@ Liquid LFM2.5 VL 1.6B - vision
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-64k-f16` | 2.3 GiB |
-| 4 GB | balanced, context | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-128k-q8_0` | 2.5 GiB |
-| 8 GB | quality | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-128k-f16` | 3.3 GiB |
-| 8 GB | balanced, context | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-128k-q8_0` | 2.5 GiB |
-| 16 GB | quality | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-128k-f16` | 3.3 GiB |
-| 16 GB | balanced, context | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-128k-q8_0` | 2.5 GiB |
-| 24 GB | quality | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-128k-f16` | 3.3 GiB |
-| 24 GB | balanced, context | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-128k-q8_0` | 2.5 GiB |
-| 32 GB | quality | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-128k-f16` | 3.3 GiB |
-| 32 GB | balanced, context | `Q6_K` | `lfm2.5-vl-1.6b-q6_k-128k-q8_0` | 2.5 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-64k-f16` | 2.4 GiB |
+| 4 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-128k-f16` | 3.4 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-128k-f16` | 3.4 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-128k-f16` | 3.4 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-128k-f16` | 3.4 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `lfm2.5-vl-1.6b-ud-q6_k_xl-128k-q8_0` | 2.6 GiB |
 
 ### magistral-small-2509
 
@@ -495,11 +495,11 @@ Magistral Small 24B (2509) - Mistral reasoning, vision
 | 16 GB | quality | `UD-Q4_K_XL` | `magistral-small-2509-ud-q4_k_xl-4k-f16` | 14.6 GiB |
 | 16 GB | balanced | `UD-Q3_K_XL` | `magistral-small-2509-ud-q3_k_xl-32k-q8_0` | 14.2 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `magistral-small-2509-ud-q3_k_xl-64k-q4_0` | 14.4 GiB |
-| 24 GB | quality | `Q6_K` | `magistral-small-2509-q6_k-16k-f16` | 20.8 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `magistral-small-2509-ud-q6_k_xl-16k-f16` | 22.0 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `magistral-small-2509-ud-q5_k_xl-64k-q8_0` | 21.4 GiB |
 | 24 GB | context | `UD-Q5_K_XL` | `magistral-small-2509-ud-q5_k_xl-128k-q4_0` | 21.9 GiB |
-| 32 GB | quality | `Q6_K` | `magistral-small-2509-q6_k-64k-f16` | 28.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `magistral-small-2509-q6_k-128k-q8_0` | 29.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `magistral-small-2509-ud-q6_k_xl-64k-f16` | 29.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `magistral-small-2509-ud-q6_k_xl-128k-q8_0` | 30.5 GiB |
 
 ### ministral-3-14b-instruct-2512
 
@@ -507,15 +507,15 @@ Ministral 3 14B Instruct - multimodal
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 16 GB | quality | `Q6_K` | `ministral-3-14b-instruct-2512-q6_k-16k-f16` | 13.1 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `ministral-3-14b-instruct-2512-ud-q6_k_xl-16k-f16` | 13.9 GiB |
 | 16 GB | balanced | `UD-Q5_K_XL` | `ministral-3-14b-instruct-2512-ud-q5_k_xl-64k-q8_0` | 14.8 GiB |
 | 16 GB | context | `UD-Q4_K_XL` | `ministral-3-14b-instruct-2512-ud-q4_k_xl-128k-q4_0` | 14.1 GiB |
-| 24 GB | quality | `Q6_K` | `ministral-3-14b-instruct-2512-q6_k-64k-f16` | 20.8 GiB |
-| 24 GB | balanced | `Q6_K` | `ministral-3-14b-instruct-2512-q6_k-128k-q8_0` | 21.6 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `ministral-3-14b-instruct-2512-ud-q6_k_xl-64k-f16` | 21.6 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `ministral-3-14b-instruct-2512-ud-q6_k_xl-128k-q8_0` | 22.4 GiB |
 | 24 GB | context | `Q6_K` | `ministral-3-14b-instruct-2512-q6_k-256k-q4_0` | 22.6 GiB |
-| 32 GB | quality | `Q6_K` | `ministral-3-14b-instruct-2512-q6_k-64k-f16` | 20.8 GiB |
-| 32 GB | balanced | `Q6_K` | `ministral-3-14b-instruct-2512-q6_k-128k-q8_0` | 21.6 GiB |
-| 32 GB | context | `Q6_K` | `ministral-3-14b-instruct-2512-q6_k-256k-q5_1` | 26.5 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `ministral-3-14b-instruct-2512-ud-q6_k_xl-64k-f16` | 21.6 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `ministral-3-14b-instruct-2512-ud-q6_k_xl-128k-q8_0` | 22.4 GiB |
+| 32 GB | context | `UD-Q6_K_XL` | `ministral-3-14b-instruct-2512-ud-q6_k_xl-256k-q5_1` | 27.3 GiB |
 
 ### ministral-3-14b-reasoning-2512
 
@@ -523,15 +523,15 @@ Ministral 3 14B Reasoning - multimodal
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 16 GB | quality | `Q6_K` | `ministral-3-14b-reasoning-2512-q6_k-16k-f16` | 13.1 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `ministral-3-14b-reasoning-2512-ud-q6_k_xl-16k-f16` | 13.9 GiB |
 | 16 GB | balanced | `UD-Q5_K_XL` | `ministral-3-14b-reasoning-2512-ud-q5_k_xl-64k-q8_0` | 14.8 GiB |
 | 16 GB | context | `UD-Q4_K_XL` | `ministral-3-14b-reasoning-2512-ud-q4_k_xl-128k-q4_0` | 14.1 GiB |
-| 24 GB | quality | `Q6_K` | `ministral-3-14b-reasoning-2512-q6_k-64k-f16` | 20.8 GiB |
-| 24 GB | balanced | `Q6_K` | `ministral-3-14b-reasoning-2512-q6_k-128k-q8_0` | 21.6 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `ministral-3-14b-reasoning-2512-ud-q6_k_xl-64k-f16` | 21.6 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `ministral-3-14b-reasoning-2512-ud-q6_k_xl-128k-q8_0` | 22.4 GiB |
 | 24 GB | context | `Q6_K` | `ministral-3-14b-reasoning-2512-q6_k-256k-q4_0` | 22.6 GiB |
-| 32 GB | quality | `Q6_K` | `ministral-3-14b-reasoning-2512-q6_k-64k-f16` | 20.8 GiB |
-| 32 GB | balanced | `Q6_K` | `ministral-3-14b-reasoning-2512-q6_k-128k-q8_0` | 21.6 GiB |
-| 32 GB | context | `Q6_K` | `ministral-3-14b-reasoning-2512-q6_k-256k-q5_1` | 26.5 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `ministral-3-14b-reasoning-2512-ud-q6_k_xl-64k-f16` | 21.6 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `ministral-3-14b-reasoning-2512-ud-q6_k_xl-128k-q8_0` | 22.4 GiB |
+| 32 GB | context | `UD-Q6_K_XL` | `ministral-3-14b-reasoning-2512-ud-q6_k_xl-256k-q5_1` | 27.3 GiB |
 
 ### ministral-3-3b-instruct-2512
 
@@ -542,16 +542,16 @@ Ministral 3 3B Instruct - multimodal
 | 4 GB | quality | `UD-Q3_K_XL` | `ministral-3-3b-instruct-2512-ud-q3_k_xl-4k-f16` | 2.9 GiB |
 | 4 GB | balanced | `UD-Q3_K_XL` | `ministral-3-3b-instruct-2512-ud-q3_k_xl-8k-q8_0` | 2.9 GiB |
 | 4 GB | context | `UD-Q3_K_XL` | `ministral-3-3b-instruct-2512-ud-q3_k_xl-16k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `ministral-3-3b-instruct-2512-q6_k-32k-f16` | 6.7 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `ministral-3-3b-instruct-2512-ud-q6_k_xl-16k-f16` | 5.4 GiB |
 | 8 GB | balanced | `Q6_K` | `ministral-3-3b-instruct-2512-q6_k-64k-q8_0` | 7.0 GiB |
 | 8 GB | context | `UD-Q5_K_XL` | `ministral-3-3b-instruct-2512-ud-q5_k_xl-128k-q4_0` | 7.0 GiB |
-| 16 GB | quality | `Q6_K` | `ministral-3-3b-instruct-2512-q6_k-64k-f16` | 10.1 GiB |
-| 16 GB | balanced | `Q6_K` | `ministral-3-3b-instruct-2512-q6_k-128k-q8_0` | 10.7 GiB |
-| 16 GB | context | `Q6_K` | `ministral-3-3b-instruct-2512-q6_k-256k-q5_1` | 14.0 GiB |
-| 24 GB | quality | `Q6_K` | `ministral-3-3b-instruct-2512-q6_k-128k-f16` | 17.0 GiB |
-| 24 GB | balanced, context | `Q6_K` | `ministral-3-3b-instruct-2512-q6_k-256k-q8_0` | 18.2 GiB |
-| 32 GB | quality | `Q6_K` | `ministral-3-3b-instruct-2512-q6_k-256k-f16` | 30.9 GiB |
-| 32 GB | balanced, context | `Q6_K` | `ministral-3-3b-instruct-2512-q6_k-256k-q8_0` | 18.2 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `ministral-3-3b-instruct-2512-ud-q6_k_xl-64k-f16` | 10.4 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `ministral-3-3b-instruct-2512-ud-q6_k_xl-128k-q8_0` | 11.0 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `ministral-3-3b-instruct-2512-ud-q6_k_xl-256k-q5_1` | 14.3 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `ministral-3-3b-instruct-2512-ud-q6_k_xl-128k-f16` | 17.4 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `ministral-3-3b-instruct-2512-ud-q6_k_xl-256k-q8_0` | 18.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `ministral-3-3b-instruct-2512-ud-q6_k_xl-128k-f16` | 17.4 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `ministral-3-3b-instruct-2512-ud-q6_k_xl-256k-q8_0` | 18.6 GiB |
 
 ### ministral-3-3b-reasoning-2512
 
@@ -562,16 +562,16 @@ Ministral 3 3B Reasoning - multimodal
 | 4 GB | quality | `UD-Q3_K_XL` | `ministral-3-3b-reasoning-2512-ud-q3_k_xl-4k-f16` | 2.9 GiB |
 | 4 GB | balanced | `UD-Q3_K_XL` | `ministral-3-3b-reasoning-2512-ud-q3_k_xl-8k-q8_0` | 2.9 GiB |
 | 4 GB | context | `UD-Q3_K_XL` | `ministral-3-3b-reasoning-2512-ud-q3_k_xl-16k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `ministral-3-3b-reasoning-2512-q6_k-32k-f16` | 6.7 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `ministral-3-3b-reasoning-2512-ud-q6_k_xl-16k-f16` | 5.4 GiB |
 | 8 GB | balanced | `Q6_K` | `ministral-3-3b-reasoning-2512-q6_k-64k-q8_0` | 7.0 GiB |
 | 8 GB | context | `UD-Q5_K_XL` | `ministral-3-3b-reasoning-2512-ud-q5_k_xl-128k-q4_0` | 7.0 GiB |
-| 16 GB | quality | `Q6_K` | `ministral-3-3b-reasoning-2512-q6_k-64k-f16` | 10.1 GiB |
-| 16 GB | balanced | `Q6_K` | `ministral-3-3b-reasoning-2512-q6_k-128k-q8_0` | 10.7 GiB |
-| 16 GB | context | `Q6_K` | `ministral-3-3b-reasoning-2512-q6_k-256k-q5_1` | 14.0 GiB |
-| 24 GB | quality | `Q6_K` | `ministral-3-3b-reasoning-2512-q6_k-128k-f16` | 17.0 GiB |
-| 24 GB | balanced, context | `Q6_K` | `ministral-3-3b-reasoning-2512-q6_k-256k-q8_0` | 18.2 GiB |
-| 32 GB | quality | `Q6_K` | `ministral-3-3b-reasoning-2512-q6_k-256k-f16` | 30.9 GiB |
-| 32 GB | balanced, context | `Q6_K` | `ministral-3-3b-reasoning-2512-q6_k-256k-q8_0` | 18.2 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `ministral-3-3b-reasoning-2512-ud-q6_k_xl-64k-f16` | 10.4 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `ministral-3-3b-reasoning-2512-ud-q6_k_xl-128k-q8_0` | 11.0 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `ministral-3-3b-reasoning-2512-ud-q6_k_xl-256k-q5_1` | 14.3 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `ministral-3-3b-reasoning-2512-ud-q6_k_xl-128k-f16` | 17.4 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `ministral-3-3b-reasoning-2512-ud-q6_k_xl-256k-q8_0` | 18.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `ministral-3-3b-reasoning-2512-ud-q6_k_xl-128k-f16` | 17.4 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `ministral-3-3b-reasoning-2512-ud-q6_k_xl-256k-q8_0` | 18.6 GiB |
 
 ### ministral-3-8b-instruct-2512
 
@@ -582,14 +582,14 @@ Ministral 3 8B Instruct - multimodal
 | 8 GB | quality | `UD-Q5_K_XL` | `ministral-3-8b-instruct-2512-ud-q5_k_xl-4k-f16` | 6.6 GiB |
 | 8 GB | balanced | `UD-Q3_K_XL` | `ministral-3-8b-instruct-2512-ud-q3_k_xl-32k-q8_0` | 6.9 GiB |
 | 8 GB | context | `UD-Q4_K_XL` | `ministral-3-8b-instruct-2512-ud-q4_k_xl-32k-q4_0` | 6.7 GiB |
-| 16 GB | quality | `Q6_K` | `ministral-3-8b-instruct-2512-q6_k-32k-f16` | 11.2 GiB |
-| 16 GB | balanced | `Q6_K` | `ministral-3-8b-instruct-2512-q6_k-64k-q8_0` | 11.5 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `ministral-3-8b-instruct-2512-ud-q6_k_xl-32k-f16` | 11.7 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `ministral-3-8b-instruct-2512-ud-q6_k_xl-64k-q8_0` | 12.1 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `ministral-3-8b-instruct-2512-ud-q3_k_xl-256k-q4_0` | 15.0 GiB |
-| 24 GB | quality | `Q6_K` | `ministral-3-8b-instruct-2512-q6_k-64k-f16` | 15.5 GiB |
-| 24 GB | balanced | `Q6_K` | `ministral-3-8b-instruct-2512-q6_k-128k-q8_0` | 16.3 GiB |
-| 24 GB | context | `Q6_K` | `ministral-3-8b-instruct-2512-q6_k-256k-q5_1` | 20.5 GiB |
-| 32 GB | quality | `Q6_K` | `ministral-3-8b-instruct-2512-q6_k-128k-f16` | 24.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `ministral-3-8b-instruct-2512-q6_k-256k-q8_0` | 26.0 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `ministral-3-8b-instruct-2512-ud-q6_k_xl-64k-f16` | 16.1 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `ministral-3-8b-instruct-2512-ud-q6_k_xl-128k-q8_0` | 16.9 GiB |
+| 24 GB | context | `UD-Q6_K_XL` | `ministral-3-8b-instruct-2512-ud-q6_k_xl-256k-q5_1` | 21.1 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `ministral-3-8b-instruct-2512-ud-q6_k_xl-128k-f16` | 25.1 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `ministral-3-8b-instruct-2512-ud-q6_k_xl-256k-q8_0` | 26.5 GiB |
 
 ### ministral-3-8b-reasoning-2512
 
@@ -600,14 +600,14 @@ Ministral 3 8B Reasoning - multimodal
 | 8 GB | quality | `UD-Q5_K_XL` | `ministral-3-8b-reasoning-2512-ud-q5_k_xl-4k-f16` | 6.6 GiB |
 | 8 GB | balanced | `UD-Q3_K_XL` | `ministral-3-8b-reasoning-2512-ud-q3_k_xl-32k-q8_0` | 6.9 GiB |
 | 8 GB | context | `UD-Q4_K_XL` | `ministral-3-8b-reasoning-2512-ud-q4_k_xl-32k-q4_0` | 6.7 GiB |
-| 16 GB | quality | `Q6_K` | `ministral-3-8b-reasoning-2512-q6_k-32k-f16` | 11.2 GiB |
-| 16 GB | balanced | `Q6_K` | `ministral-3-8b-reasoning-2512-q6_k-64k-q8_0` | 11.5 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `ministral-3-8b-reasoning-2512-ud-q6_k_xl-32k-f16` | 11.7 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `ministral-3-8b-reasoning-2512-ud-q6_k_xl-64k-q8_0` | 12.1 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `ministral-3-8b-reasoning-2512-ud-q3_k_xl-256k-q4_0` | 15.0 GiB |
-| 24 GB | quality | `Q6_K` | `ministral-3-8b-reasoning-2512-q6_k-64k-f16` | 15.5 GiB |
-| 24 GB | balanced | `Q6_K` | `ministral-3-8b-reasoning-2512-q6_k-128k-q8_0` | 16.3 GiB |
-| 24 GB | context | `Q6_K` | `ministral-3-8b-reasoning-2512-q6_k-256k-q5_1` | 20.5 GiB |
-| 32 GB | quality | `Q6_K` | `ministral-3-8b-reasoning-2512-q6_k-128k-f16` | 24.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `ministral-3-8b-reasoning-2512-q6_k-256k-q8_0` | 26.0 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `ministral-3-8b-reasoning-2512-ud-q6_k_xl-64k-f16` | 16.1 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `ministral-3-8b-reasoning-2512-ud-q6_k_xl-128k-q8_0` | 16.9 GiB |
+| 24 GB | context | `UD-Q6_K_XL` | `ministral-3-8b-reasoning-2512-ud-q6_k_xl-256k-q5_1` | 21.1 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `ministral-3-8b-reasoning-2512-ud-q6_k_xl-128k-f16` | 25.1 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `ministral-3-8b-reasoning-2512-ud-q6_k_xl-256k-q8_0` | 26.5 GiB |
 
 ### muse-glimmer-30b
 
@@ -619,8 +619,8 @@ Meta Muse Glimmer 30B - dense vision model for agentic and coding work
 | 16 GB | balanced, context | `UD-Q3_K_XL` | `muse-glimmer-30b-ud-q3_k_xl-128k-q8_0` | 13.7 GiB |
 | 24 GB | quality | `UD-Q5_K_XL` | `muse-glimmer-30b-ud-q5_k_xl-128k-f16` | 22.3 GiB |
 | 24 GB | balanced, context | `UD-Q5_K_XL` | `muse-glimmer-30b-ud-q5_k_xl-128k-q8_0` | 21.5 GiB |
-| 32 GB | quality | `UD-Q5_K_XL` | `muse-glimmer-30b-ud-q5_k_xl-128k-f16` | 22.3 GiB |
-| 32 GB | balanced, context | `UD-Q5_K_XL` | `muse-glimmer-30b-ud-q5_k_xl-128k-q8_0` | 21.5 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `muse-glimmer-30b-ud-q6_k_xl-128k-f16` | 26.2 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `muse-glimmer-30b-ud-q6_k_xl-128k-q8_0` | 25.4 GiB |
 
 ### nemotron-3-nano-30b-a3b
 
@@ -641,16 +641,16 @@ NVIDIA Nemotron 3 Nano 4B - hybrid MoE
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 8 GB | quality | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-128k-f16` | 6.9 GiB |
-| 8 GB | balanced | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-128k-q8_0` | 5.7 GiB |
-| 8 GB | context | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-256k-q5_1` | 6.6 GiB |
-| 16 GB | quality | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-256k-f16` | 9.8 GiB |
-| 16 GB | balanced | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-256k-q8_0` | 7.4 GiB |
-| 16 GB | context | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-1m-q5_1` | 14.5 GiB |
-| 24 GB | quality | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-256k-f16` | 9.8 GiB |
-| 24 GB | balanced, context | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-1m-q8_0` | 17.6 GiB |
-| 32 GB | quality | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-1m-f16` | 27.0 GiB |
-| 32 GB | balanced, context | `Q6_K` | `nvidia-nemotron-3-nano-4b-q6_k-1m-q8_0` | 17.6 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-64k-f16` | 5.9 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-128k-q8_0` | 6.2 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-256k-q4_0` | 6.7 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-256k-f16` | 10.2 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-256k-q8_0` | 7.9 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-1m-q5_1` | 15.0 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-256k-f16` | 10.2 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-1m-q8_0` | 18.1 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-1m-f16` | 27.5 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `nvidia-nemotron-3-nano-4b-ud-q6_k_xl-1m-q8_0` | 18.1 GiB |
 
 ### nvidia-nemotron-3.5-lightning-30b-a3b
 
@@ -670,15 +670,15 @@ Phi-4 Mini Reasoning 3.8B
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 8 GB | quality | `Q6_K` | `phi-4-mini-reasoning-q6_k-16k-f16` | 6.0 GiB |
-| 8 GB | balanced | `Q6_K` | `phi-4-mini-reasoning-q6_k-32k-q8_0` | 6.1 GiB |
-| 8 GB | context | `Q6_K` | `phi-4-mini-reasoning-q6_k-64k-q4_0` | 6.3 GiB |
-| 16 GB | quality | `Q6_K` | `phi-4-mini-reasoning-q6_k-64k-f16` | 12.1 GiB |
-| 16 GB | balanced, context | `Q6_K` | `phi-4-mini-reasoning-q6_k-128k-q8_0` | 12.7 GiB |
-| 24 GB | quality | `Q6_K` | `phi-4-mini-reasoning-q6_k-128k-f16` | 20.4 GiB |
-| 24 GB | balanced, context | `Q6_K` | `phi-4-mini-reasoning-q6_k-128k-q8_0` | 12.7 GiB |
-| 32 GB | quality | `Q6_K` | `phi-4-mini-reasoning-q6_k-128k-f16` | 20.4 GiB |
-| 32 GB | balanced, context | `Q6_K` | `phi-4-mini-reasoning-q6_k-128k-q8_0` | 12.7 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `phi-4-mini-reasoning-ud-q6_k_xl-16k-f16` | 6.3 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `phi-4-mini-reasoning-ud-q6_k_xl-32k-q8_0` | 6.5 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `phi-4-mini-reasoning-ud-q6_k_xl-64k-q4_0` | 6.7 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `phi-4-mini-reasoning-ud-q6_k_xl-64k-f16` | 12.4 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `phi-4-mini-reasoning-ud-q6_k_xl-128k-q8_0` | 13.1 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `phi-4-mini-reasoning-ud-q6_k_xl-128k-f16` | 20.8 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `phi-4-mini-reasoning-ud-q6_k_xl-128k-q8_0` | 13.1 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `phi-4-mini-reasoning-ud-q6_k_xl-128k-f16` | 20.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `phi-4-mini-reasoning-ud-q6_k_xl-128k-q8_0` | 13.1 GiB |
 
 ### phi-4-reasoning
 
@@ -686,12 +686,13 @@ Phi-4 Reasoning 14B
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 16 GB | quality | `Q6_K` | `phi-4-reasoning-q6_k-16k-f16` | 14.6 GiB |
-| 16 GB | balanced, context | `Q6_K` | `phi-4-reasoning-q6_k-32k-q8_0` | 14.8 GiB |
-| 24 GB | quality | `Q6_K` | `phi-4-reasoning-q6_k-32k-f16` | 17.8 GiB |
-| 24 GB | balanced, context | `Q6_K` | `phi-4-reasoning-q6_k-32k-q8_0` | 14.8 GiB |
-| 32 GB | quality | `Q6_K` | `phi-4-reasoning-q6_k-32k-f16` | 17.8 GiB |
-| 32 GB | balanced, context | `Q6_K` | `phi-4-reasoning-q6_k-32k-q8_0` | 14.8 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `phi-4-reasoning-ud-q6_k_xl-8k-f16` | 13.9 GiB |
+| 16 GB | balanced | `Q6_K` | `phi-4-reasoning-q6_k-32k-q8_0` | 14.8 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `phi-4-reasoning-ud-q6_k_xl-32k-q5_1` | 14.8 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `phi-4-reasoning-ud-q6_k_xl-32k-f16` | 18.7 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `phi-4-reasoning-ud-q6_k_xl-32k-q8_0` | 15.7 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `phi-4-reasoning-ud-q6_k_xl-32k-f16` | 18.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `phi-4-reasoning-ud-q6_k_xl-32k-q8_0` | 15.7 GiB |
 
 ### phi-4-reasoning-plus
 
@@ -699,12 +700,13 @@ Phi-4 Reasoning Plus 14B - stronger reasoning variant
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 16 GB | quality | `Q6_K` | `phi-4-reasoning-plus-q6_k-16k-f16` | 14.6 GiB |
-| 16 GB | balanced, context | `Q6_K` | `phi-4-reasoning-plus-q6_k-32k-q8_0` | 14.8 GiB |
-| 24 GB | quality | `Q6_K` | `phi-4-reasoning-plus-q6_k-32k-f16` | 17.8 GiB |
-| 24 GB | balanced, context | `Q6_K` | `phi-4-reasoning-plus-q6_k-32k-q8_0` | 14.8 GiB |
-| 32 GB | quality | `Q6_K` | `phi-4-reasoning-plus-q6_k-32k-f16` | 17.8 GiB |
-| 32 GB | balanced, context | `Q6_K` | `phi-4-reasoning-plus-q6_k-32k-q8_0` | 14.8 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `phi-4-reasoning-plus-ud-q6_k_xl-8k-f16` | 13.9 GiB |
+| 16 GB | balanced | `Q6_K` | `phi-4-reasoning-plus-q6_k-32k-q8_0` | 14.8 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `phi-4-reasoning-plus-ud-q6_k_xl-32k-q5_1` | 14.8 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `phi-4-reasoning-plus-ud-q6_k_xl-32k-f16` | 18.7 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `phi-4-reasoning-plus-ud-q6_k_xl-32k-q8_0` | 15.7 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `phi-4-reasoning-plus-ud-q6_k_xl-32k-f16` | 18.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `phi-4-reasoning-plus-ud-q6_k_xl-32k-q8_0` | 15.7 GiB |
 
 ### qwen3-0.6b
 
@@ -712,17 +714,17 @@ Qwen3 0.6B - hybrid thinking
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `qwen3-0.6b-q6_k-8k-f16` | 2.2 GiB |
-| 4 GB | balanced | `Q6_K` | `qwen3-0.6b-q6_k-16k-q8_0` | 2.2 GiB |
-| 4 GB | context | `Q6_K` | `qwen3-0.6b-q6_k-40k-q4_0` | 2.6 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3-0.6b-q6_k-40k-f16` | 5.7 GiB |
-| 8 GB | balanced, context | `Q6_K` | `qwen3-0.6b-q6_k-40k-q8_0` | 3.7 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-0.6b-q6_k-40k-f16` | 5.7 GiB |
-| 16 GB | balanced, context | `Q6_K` | `qwen3-0.6b-q6_k-40k-q8_0` | 3.7 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-0.6b-q6_k-40k-f16` | 5.7 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3-0.6b-q6_k-40k-q8_0` | 3.7 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-0.6b-q6_k-40k-f16` | 5.7 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-0.6b-q6_k-40k-q8_0` | 3.7 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-8k-f16` | 2.2 GiB |
+| 4 GB | balanced | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-16k-q8_0` | 2.3 GiB |
+| 4 GB | context | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-40k-q4_0` | 2.7 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-40k-f16` | 5.8 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-40k-q8_0` | 3.8 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-40k-f16` | 5.8 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-40k-q8_0` | 3.8 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-40k-f16` | 5.8 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-40k-q8_0` | 3.8 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-40k-f16` | 5.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-0.6b-ud-q6_k_xl-40k-q8_0` | 3.8 GiB |
 
 ### qwen3-1.7b
 
@@ -730,17 +732,17 @@ Qwen3 1.7B - hybrid thinking
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `qwen3-1.7b-q6_k-4k-f16` | 2.6 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `qwen3-1.7b-ud-q6_k_xl-4k-f16` | 2.8 GiB |
 | 4 GB | balanced | `UD-Q5_K_XL` | `qwen3-1.7b-ud-q5_k_xl-16k-q8_0` | 3.0 GiB |
 | 4 GB | context | `UD-Q4_K_XL` | `qwen3-1.7b-ud-q4_k_xl-32k-q4_0` | 2.9 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3-1.7b-q6_k-40k-f16` | 6.6 GiB |
-| 8 GB | balanced, context | `Q6_K` | `qwen3-1.7b-q6_k-40k-q8_0` | 4.6 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-1.7b-q6_k-40k-f16` | 6.6 GiB |
-| 16 GB | balanced, context | `Q6_K` | `qwen3-1.7b-q6_k-40k-q8_0` | 4.6 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-1.7b-q6_k-40k-f16` | 6.6 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3-1.7b-q6_k-40k-q8_0` | 4.6 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-1.7b-q6_k-40k-f16` | 6.6 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-1.7b-q6_k-40k-q8_0` | 4.6 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3-1.7b-ud-q6_k_xl-40k-f16` | 6.8 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-1.7b-ud-q6_k_xl-40k-q8_0` | 4.7 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-1.7b-ud-q6_k_xl-40k-f16` | 6.8 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-1.7b-ud-q6_k_xl-40k-q8_0` | 4.7 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-1.7b-ud-q6_k_xl-40k-f16` | 6.8 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-1.7b-ud-q6_k_xl-40k-q8_0` | 4.7 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-1.7b-ud-q6_k_xl-40k-f16` | 6.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-1.7b-ud-q6_k_xl-40k-q8_0` | 4.7 GiB |
 
 ### qwen3-14b
 
@@ -748,12 +750,13 @@ Qwen3 14B - hybrid thinking
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 16 GB | quality | `Q6_K` | `qwen3-14b-q6_k-16k-f16` | 14.1 GiB |
-| 16 GB | balanced, context | `Q6_K` | `qwen3-14b-q6_k-40k-q8_0` | 14.9 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-14b-q6_k-40k-f16` | 17.9 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3-14b-q6_k-40k-q8_0` | 14.9 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-14b-q6_k-40k-f16` | 17.9 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-14b-q6_k-40k-q8_0` | 14.9 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-14b-ud-q6_k_xl-16k-f16` | 15.0 GiB |
+| 16 GB | balanced | `Q6_K` | `qwen3-14b-q6_k-40k-q8_0` | 14.9 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `qwen3-14b-ud-q6_k_xl-40k-q5_1` | 14.9 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-14b-ud-q6_k_xl-40k-f16` | 18.8 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-14b-ud-q6_k_xl-40k-q8_0` | 15.8 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-14b-ud-q6_k_xl-40k-f16` | 18.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-14b-ud-q6_k_xl-40k-q8_0` | 15.8 GiB |
 
 ### qwen3-30b-a3b
 
@@ -766,8 +769,8 @@ Qwen3 30B-A3B - sparse MoE (3B active), hybrid thinking
 | 16 GB | context | `UD-Q3_K_XL` | `qwen3-30b-a3b-ud-q3_k_xl-40k-q4_0` | 14.7 GiB |
 | 24 GB | quality | `UD-Q5_K_XL` | `qwen3-30b-a3b-ud-q5_k_xl-16k-f16` | 22.4 GiB |
 | 24 GB | balanced, context | `UD-Q5_K_XL` | `qwen3-30b-a3b-ud-q5_k_xl-40k-q8_0` | 22.9 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-30b-a3b-q6_k-40k-f16` | 27.8 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-30b-a3b-q6_k-40k-q8_0` | 26.0 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-30b-a3b-ud-q6_k_xl-40k-f16` | 28.9 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-30b-a3b-ud-q6_k_xl-40k-q8_0` | 27.1 GiB |
 
 ### qwen3-30b-a3b-instruct-2507
 
@@ -779,10 +782,10 @@ Qwen3 30B-A3B Instruct (2507) - sparse MoE, non-thinking
 | 16 GB | balanced | `UD-Q3_K_XL` | `qwen3-30b-a3b-instruct-2507-ud-q3_k_xl-16k-q8_0` | 14.4 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `qwen3-30b-a3b-instruct-2507-ud-q3_k_xl-32k-q5_1` | 14.7 GiB |
 | 24 GB | quality | `UD-Q5_K_XL` | `qwen3-30b-a3b-instruct-2507-ud-q5_k_xl-16k-f16` | 22.4 GiB |
-| 24 GB | balanced | `Q4_K_M` | `qwen3-30b-a3b-instruct-2507-q4_k_m-64k-q8_0` | 21.3 GiB |
+| 24 GB | balanced | `UD-Q4_K_XL` | `qwen3-30b-a3b-instruct-2507-ud-q4_k_xl-64k-q8_0` | 20.4 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `qwen3-30b-a3b-instruct-2507-ud-q3_k_xl-256k-q4_0` | 20.9 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-30b-a3b-instruct-2507-q6_k-64k-f16` | 30.1 GiB |
-| 32 GB | balanced | `Q6_K` | `qwen3-30b-a3b-instruct-2507-q6_k-128k-q8_0` | 30.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-30b-a3b-instruct-2507-ud-q6_k_xl-32k-f16` | 28.1 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `qwen3-30b-a3b-instruct-2507-ud-q6_k_xl-64k-q8_0` | 28.4 GiB |
 | 32 GB | context | `UD-Q5_K_XL` | `qwen3-30b-a3b-instruct-2507-ud-q5_k_xl-256k-q5_1` | 30.5 GiB |
 
 ### qwen3-30b-a3b-thinking-2507
@@ -795,10 +798,10 @@ Qwen3 30B-A3B Thinking (2507) - sparse MoE, reasoning only
 | 16 GB | balanced | `UD-Q3_K_XL` | `qwen3-30b-a3b-thinking-2507-ud-q3_k_xl-16k-q8_0` | 14.4 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `qwen3-30b-a3b-thinking-2507-ud-q3_k_xl-32k-q5_1` | 14.7 GiB |
 | 24 GB | quality | `UD-Q5_K_XL` | `qwen3-30b-a3b-thinking-2507-ud-q5_k_xl-16k-f16` | 22.4 GiB |
-| 24 GB | balanced | `Q4_K_M` | `qwen3-30b-a3b-thinking-2507-q4_k_m-64k-q8_0` | 21.3 GiB |
+| 24 GB | balanced | `UD-Q4_K_XL` | `qwen3-30b-a3b-thinking-2507-ud-q4_k_xl-64k-q8_0` | 20.5 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `qwen3-30b-a3b-thinking-2507-ud-q3_k_xl-256k-q4_0` | 20.9 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-30b-a3b-thinking-2507-q6_k-64k-f16` | 30.1 GiB |
-| 32 GB | balanced | `Q6_K` | `qwen3-30b-a3b-thinking-2507-q6_k-128k-q8_0` | 30.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-30b-a3b-thinking-2507-ud-q6_k_xl-32k-f16` | 28.1 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `qwen3-30b-a3b-thinking-2507-ud-q6_k_xl-64k-q8_0` | 28.4 GiB |
 | 32 GB | context | `UD-Q5_K_XL` | `qwen3-30b-a3b-thinking-2507-ud-q5_k_xl-256k-q5_1` | 30.6 GiB |
 
 ### qwen3-32b
@@ -810,8 +813,9 @@ Qwen3 32B - dense, hybrid thinking
 | 24 GB | quality | `UD-Q5_K_XL` | `qwen3-32b-ud-q5_k_xl-4k-f16` | 23.0 GiB |
 | 24 GB | balanced | `UD-Q3_K_XL` | `qwen3-32b-ud-q3_k_xl-40k-q8_0` | 21.1 GiB |
 | 24 GB | context | `UD-Q4_K_XL` | `qwen3-32b-ud-q4_k_xl-40k-q5_1` | 22.9 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-32b-q6_k-16k-f16` | 29.3 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-32b-q6_k-40k-q8_0` | 30.7 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-32b-ud-q6_k_xl-8k-f16` | 29.1 GiB |
+| 32 GB | balanced | `Q6_K` | `qwen3-32b-q6_k-40k-q8_0` | 30.7 GiB |
+| 32 GB | context | `UD-Q6_K_XL` | `qwen3-32b-ud-q6_k_xl-40k-q5_1` | 30.9 GiB |
 
 ### qwen3-4b
 
@@ -820,14 +824,15 @@ Qwen3 4B - hybrid thinking
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
 | 4 GB | context | `UD-Q3_K_XL` | `qwen3-4b-ud-q3_k_xl-4k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3-4b-q6_k-16k-f16` | 6.2 GiB |
-| 8 GB | balanced, context | `Q6_K` | `qwen3-4b-q6_k-40k-q8_0` | 7.0 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-4b-q6_k-40k-f16` | 9.6 GiB |
-| 16 GB | balanced, context | `Q6_K` | `qwen3-4b-q6_k-40k-q8_0` | 7.0 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-4b-q6_k-40k-f16` | 9.6 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3-4b-q6_k-40k-q8_0` | 7.0 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-4b-q6_k-40k-f16` | 9.6 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-4b-q6_k-40k-q8_0` | 7.0 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-ud-q6_k_xl-16k-f16` | 6.5 GiB |
+| 8 GB | balanced | `Q6_K` | `qwen3-4b-q6_k-40k-q8_0` | 7.0 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `qwen3-4b-ud-q6_k_xl-40k-q5_1` | 6.4 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-ud-q6_k_xl-40k-f16` | 9.9 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-4b-ud-q6_k_xl-40k-q8_0` | 7.3 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-ud-q6_k_xl-40k-f16` | 9.9 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-4b-ud-q6_k_xl-40k-q8_0` | 7.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-ud-q6_k_xl-40k-f16` | 9.9 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-4b-ud-q6_k_xl-40k-q8_0` | 7.3 GiB |
 
 ### qwen3-4b-instruct-2507
 
@@ -836,17 +841,17 @@ Qwen3 4B Instruct (2507) - non-thinking
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
 | 4 GB | context | `UD-Q3_K_XL` | `qwen3-4b-instruct-2507-ud-q3_k_xl-4k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-16k-f16` | 6.2 GiB |
-| 8 GB | balanced | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-32k-q8_0` | 6.4 GiB |
-| 8 GB | context | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-64k-q4_0` | 6.6 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-64k-f16` | 13.1 GiB |
-| 16 GB | balanced | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-128k-q8_0` | 13.8 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-16k-f16` | 6.5 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-32k-q8_0` | 6.7 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-64k-q4_0` | 6.9 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-64k-f16` | 13.4 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-128k-q8_0` | 14.1 GiB |
 | 16 GB | context | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-256k-q4_0` | 14.8 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-128k-f16` | 22.5 GiB |
-| 24 GB | balanced | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-128k-q8_0` | 13.8 GiB |
-| 24 GB | context | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-256k-q5_1` | 18.3 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-128k-f16` | 22.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-4b-instruct-2507-q6_k-256k-q8_0` | 24.0 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-128k-f16` | 22.8 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-128k-q8_0` | 14.1 GiB |
+| 24 GB | context | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-256k-q5_1` | 18.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-128k-f16` | 22.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-4b-instruct-2507-ud-q6_k_xl-256k-q8_0` | 24.4 GiB |
 
 ### qwen3-4b-thinking-2507
 
@@ -855,17 +860,17 @@ Qwen3 4B Thinking (2507) - reasoning only
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
 | 4 GB | context | `UD-Q3_K_XL` | `qwen3-4b-thinking-2507-ud-q3_k_xl-4k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-16k-f16` | 6.2 GiB |
-| 8 GB | balanced | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-32k-q8_0` | 6.4 GiB |
-| 8 GB | context | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-64k-q4_0` | 6.6 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-64k-f16` | 13.1 GiB |
-| 16 GB | balanced | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-128k-q8_0` | 13.8 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-16k-f16` | 6.5 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-32k-q8_0` | 6.7 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-64k-q4_0` | 6.9 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-64k-f16` | 13.4 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-128k-q8_0` | 14.1 GiB |
 | 16 GB | context | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-256k-q4_0` | 14.8 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-128k-f16` | 22.5 GiB |
-| 24 GB | balanced | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-128k-q8_0` | 13.8 GiB |
-| 24 GB | context | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-256k-q5_1` | 18.3 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-128k-f16` | 22.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-4b-thinking-2507-q6_k-256k-q8_0` | 24.0 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-128k-f16` | 22.8 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-128k-q8_0` | 14.1 GiB |
+| 24 GB | context | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-256k-q5_1` | 18.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-128k-f16` | 22.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-4b-thinking-2507-ud-q6_k_xl-256k-q8_0` | 24.4 GiB |
 
 ### qwen3-8b
 
@@ -876,12 +881,12 @@ Qwen3 8B - hybrid thinking
 | 8 GB | quality | `UD-Q5_K_XL` | `qwen3-8b-ud-q5_k_xl-4k-f16` | 6.5 GiB |
 | 8 GB | balanced | `UD-Q3_K_XL` | `qwen3-8b-ud-q3_k_xl-32k-q8_0` | 7.0 GiB |
 | 8 GB | context | `UD-Q4_K_XL` | `qwen3-8b-ud-q4_k_xl-40k-q4_0` | 7.0 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-8b-q6_k-40k-f16` | 12.3 GiB |
-| 16 GB | balanced, context | `Q6_K` | `qwen3-8b-q6_k-40k-q8_0` | 9.7 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-8b-q6_k-40k-f16` | 12.3 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3-8b-q6_k-40k-q8_0` | 9.7 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-8b-q6_k-40k-f16` | 12.3 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-8b-q6_k-40k-q8_0` | 9.7 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-8b-ud-q6_k_xl-40k-f16` | 12.9 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-8b-ud-q6_k_xl-40k-q8_0` | 10.3 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-8b-ud-q6_k_xl-40k-f16` | 12.9 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-8b-ud-q6_k_xl-40k-q8_0` | 10.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-8b-ud-q6_k_xl-40k-f16` | 12.9 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-8b-ud-q6_k_xl-40k-q8_0` | 10.3 GiB |
 
 ### qwen3-coder-30b-a3b-instruct
 
@@ -893,10 +898,10 @@ Qwen3-Coder 30B-A3B (Coder Flash) - agentic coding, sparse MoE
 | 16 GB | balanced | `UD-Q3_K_XL` | `qwen3-coder-30b-a3b-instruct-ud-q3_k_xl-16k-q8_0` | 14.3 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `qwen3-coder-30b-a3b-instruct-ud-q3_k_xl-32k-q5_1` | 14.7 GiB |
 | 24 GB | quality | `UD-Q5_K_XL` | `qwen3-coder-30b-a3b-instruct-ud-q5_k_xl-16k-f16` | 22.4 GiB |
-| 24 GB | balanced | `Q4_K_M` | `qwen3-coder-30b-a3b-instruct-q4_k_m-64k-q8_0` | 21.3 GiB |
+| 24 GB | balanced | `UD-Q4_K_XL` | `qwen3-coder-30b-a3b-instruct-ud-q4_k_xl-64k-q8_0` | 20.4 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `qwen3-coder-30b-a3b-instruct-ud-q3_k_xl-256k-q4_0` | 20.9 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-coder-30b-a3b-instruct-q6_k-64k-f16` | 30.1 GiB |
-| 32 GB | balanced | `Q6_K` | `qwen3-coder-30b-a3b-instruct-q6_k-128k-q8_0` | 30.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-coder-30b-a3b-instruct-ud-q6_k_xl-32k-f16` | 28.1 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `qwen3-coder-30b-a3b-instruct-ud-q6_k_xl-64k-q8_0` | 28.4 GiB |
 | 32 GB | context | `UD-Q5_K_XL` | `qwen3-coder-30b-a3b-instruct-ud-q5_k_xl-256k-q5_1` | 30.5 GiB |
 
 ### qwen3-vl-2b-instruct
@@ -905,19 +910,19 @@ Qwen3-VL 2B Instruct - vision, dense
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-4k-f16` | 2.6 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-4k-f16` | 2.8 GiB |
 | 4 GB | balanced | `UD-Q5_K_XL` | `qwen3-vl-2b-instruct-ud-q5_k_xl-16k-q8_0` | 3.0 GiB |
 | 4 GB | context | `UD-Q4_K_XL` | `qwen3-vl-2b-instruct-ud-q4_k_xl-32k-q4_0` | 2.9 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-32k-f16` | 5.7 GiB |
-| 8 GB | balanced | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-64k-q8_0` | 6.0 GiB |
-| 8 GB | context | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-128k-q4_0` | 6.3 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-64k-f16` | 9.3 GiB |
-| 16 GB | balanced | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-128k-q8_0` | 9.9 GiB |
-| 16 GB | context | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-256k-q5_1` | 13.5 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-128k-f16` | 16.7 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-256k-q8_0` | 18.0 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-128k-f16` | 16.7 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-vl-2b-instruct-q6_k-256k-q8_0` | 18.0 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-32k-f16` | 5.9 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-64k-q8_0` | 6.2 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-128k-q4_0` | 6.5 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-64k-f16` | 9.5 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-128k-q8_0` | 10.1 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-256k-q5_1` | 13.7 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-128k-f16` | 16.9 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-256k-q8_0` | 18.2 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-128k-f16` | 16.9 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-vl-2b-instruct-ud-q6_k_xl-256k-q8_0` | 18.2 GiB |
 
 ### qwen3-vl-2b-thinking
 
@@ -925,19 +930,19 @@ Qwen3-VL 2B Thinking - vision, dense, reasoning
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-4k-f16` | 2.6 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-4k-f16` | 2.8 GiB |
 | 4 GB | balanced | `UD-Q5_K_XL` | `qwen3-vl-2b-thinking-ud-q5_k_xl-16k-q8_0` | 3.0 GiB |
 | 4 GB | context | `UD-Q4_K_XL` | `qwen3-vl-2b-thinking-ud-q4_k_xl-32k-q4_0` | 2.9 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-32k-f16` | 5.7 GiB |
-| 8 GB | balanced | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-64k-q8_0` | 6.0 GiB |
-| 8 GB | context | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-128k-q4_0` | 6.3 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-64k-f16` | 9.3 GiB |
-| 16 GB | balanced | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-128k-q8_0` | 9.9 GiB |
-| 16 GB | context | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-256k-q5_1` | 13.5 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-128k-f16` | 16.7 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-256k-q8_0` | 18.0 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-128k-f16` | 16.7 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-vl-2b-thinking-q6_k-256k-q8_0` | 18.0 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-32k-f16` | 5.9 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-64k-q8_0` | 6.2 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-128k-q4_0` | 6.5 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-64k-f16` | 9.5 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-128k-q8_0` | 10.1 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-256k-q5_1` | 13.7 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-128k-f16` | 16.9 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-256k-q8_0` | 18.2 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-128k-f16` | 16.9 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-vl-2b-thinking-ud-q6_k_xl-256k-q8_0` | 18.2 GiB |
 
 ### qwen3-vl-30b-a3b-instruct
 
@@ -949,10 +954,10 @@ Qwen3-VL 30B-A3B Instruct - vision, sparse MoE (3B active)
 | 16 GB | balanced | `UD-Q3_K_XL` | `qwen3-vl-30b-a3b-instruct-ud-q3_k_xl-16k-q8_0` | 14.4 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `qwen3-vl-30b-a3b-instruct-ud-q3_k_xl-32k-q5_1` | 14.7 GiB |
 | 24 GB | quality | `UD-Q5_K_XL` | `qwen3-vl-30b-a3b-instruct-ud-q5_k_xl-16k-f16` | 22.4 GiB |
-| 24 GB | balanced | `Q4_K_M` | `qwen3-vl-30b-a3b-instruct-q4_k_m-64k-q8_0` | 21.3 GiB |
+| 24 GB | balanced | `UD-Q4_K_XL` | `qwen3-vl-30b-a3b-instruct-ud-q4_k_xl-64k-q8_0` | 20.5 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `qwen3-vl-30b-a3b-instruct-ud-q3_k_xl-256k-q4_0` | 20.9 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-30b-a3b-instruct-q6_k-64k-f16` | 30.1 GiB |
-| 32 GB | balanced | `Q6_K` | `qwen3-vl-30b-a3b-instruct-q6_k-128k-q8_0` | 30.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-30b-a3b-instruct-ud-q6_k_xl-32k-f16` | 28.1 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-30b-a3b-instruct-ud-q6_k_xl-64k-q8_0` | 28.4 GiB |
 | 32 GB | context | `UD-Q5_K_XL` | `qwen3-vl-30b-a3b-instruct-ud-q5_k_xl-256k-q5_1` | 30.5 GiB |
 
 ### qwen3-vl-30b-a3b-thinking
@@ -965,10 +970,10 @@ Qwen3-VL 30B-A3B Thinking - vision, sparse MoE (3B active)
 | 16 GB | balanced | `UD-Q3_K_XL` | `qwen3-vl-30b-a3b-thinking-ud-q3_k_xl-16k-q8_0` | 14.4 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `qwen3-vl-30b-a3b-thinking-ud-q3_k_xl-32k-q5_1` | 14.7 GiB |
 | 24 GB | quality | `UD-Q5_K_XL` | `qwen3-vl-30b-a3b-thinking-ud-q5_k_xl-16k-f16` | 22.4 GiB |
-| 24 GB | balanced | `Q4_K_M` | `qwen3-vl-30b-a3b-thinking-q4_k_m-64k-q8_0` | 21.3 GiB |
+| 24 GB | balanced | `UD-Q4_K_XL` | `qwen3-vl-30b-a3b-thinking-ud-q4_k_xl-64k-q8_0` | 20.5 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `qwen3-vl-30b-a3b-thinking-ud-q3_k_xl-256k-q4_0` | 20.9 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-30b-a3b-thinking-q6_k-64k-f16` | 30.1 GiB |
-| 32 GB | balanced | `Q6_K` | `qwen3-vl-30b-a3b-thinking-q6_k-128k-q8_0` | 30.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-30b-a3b-thinking-ud-q6_k_xl-32k-f16` | 28.1 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-30b-a3b-thinking-ud-q6_k_xl-64k-q8_0` | 28.4 GiB |
 | 32 GB | context | `UD-Q5_K_XL` | `qwen3-vl-30b-a3b-thinking-ud-q5_k_xl-256k-q5_1` | 30.5 GiB |
 
 ### qwen3-vl-32b-instruct
@@ -980,7 +985,7 @@ Qwen3-VL 32B Instruct - vision, dense
 | 24 GB | quality | `Q5_K_M` | `qwen3-vl-32b-instruct-q5_k_m-4k-f16` | 23.0 GiB |
 | 24 GB | balanced | `UD-Q3_K_XL` | `qwen3-vl-32b-instruct-ud-q3_k_xl-32k-q8_0` | 20.0 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `qwen3-vl-32b-instruct-ud-q3_k_xl-64k-q5_1` | 21.8 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-32b-instruct-q6_k-16k-f16` | 29.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-32b-instruct-ud-q6_k_xl-8k-f16` | 29.1 GiB |
 | 32 GB | balanced | `UD-Q5_K_XL` | `qwen3-vl-32b-instruct-ud-q5_k_xl-64k-q8_0` | 30.6 GiB |
 | 32 GB | context | `UD-Q4_K_XL` | `qwen3-vl-32b-instruct-ud-q4_k_xl-128k-q4_0` | 28.4 GiB |
 
@@ -993,7 +998,7 @@ Qwen3-VL 32B Thinking - vision, dense, reasoning
 | 24 GB | quality | `Q5_K_M` | `qwen3-vl-32b-thinking-q5_k_m-4k-f16` | 23.0 GiB |
 | 24 GB | balanced | `UD-Q3_K_XL` | `qwen3-vl-32b-thinking-ud-q3_k_xl-32k-q8_0` | 20.0 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `qwen3-vl-32b-thinking-ud-q3_k_xl-64k-q5_1` | 21.8 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-32b-thinking-q6_k-16k-f16` | 29.3 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-32b-thinking-ud-q6_k_xl-8k-f16` | 29.1 GiB |
 | 32 GB | balanced | `UD-Q5_K_XL` | `qwen3-vl-32b-thinking-ud-q5_k_xl-64k-q8_0` | 30.6 GiB |
 | 32 GB | context | `UD-Q4_K_XL` | `qwen3-vl-32b-thinking-ud-q4_k_xl-128k-q4_0` | 28.4 GiB |
 
@@ -1004,17 +1009,17 @@ Qwen3-VL 4B Instruct - vision, dense
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
 | 4 GB | context | `UD-Q3_K_XL` | `qwen3-vl-4b-instruct-ud-q3_k_xl-4k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-16k-f16` | 6.2 GiB |
-| 8 GB | balanced | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-32k-q8_0` | 6.4 GiB |
-| 8 GB | context | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-64k-q4_0` | 6.6 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-64k-f16` | 13.1 GiB |
-| 16 GB | balanced | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-128k-q8_0` | 13.8 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-16k-f16` | 6.5 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-32k-q8_0` | 6.7 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-64k-q4_0` | 6.9 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-64k-f16` | 13.4 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-128k-q8_0` | 14.1 GiB |
 | 16 GB | context | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-256k-q4_0` | 14.8 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-128k-f16` | 22.5 GiB |
-| 24 GB | balanced | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-128k-q8_0` | 13.8 GiB |
-| 24 GB | context | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-256k-q5_1` | 18.3 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-128k-f16` | 22.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-vl-4b-instruct-q6_k-256k-q8_0` | 24.0 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-128k-f16` | 22.8 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-128k-q8_0` | 14.1 GiB |
+| 24 GB | context | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-256k-q5_1` | 18.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-128k-f16` | 22.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-vl-4b-instruct-ud-q6_k_xl-256k-q8_0` | 24.4 GiB |
 
 ### qwen3-vl-4b-thinking
 
@@ -1023,17 +1028,17 @@ Qwen3-VL 4B Thinking - vision, dense, reasoning
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
 | 4 GB | context | `UD-Q3_K_XL` | `qwen3-vl-4b-thinking-ud-q3_k_xl-4k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-16k-f16` | 6.2 GiB |
-| 8 GB | balanced | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-32k-q8_0` | 6.4 GiB |
-| 8 GB | context | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-64k-q4_0` | 6.6 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-64k-f16` | 13.1 GiB |
-| 16 GB | balanced | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-128k-q8_0` | 13.8 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-16k-f16` | 6.5 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-32k-q8_0` | 6.7 GiB |
+| 8 GB | context | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-64k-q4_0` | 6.9 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-64k-f16` | 13.4 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-128k-q8_0` | 14.1 GiB |
 | 16 GB | context | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-256k-q4_0` | 14.8 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-128k-f16` | 22.5 GiB |
-| 24 GB | balanced | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-128k-q8_0` | 13.8 GiB |
-| 24 GB | context | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-256k-q5_1` | 18.3 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-128k-f16` | 22.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-vl-4b-thinking-q6_k-256k-q8_0` | 24.0 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-128k-f16` | 22.8 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-128k-q8_0` | 14.1 GiB |
+| 24 GB | context | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-256k-q5_1` | 18.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-128k-f16` | 22.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-vl-4b-thinking-ud-q6_k_xl-256k-q8_0` | 24.4 GiB |
 
 ### qwen3-vl-8b-instruct
 
@@ -1044,14 +1049,14 @@ Qwen3-VL 8B Instruct - vision, dense
 | 8 GB | quality | `UD-Q5_K_XL` | `qwen3-vl-8b-instruct-ud-q5_k_xl-4k-f16` | 6.5 GiB |
 | 8 GB | balanced | `UD-Q3_K_XL` | `qwen3-vl-8b-instruct-ud-q3_k_xl-32k-q8_0` | 7.0 GiB |
 | 8 GB | context | `UD-Q4_K_XL` | `qwen3-vl-8b-instruct-ud-q4_k_xl-32k-q4_0` | 6.6 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-vl-8b-instruct-q6_k-32k-f16` | 11.2 GiB |
-| 16 GB | balanced | `Q6_K` | `qwen3-vl-8b-instruct-q6_k-64k-q8_0` | 11.5 GiB |
-| 16 GB | context | `Q6_K` | `qwen3-vl-8b-instruct-q6_k-128k-q5_1` | 13.7 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-vl-8b-instruct-q6_k-64k-f16` | 15.8 GiB |
-| 24 GB | balanced | `Q6_K` | `qwen3-vl-8b-instruct-q6_k-128k-q8_0` | 16.6 GiB |
-| 24 GB | context | `Q6_K` | `qwen3-vl-8b-instruct-q6_k-256k-q5_1` | 21.0 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-8b-instruct-q6_k-128k-f16` | 25.2 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-vl-8b-instruct-q6_k-256k-q8_0` | 26.8 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-8b-instruct-ud-q6_k_xl-32k-f16` | 11.8 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-8b-instruct-ud-q6_k_xl-64k-q8_0` | 12.1 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `qwen3-vl-8b-instruct-ud-q6_k_xl-128k-q5_1` | 14.2 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-8b-instruct-ud-q6_k_xl-64k-f16` | 16.4 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-8b-instruct-ud-q6_k_xl-128k-q8_0` | 17.1 GiB |
+| 24 GB | context | `UD-Q6_K_XL` | `qwen3-vl-8b-instruct-ud-q6_k_xl-256k-q5_1` | 21.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-8b-instruct-ud-q6_k_xl-128k-f16` | 25.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-vl-8b-instruct-ud-q6_k_xl-256k-q8_0` | 27.3 GiB |
 
 ### qwen3-vl-8b-thinking
 
@@ -1062,14 +1067,14 @@ Qwen3-VL 8B Thinking - vision, dense, reasoning
 | 8 GB | quality | `UD-Q5_K_XL` | `qwen3-vl-8b-thinking-ud-q5_k_xl-4k-f16` | 6.5 GiB |
 | 8 GB | balanced | `UD-Q3_K_XL` | `qwen3-vl-8b-thinking-ud-q3_k_xl-32k-q8_0` | 7.0 GiB |
 | 8 GB | context | `UD-Q4_K_XL` | `qwen3-vl-8b-thinking-ud-q4_k_xl-32k-q4_0` | 6.6 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3-vl-8b-thinking-q6_k-32k-f16` | 11.2 GiB |
-| 16 GB | balanced | `Q6_K` | `qwen3-vl-8b-thinking-q6_k-64k-q8_0` | 11.5 GiB |
-| 16 GB | context | `Q6_K` | `qwen3-vl-8b-thinking-q6_k-128k-q5_1` | 13.7 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3-vl-8b-thinking-q6_k-64k-f16` | 15.8 GiB |
-| 24 GB | balanced | `Q6_K` | `qwen3-vl-8b-thinking-q6_k-128k-q8_0` | 16.6 GiB |
-| 24 GB | context | `Q6_K` | `qwen3-vl-8b-thinking-q6_k-256k-q5_1` | 21.0 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3-vl-8b-thinking-q6_k-128k-f16` | 25.2 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3-vl-8b-thinking-q6_k-256k-q8_0` | 26.8 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-8b-thinking-ud-q6_k_xl-32k-f16` | 11.8 GiB |
+| 16 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-8b-thinking-ud-q6_k_xl-64k-q8_0` | 12.1 GiB |
+| 16 GB | context | `UD-Q6_K_XL` | `qwen3-vl-8b-thinking-ud-q6_k_xl-128k-q5_1` | 14.2 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-8b-thinking-ud-q6_k_xl-64k-f16` | 16.4 GiB |
+| 24 GB | balanced | `UD-Q6_K_XL` | `qwen3-vl-8b-thinking-ud-q6_k_xl-128k-q8_0` | 17.1 GiB |
+| 24 GB | context | `UD-Q6_K_XL` | `qwen3-vl-8b-thinking-ud-q6_k_xl-256k-q5_1` | 21.5 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3-vl-8b-thinking-ud-q6_k_xl-128k-f16` | 25.8 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3-vl-8b-thinking-ud-q6_k_xl-256k-q8_0` | 27.3 GiB |
 
 ### qwen3.5-0.8b
 
@@ -1077,16 +1082,16 @@ Qwen3.5-0.8B - Small series, multimodal, hybrid reasoning, 256K max context
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `qwen3.5-0.8b-q6_k-64k-f16` | 2.7 GiB |
-| 4 GB | balanced, context | `Q6_K` | `qwen3.5-0.8b-q6_k-128k-q8_0` | 2.8 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3.5-0.8b-q6_k-256k-f16` | 5.6 GiB |
-| 8 GB | balanced, context | `Q6_K` | `qwen3.5-0.8b-q6_k-256k-q8_0` | 3.9 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3.5-0.8b-q6_k-256k-f16` | 5.6 GiB |
-| 16 GB | balanced, context | `Q6_K` | `qwen3.5-0.8b-q6_k-256k-q8_0` | 3.9 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3.5-0.8b-q6_k-256k-f16` | 5.6 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3.5-0.8b-q6_k-256k-q8_0` | 3.9 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3.5-0.8b-q6_k-256k-f16` | 5.6 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3.5-0.8b-q6_k-256k-q8_0` | 3.9 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-64k-f16` | 2.8 GiB |
+| 4 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-128k-q8_0` | 3.0 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-256k-f16` | 5.7 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-256k-q8_0` | 4.1 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-256k-f16` | 5.7 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-256k-q8_0` | 4.1 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-256k-f16` | 5.7 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-256k-q8_0` | 4.1 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-256k-f16` | 5.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-0.8b-ud-q6_k_xl-256k-q8_0` | 4.1 GiB |
 
 ### qwen3.5-27b
 
@@ -1100,8 +1105,9 @@ Qwen3.5-27B - dense, multimodal, hybrid reasoning, 256K max context
 | 24 GB | quality | `Q6_K` | `qwen3.5-27b-q6_k-16k-f16` | 22.3 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `qwen3.5-27b-ud-q5_k_xl-64k-q8_0` | 21.6 GiB |
 | 24 GB | context | `UD-Q4_K_XL` | `qwen3.5-27b-ud-q4_k_xl-256k-q4_0` | 22.2 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3.5-27b-q6_k-128k-f16` | 29.7 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3.5-27b-q6_k-256k-q8_0` | 30.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3.5-27b-ud-q6_k_xl-64k-f16` | 28.1 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `qwen3.5-27b-ud-q6_k_xl-128k-q8_0` | 28.5 GiB |
+| 32 GB | context | `UD-Q6_K_XL` | `qwen3.5-27b-ud-q6_k_xl-256k-q5_1` | 30.7 GiB |
 
 ### qwen3.5-2b
 
@@ -1109,17 +1115,17 @@ Qwen3.5-2B - Small series, multimodal, hybrid reasoning, 256K max context
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 4 GB | quality | `Q6_K` | `qwen3.5-2b-q6_k-16k-f16` | 2.9 GiB |
+| 4 GB | quality | `UD-Q6_K_XL` | `qwen3.5-2b-ud-q6_k_xl-4k-f16` | 3.0 GiB |
 | 4 GB | balanced | `UD-Q4_K_XL` | `qwen3.5-2b-ud-q4_k_xl-64k-q8_0` | 3.0 GiB |
 | 4 GB | context | `UD-Q3_K_XL` | `qwen3.5-2b-ud-q3_k_xl-128k-q4_0` | 3.0 GiB |
-| 8 GB | quality | `Q6_K` | `qwen3.5-2b-q6_k-256k-f16` | 6.5 GiB |
-| 8 GB | balanced, context | `Q6_K` | `qwen3.5-2b-q6_k-256k-q8_0` | 4.8 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3.5-2b-q6_k-256k-f16` | 6.5 GiB |
-| 16 GB | balanced, context | `Q6_K` | `qwen3.5-2b-q6_k-256k-q8_0` | 4.8 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3.5-2b-q6_k-256k-f16` | 6.5 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3.5-2b-q6_k-256k-q8_0` | 4.8 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3.5-2b-q6_k-256k-f16` | 6.5 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3.5-2b-q6_k-256k-q8_0` | 4.8 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3.5-2b-ud-q6_k_xl-256k-f16` | 6.7 GiB |
+| 8 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-2b-ud-q6_k_xl-256k-q8_0` | 5.1 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3.5-2b-ud-q6_k_xl-256k-f16` | 6.7 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-2b-ud-q6_k_xl-256k-q8_0` | 5.1 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3.5-2b-ud-q6_k_xl-256k-f16` | 6.7 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-2b-ud-q6_k_xl-256k-q8_0` | 5.1 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3.5-2b-ud-q6_k_xl-256k-f16` | 6.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-2b-ud-q6_k_xl-256k-q8_0` | 5.1 GiB |
 
 ### qwen3.5-35b-a3b
 
@@ -1130,7 +1136,7 @@ Qwen3.5-35B-A3B - sparse MoE (3B active), multimodal, hybrid reasoning
 | 24 GB | quality | `UD-Q4_K_XL` | `qwen3.5-35b-a3b-ud-q4_k_xl-64k-f16` | 22.8 GiB |
 | 24 GB | balanced | `UD-Q4_K_XL` | `qwen3.5-35b-a3b-ud-q4_k_xl-64k-q8_0` | 22.2 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `qwen3.5-35b-a3b-ud-q3_k_xl-256k-q8_0` | 19.4 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3.5-35b-a3b-q6_k-128k-f16` | 30.4 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3.5-35b-a3b-ud-q6_k_xl-16k-f16` | 31.0 GiB |
 | 32 GB | balanced, context | `Q6_K` | `qwen3.5-35b-a3b-q6_k-256k-q8_0` | 30.8 GiB |
 
 ### qwen3.5-4b
@@ -1139,15 +1145,15 @@ Qwen3.5-4B - Small series, multimodal, hybrid reasoning, 256K max context
 
 | Card | Profiles | Quant | Directory name | VRAM |
 | --- | --- | --- | --- | --- |
-| 8 GB | quality | `Q6_K` | `qwen3.5-4b-q6_k-64k-f16` | 6.7 GiB |
-| 8 GB | balanced | `Q6_K` | `qwen3.5-4b-q6_k-128k-q8_0` | 6.9 GiB |
+| 8 GB | quality | `UD-Q6_K_XL` | `qwen3.5-4b-ud-q6_k_xl-32k-f16` | 6.2 GiB |
+| 8 GB | balanced | `UD-Q6_K_XL` | `qwen3.5-4b-ud-q6_k_xl-64k-q8_0` | 6.3 GiB |
 | 8 GB | context | `Q5_K_M` | `qwen3.5-4b-q5_k_m-256k-q4_0` | 7.0 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3.5-4b-q6_k-256k-f16` | 13.8 GiB |
-| 16 GB | balanced, context | `Q6_K` | `qwen3.5-4b-q6_k-256k-q8_0` | 9.6 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3.5-4b-q6_k-256k-f16` | 13.8 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3.5-4b-q6_k-256k-q8_0` | 9.6 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3.5-4b-q6_k-256k-f16` | 13.8 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3.5-4b-q6_k-256k-q8_0` | 9.6 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3.5-4b-ud-q6_k_xl-256k-f16` | 14.4 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-4b-ud-q6_k_xl-256k-q8_0` | 10.2 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3.5-4b-ud-q6_k_xl-256k-f16` | 14.4 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-4b-ud-q6_k_xl-256k-q8_0` | 10.2 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3.5-4b-ud-q6_k_xl-256k-f16` | 14.4 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-4b-ud-q6_k_xl-256k-q8_0` | 10.2 GiB |
 
 ### qwen3.5-9b
 
@@ -1158,12 +1164,12 @@ Qwen3.5-9B - Small series, multimodal, hybrid reasoning, 256K max context
 | 8 GB | quality | `Q5_K_M` | `qwen3.5-9b-q5_k_m-8k-f16` | 7.0 GiB |
 | 8 GB | balanced | `UD-Q3_K_XL` | `qwen3.5-9b-ud-q3_k_xl-64k-q8_0` | 6.6 GiB |
 | 8 GB | context | `UD-Q3_K_XL` | `qwen3.5-9b-ud-q3_k_xl-128k-q4_0` | 6.8 GiB |
-| 16 GB | quality | `Q6_K` | `qwen3.5-9b-q6_k-128k-f16` | 11.8 GiB |
-| 16 GB | balanced, context | `Q6_K` | `qwen3.5-9b-q6_k-256k-q8_0` | 12.5 GiB |
-| 24 GB | quality | `Q6_K` | `qwen3.5-9b-q6_k-256k-f16` | 16.7 GiB |
-| 24 GB | balanced, context | `Q6_K` | `qwen3.5-9b-q6_k-256k-q8_0` | 12.5 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3.5-9b-q6_k-256k-f16` | 16.7 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3.5-9b-q6_k-256k-q8_0` | 12.5 GiB |
+| 16 GB | quality | `UD-Q6_K_XL` | `qwen3.5-9b-ud-q6_k_xl-128k-f16` | 12.8 GiB |
+| 16 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-9b-ud-q6_k_xl-256k-q8_0` | 13.5 GiB |
+| 24 GB | quality | `UD-Q6_K_XL` | `qwen3.5-9b-ud-q6_k_xl-256k-f16` | 17.7 GiB |
+| 24 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-9b-ud-q6_k_xl-256k-q8_0` | 13.5 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3.5-9b-ud-q6_k_xl-256k-f16` | 17.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwen3.5-9b-ud-q6_k_xl-256k-q8_0` | 13.5 GiB |
 
 ### qwen3.6-27b
 
@@ -1177,8 +1183,9 @@ Qwen3.6-27B - dense, multimodal, hybrid thinking, 256K max context
 | 24 GB | quality | `Q6_K` | `qwen3.6-27b-q6_k-16k-f16` | 22.4 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `qwen3.6-27b-ud-q5_k_xl-64k-q8_0` | 21.4 GiB |
 | 24 GB | context | `UD-Q4_K_XL` | `qwen3.6-27b-ud-q4_k_xl-256k-q4_0` | 22.2 GiB |
-| 32 GB | quality | `Q6_K` | `qwen3.6-27b-q6_k-128k-f16` | 29.8 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwen3.6-27b-q6_k-256k-q8_0` | 30.7 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3.6-27b-ud-q6_k_xl-64k-f16` | 28.1 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `qwen3.6-27b-ud-q6_k_xl-128k-q8_0` | 28.5 GiB |
+| 32 GB | context | `UD-Q6_K_XL` | `qwen3.6-27b-ud-q6_k_xl-256k-q5_1` | 30.7 GiB |
 
 ### qwen3.6-35b-a3b
 
@@ -1189,9 +1196,8 @@ Qwen3.6-35B-A3B - sparse MoE (3B active), multimodal, hybrid thinking
 | 24 GB | quality | `UD-Q4_K_XL` | `qwen3.6-35b-a3b-ud-q4_k_xl-64k-f16` | 22.9 GiB |
 | 24 GB | balanced | `UD-Q4_K_XL` | `qwen3.6-35b-a3b-ud-q4_k_xl-64k-q8_0` | 22.4 GiB |
 | 24 GB | context | `UD-Q3_K_XL` | `qwen3.6-35b-a3b-ud-q3_k_xl-256k-q8_0` | 19.6 GiB |
-| 32 GB | quality | `UD-Q6_K` | `qwen3.6-35b-a3b-ud-q6_k-128k-f16` | 30.8 GiB |
-| 32 GB | balanced | `UD-Q6_K` | `qwen3.6-35b-a3b-ud-q6_k-128k-q8_0` | 29.6 GiB |
-| 32 GB | context | `UD-Q6_K` | `qwen3.6-35b-a3b-ud-q6_k-256k-q5_1` | 30.4 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3.6-35b-a3b-ud-q6_k_xl-16k-f16` | 30.8 GiB |
+| 32 GB | balanced, context | `UD-Q5_K_XL` | `qwen3.6-35b-a3b-ud-q5_k_xl-256k-q8_0` | 28.7 GiB |
 
 ### qwen3.8-27b
 
@@ -1202,11 +1208,12 @@ Qwen3.8-27B - dense, vision + reasoning, 256K max context
 | 16 GB | quality | `UD-Q3_K_XL` | `qwen3.8-27b-ud-q3_k_xl-16k-f16` | 14.1 GiB |
 | 16 GB | balanced | `UD-Q3_K_XL` | `qwen3.8-27b-ud-q3_k_xl-32k-q8_0` | 14.2 GiB |
 | 16 GB | context | `UD-Q3_K_XL` | `qwen3.8-27b-ud-q3_k_xl-64k-q5_1` | 14.7 GiB |
-| 24 GB | quality | `UD-Q6_K` | `qwen3.8-27b-ud-q6_k-32k-f16` | 22.9 GiB |
+| 24 GB | quality | `UD-Q5_K_XL` | `qwen3.8-27b-ud-q5_k_xl-32k-f16` | 21.9 GiB |
 | 24 GB | balanced | `UD-Q5_K_XL` | `qwen3.8-27b-ud-q5_k_xl-64k-q8_0` | 22.1 GiB |
 | 24 GB | context | `UD-Q4_K_XL` | `qwen3.8-27b-ud-q4_k_xl-256k-q4_0` | 22.1 GiB |
-| 32 GB | quality | `UD-Q6_K` | `qwen3.8-27b-ud-q6_k-128k-f16` | 29.3 GiB |
-| 32 GB | balanced, context | `UD-Q6_K` | `qwen3.8-27b-ud-q6_k-256k-q8_0` | 30.2 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwen3.8-27b-ud-q6_k_xl-64k-f16` | 28.1 GiB |
+| 32 GB | balanced | `UD-Q6_K_XL` | `qwen3.8-27b-ud-q6_k_xl-128k-q8_0` | 28.4 GiB |
+| 32 GB | context | `UD-Q6_K_XL` | `qwen3.8-27b-ud-q6_k_xl-256k-q5_1` | 30.6 GiB |
 
 ### qwq-32b
 
@@ -1217,6 +1224,6 @@ QwQ 32B - reasoning model
 | 24 GB | quality | `UD-Q4_K_XL` | `qwq-32b-ud-q4_k_xl-8k-f16` | 21.1 GiB |
 | 24 GB | balanced | `UD-Q3_K_XL` | `qwq-32b-ud-q3_k_xl-32k-q8_0` | 19.9 GiB |
 | 24 GB | context | `UD-Q4_K_XL` | `qwq-32b-ud-q4_k_xl-32k-q5_1` | 22.2 GiB |
-| 32 GB | quality | `Q6_K` | `qwq-32b-q6_k-16k-f16` | 29.3 GiB |
-| 32 GB | balanced, context | `Q6_K` | `qwq-32b-q6_k-32k-q8_0` | 29.6 GiB |
+| 32 GB | quality | `UD-Q6_K_XL` | `qwq-32b-ud-q6_k_xl-16k-f16` | 30.7 GiB |
+| 32 GB | balanced, context | `UD-Q6_K_XL` | `qwq-32b-ud-q6_k_xl-32k-q8_0` | 30.9 GiB |
 
