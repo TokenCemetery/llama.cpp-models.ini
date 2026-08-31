@@ -32,8 +32,10 @@ Follow these. They are not style preferences. Breaking them breaks the config.
 6. Do not set `ctx-size`, `cache-type-k` or `cache-type-v` in a config. The build works
    out the best context and KV cache type for each VRAM budget and writes them into `dist/`.
    Set `ctx-size` only as an upper limit, when a model should never go above some value.
-7. Only use these quants: `UD-Q3_K_XL`, `Q4_K_M`, `UD-Q4_K_M`, `UD-Q4_K_XL`, `Q5_K_M`,
-   `UD-Q5_K_M`, `UD-Q5_K_XL`, `Q6_K`, `UD-Q6_K`.
+7. Only use these quants, best quality first: `UD-Q6_K_XL`, `Q6_K`, `UD-Q5_K_XL`, `Q5_K_M`,
+   `UD-Q4_K_XL`, `Q4_K_M`, `UD-Q3_K_XL`. That order is the quality order the profiles use,
+   and it lives in `QuantLadder` in `src/internal/preset/plan.go` - measure, validate and
+   the picker all read it from there. See "Which quant is better".
 8. Never put `host`, `port`, or `api-key` in a config. They do not work. See "Traps".
 9. Never put `;` or `#` inside a value. It silently deletes the rest of the line.
 10. Do not add a `[*]` section to files in `configs/`. The build writes `[*]` itself.
@@ -138,13 +140,35 @@ qwen3.8-27b at 24 GB is the case where all three differ:
 
 | Profile | Pick | Section name |
 | --- | --- | --- |
-| `quality` | `UD-Q6_K` at 32K, `f16` KV | `qwen3.8-27b-ud-q6_k-32k-f16` |
+| `quality` | `UD-Q5_K_XL` at 32K, `f16` KV | `qwen3.8-27b-ud-q5_k_xl-32k-f16` |
 | `balanced` | `UD-Q5_K_XL` at 64K, `q8_0` KV | `qwen3.8-27b-ud-q5_k_xl-64k-q8_0` |
 | `context` | `UD-Q4_K_XL` at 256K, `q4_0` KV | `qwen3.8-27b-ud-q4_k_xl-256k-q4_0` |
 
 Two setups must never produce the same name - llama.cpp refuses to start with
 `model 'x' appears multiple times`. `build` fails if it happens, and `validate` checks
 `dist/` for it as well.
+
+### Which quant is better
+
+The quality order is written out by hand in `QuantLadder`, not derived from the measured
+size, because size is not a reliable proxy:
+
+| Model | `UD-Q4_K_XL` | `Q4_K_M` |
+| --- | --- | --- |
+| `Qwen3-30B-A3B-Instruct-2507` | 16.48 GiB | 17.28 GiB |
+| `gemma-3-27b-it` | 15.67 GiB | 15.41 GiB |
+
+Ranking by size flips those two families between models, and on half of them ranks a plain
+quant above the Unsloth dynamic quant of the same bit level. The ladder ranks by bit level
+first (Q6 over Q5 over Q4 over Q3), then by variant within a level - a dynamic `UD-*_XL`
+beats the plain quant it is built from.
+
+The plain quants stay in the band as a fallback. `unsloth/gpt-oss-20b-GGUF` publishes only
+`UD-Q4_K_XL` and `UD-Q6_K_XL` from the dynamic family, so `Q5_K_M` is what covers its Q5 rung.
+
+`UD-Q6_K`, `UD-Q5_K_M` and `UD-Q4_K_M` are deliberately out of the band. They are old Unsloth
+file names, and every repo that still has one also ships the larger `_XL` sibling, so with an
+explicit ladder they could never be picked.
 
 ### How the numbers work
 

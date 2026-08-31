@@ -79,7 +79,7 @@ an 8x range in context:
 
 | Profile | Folder name to use | Quant to download |
 | --- | --- | --- |
-| `quality` | `qwen3.8-27b-ud-q6_k-32k-f16` | `UD-Q6_K` |
+| `quality` | `qwen3.8-27b-ud-q5_k_xl-32k-f16` | `UD-Q5_K_XL` |
 | `balanced` | `qwen3.8-27b-ud-q5_k_xl-64k-q8_0` | `UD-Q5_K_XL` |
 | `context` | `qwen3.8-27b-ud-q4_k_xl-256k-q4_0` | `UD-Q4_K_XL` |
 
@@ -222,8 +222,8 @@ Sampling settings come from each model author's published guidance, via the
 [Unsloth model guides](https://unsloth.ai/docs/models/tutorials). Every model file cites its
 source.
 
-Quantisations are limited to the `UD-Q3_K_XL` to `Q6_K` range — below that quality drops off
-sharply, above it the size rarely justifies the gain.
+Quantisations are limited to the `UD-Q3_K_XL` to `UD-Q6_K_XL` range — below that quality drops
+off sharply, above it the size rarely justifies the gain.
 
 Want to add a model or change a setting? See [AGENTS.md](AGENTS.md) for how the repo is built.
 
